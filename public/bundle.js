@@ -103,14 +103,14 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var _components = __webpack_require__(/*! ./components */ "./client/components/index.js");
+var _navbar = _interopRequireDefault(__webpack_require__(/*! ./components/navbar */ "./client/components/navbar.js"));
 
 var _routes = _interopRequireDefault(__webpack_require__(/*! ./routes */ "./client/routes.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
-  return _react.default.createElement("div", null, _react.default.createElement(_components.Navbar, null), _react.default.createElement(_routes.default, null));
+  return _react.default.createElement("div", null, _react.default.createElement(_navbar.default, null), _react.default.createElement(_routes.default, null));
 };
 
 var _default = App;
@@ -293,21 +293,156 @@ var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ ".
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
 var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Navbar = function Navbar(_ref) {
-  var handleClick = _ref.handleClick,
-      isLoggedIn = _ref.isLoggedIn;
-  return _react.default.createElement("div", null, _react.default.createElement("nav", null, isLoggedIn ? _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/home"
-  }, "Home"), _react.default.createElement("a", {
-    href: "#",
-    onClick: handleClick
-  }, "Logout")) : _react.default.createElement("div", null)));
+// import {Link} from 'react-router-dom'
+var Navbar = function Navbar() {
+  return _react.default.createElement("div", {
+    class: "outline"
+  }, _react.default.createElement("div", {
+    class: "navRow"
+  }, _react.default.createElement("div", null, _react.default.createElement("img", {
+    src: "./images/wLogo.png",
+    class: "wLogo"
+  })), _react.default.createElement("div", {
+    class: "dropdown1"
+  }, _react.default.createElement("button", {
+    class: "dropbtn1"
+  }, "FIND YOUR SWEETS"), _react.default.createElement("div", {
+    class: "dropdown-content1"
+  }, _react.default.createElement("ul", null, _react.default.createElement("li", null)), _react.default.createElement("div", {
+    class: "dropdown-list1"
+  }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement("a", {
+    href: "#"
+  }, "Candy")), _react.default.createElement("hr", null), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "New")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Sale!")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Lollipops")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Gold Collections")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Jelly Beans")))), _react.default.createElement("div", {
+    class: "dropdown-list1"
+  }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement("a", {
+    href: "#"
+  }, "Gummy")), _react.default.createElement("hr", null), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Signature Filabelles")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Sour")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Novelty")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Rainbow")))), _react.default.createElement("div", {
+    class: "dropdown-list1"
+  }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement("a", {
+    href: "#"
+  }, "Chocolate")), _react.default.createElement("hr", null), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Chocolate Bar")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Choc-a-Lot")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Fudge")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Candy Cafe Bites")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Hand Dipped")))), _react.default.createElement("div", {
+    class: "dropdown-list1"
+  }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement("a", {
+    href: "#"
+  }, "Collections")), _react.default.createElement("hr", null), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Valentine's Day")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Chrismas")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "City Collection")), _react.default.createElement("li", {
+    class: "thin"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "Mean Girls")))))), _react.default.createElement("div", {
+    class: "dropdown2"
+  }, _react.default.createElement("button", {
+    class: "dropbtn2"
+  }, "STORE LOCATION"), _react.default.createElement("div", {
+    class: "dropdown-content2"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "New York"), _react.default.createElement("a", {
+    href: "#"
+  }, "Chicago"), _react.default.createElement("a", {
+    href: "#"
+  }, "Miami"), _react.default.createElement("a", {
+    href: "#"
+  }, "Los Angeles"))), _react.default.createElement("div", {
+    class: "dropdown3"
+  }, _react.default.createElement("button", {
+    class: "dropbtn3"
+  }, "ABOUT US"), _react.default.createElement("div", {
+    class: "dropdown-content3"
+  }, _react.default.createElement("a", {
+    href: "#"
+  }, "About Us"), _react.default.createElement("a", {
+    href: "#"
+  }, "Events"), _react.default.createElement("a", {
+    href: "#"
+  }, "Inspiration"))), _react.default.createElement("div", {
+    class: "dropdown4"
+  }, _react.default.createElement("input", {
+    type: "button",
+    class: "dropbtn4",
+    onclick: "location.href='/login';",
+    value: "SIGN UP | LOGIN"
+  })), _react.default.createElement("div", {
+    class: "dropdown5"
+  }, _react.default.createElement("button", {
+    class: "dropbtn5"
+  }, "SHOPPING BAG"), _react.default.createElement("div", {
+    class: "bag"
+  }, _react.default.createElement("img", {
+    src: "./images/shoppingBag.png",
+    id: "bag"
+  })))));
 };
 /**
  * CONTAINER
