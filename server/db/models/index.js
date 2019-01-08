@@ -1,6 +1,6 @@
 const db = require('../db')
 const User = require('./user')
-// const Rating = require('./rating')
+const Rating = require('./rating')
 const Stock = require('./stock')
 const Address = require('./address')
 /**
@@ -20,6 +20,6 @@ const Address = require('./address')
 module.exports = {
   User,
   Address,
-  Stock
-  // Rating
+  Stock,
+  Rating
 }
