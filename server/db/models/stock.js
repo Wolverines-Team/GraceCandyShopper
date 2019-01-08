@@ -31,14 +31,6 @@ const Stock = db.define('stocks', {
     allowNull: false,
     defaultValue: 'candy'
   },
-  averageReview: {
-    type: Sequelize.DECIMAL,
-    validate: {
-      min: 1,
-      max: 5
-    },
-    defaultValue: 5
-  },
   brand: {
     type: Sequelize.STRING,
     allowNull: false,
