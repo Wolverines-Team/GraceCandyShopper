@@ -1,16 +1,10 @@
-const Seqeulize = require('sequelize')
-const db = require('../db')
+const Seqeulize = require('sequelize');
+const db = require('../db');
 
-const CartItem = db.define('cartItems', {
-  productId: {
-    type: Seqeulize.INTEGER
-  },
-  cartId: {
-    type: Seqeulize.INTEGER
-  },
+const CartItems = db.define('cartItem', {
   quantity: {
     type: Seqeulize.INTEGER
   }
-})
+});
 
-module.exports = CartItem
+module.exports = CartItems;
