@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const Stock = db.define('stocks', {
   name: {
@@ -36,7 +36,7 @@ const Stock = db.define('stocks', {
     defaultValue: 'candy'
   },
   averageReview: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL,
     validate: {
       min: 1,
       max: 5
@@ -48,6 +48,6 @@ const Stock = db.define('stocks', {
     allowNull: false,
     defaultValue: 'CandyShop'
   }
-})
+});
 
-module.exports = Stock
+module.exports = Stock;
