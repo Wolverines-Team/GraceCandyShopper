@@ -11,6 +11,7 @@ async function seed () {
   const users = await Promise.all([
     User.create({
       email: 'DavidRichy@email.com',
+      username: 'DavidRich',
       password: 'RichyRich',
       cartId: 4,
       history: [5, 6],
@@ -19,6 +20,7 @@ async function seed () {
     }),
     User.create({
       email: 'ShanonSalas@email.com',
+      username: 'ShanonSal',
       password: '123',
       cartId: 1,
       history: [2, 3],
@@ -27,6 +29,7 @@ async function seed () {
     }),
     User.create({
       email: 'BenSari@email.com',
+      username: 'BenSari',
       password: 'I<3Dogs',
       cartId: 7,
       history: [8, 9],
@@ -35,6 +38,7 @@ async function seed () {
     }),
     User.create({
       email: 'DannyDevito@email.com',
+      username: 'DannyO',
       password: 'TrashMan',
       cartId: 10,
       history: [11, 12],
@@ -43,6 +47,7 @@ async function seed () {
     }),
     User.create({
       email: 'DonnyDarko@email.com',
+      username: 'DonnyBoy',
       password: 'RabbitFear',
       cartId: 13,
       history: [14, 15],
