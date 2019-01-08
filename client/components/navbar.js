@@ -81,7 +81,7 @@ const Navbar = () => (
     </div>
     <div class="dropdown5">
       <button class="dropbtn5">SHOPPING BAG</button>
-      <div class="bag"><img src=".images/shoppingBag.png" id="bag" /></div>
+      <div class="bag"><img src="./images/shoppingBag.png" id="bag" /></div>
     </div>
   </div>
 </div>
