@@ -7,7 +7,8 @@ import {
   Signup,
   UserHome,
   AllProducts,
-  SingleProduct
+  SingleProduct,
+  SingleProductAdmin
 } from './components'
 import { me } from './store'
 
@@ -27,8 +28,13 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
-        <Route exact path='/products' component={AllProducts} />
-        <Route path='/products/:id' component={SingleProduct} />
+        <Route path='/products' component={AllProducts} />
+        {this.props.user.isAdmin ? (
+          <Route path='/products/:id' component={SingleProductAdmin} />
+        ) : (
+          <Route path='/products/:id' component={SingleProduct} />
+        )}
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

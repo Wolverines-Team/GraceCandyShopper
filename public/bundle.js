@@ -543,10 +543,12 @@ function (_Component) {
         path: "/signup",
         component: _components.Signup
       }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
         path: "/products",
         component: _components.AllProducts
-      }), _react.default.createElement(_reactRouterDom.Route, {
+      }), this.props.user.isAdmin ? _react.default.createElement(_reactRouterDom.Route, {
+        path: "/products/:id",
+        component: _components.SingleProductAdmin
+      }) : _react.default.createElement(_reactRouterDom.Route, {
         path: "/products/:id",
         component: _components.SingleProduct
       }), isLoggedIn && _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
