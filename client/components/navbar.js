@@ -1,5 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+<<<<<<< HEAD
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../store'
+
+const Navbar = ({ handleClick, isLoggedIn }) => (
+  <div>
+    <nav>
+      {isLoggedIn ? (
+        <div>
+          {/* The navbar will show these links after you log in */}
+          <Link to='/home'>Home</Link>
+          <a href='#' onClick={handleClick}>
+            Logout
+          </a>
+        </div>
+      ) : (
+        <div>{/* The navbar will show these links before you log in */}</div>
+      )}
+    </nav>
+=======
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import {logout} from '../store'
@@ -83,6 +104,7 @@ const Navbar = () => (
       <button class="dropbtn5">SHOPPING BAG</button>
       <div class="bag"><img src="./images/shoppingBag.png" id="bag" /></div>
     </div>
+>>>>>>> a78ef8508d409614c74515f0424496e28909f8af
   </div>
 </div>
 )
@@ -98,13 +120,16 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
+    handleClick () {
       dispatch(logout())
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(
+  mapState,
+  mapDispatch
+)(Navbar)
 
 /**
  * PROP TYPES

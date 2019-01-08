@@ -103,14 +103,22 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
+<<<<<<< HEAD
+var _components = __webpack_require__(/*! ./components */ "./client/components/index.js");
+=======
 var _navbar = _interopRequireDefault(__webpack_require__(/*! ./components/navbar */ "./client/components/navbar.js"));
+>>>>>>> a78ef8508d409614c74515f0424496e28909f8af
 
 var _routes = _interopRequireDefault(__webpack_require__(/*! ./routes */ "./client/routes.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
+<<<<<<< HEAD
+  return _react.default.createElement("div", null, _react.default.createElement(_components.Navbar, null), _react.default.createElement(_routes.default, null));
+=======
   return _react.default.createElement("div", null, _react.default.createElement(_navbar.default, null), _react.default.createElement(_routes.default, null));
+>>>>>>> a78ef8508d409614c74515f0424496e28909f8af
 };
 
 var _default = App;
@@ -293,10 +301,26 @@ var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ ".
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
+<<<<<<< HEAD
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+=======
+>>>>>>> a78ef8508d409614c74515f0424496e28909f8af
 var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
+var Navbar = function Navbar(_ref) {
+  var handleClick = _ref.handleClick,
+      isLoggedIn = _ref.isLoggedIn;
+  return _react.default.createElement("div", null, _react.default.createElement("nav", null, isLoggedIn ? _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/home"
+  }, "Home"), _react.default.createElement("a", {
+    href: "#",
+    onClick: handleClick
+  }, "Logout")) : _react.default.createElement("div", null)));
+=======
 // import {Link} from 'react-router-dom'
 var Navbar = function Navbar() {
   return _react.default.createElement("div", {
@@ -440,6 +464,7 @@ var Navbar = function Navbar() {
     src: "./images/shoppingBag.png",
     id: "bag"
   })))));
+>>>>>>> a78ef8508d409614c74515f0424496e28909f8af
 };
 /**
  * CONTAINER
@@ -667,6 +692,26 @@ function (_Component) {
     value: function render() {
       var isLoggedIn = this.props.isLoggedIn;
       return _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+<<<<<<< HEAD
+        exact: true,
+        path: "/login",
+        component: _components.Login
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/signup",
+        component: _components.Signup
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/products",
+        component: _components.AllProducts
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/products/:id",
+        component: _components.SingleProduct
+      }), isLoggedIn && _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+        path: "/home",
+        component: _components.UserHome
+      })));
+=======
         path: "/login",
         component: _components.Login
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -678,6 +723,7 @@ function (_Component) {
       })), _react.default.createElement(_reactRouterDom.Route, {
         component: _components.Login
       }));
+>>>>>>> a78ef8508d409614c74515f0424496e28909f8af
     }
   }]);
 
