@@ -6,7 +6,7 @@ mapStateToProps = state => {
   return { products: state.stock.products }
 }
 
-class SingleProduct extends Component {
+export class SingleProductAdmin extends Component {
   constructor () {
     super()
     this.state = {
@@ -24,9 +24,9 @@ class SingleProduct extends Component {
     return (
       <div className='singleview'>
         <form
-        onSubmit={
-          // thunk request for updating product
-        }
+          onSubmit={
+            '  ' // thunk request for updating product
+          }
         >
           <h1>{product.name}</h1>
           <input
@@ -80,7 +80,7 @@ class SingleProduct extends Component {
             }}
             value={this.state.quantity}
           />
-          <button type="submit">Save</button>
+          <button type='submit'>Save</button>
         </form>
         <div className='reviews'>
           <Reviews product={product} />
