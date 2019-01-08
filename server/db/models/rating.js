@@ -1,5 +1,5 @@
-const Seqeulize = require('sequelize')
-const db = require('../db')
+const Seqeulize = require('sequelize');
+const db = require('../db');
 
 const Rating = db.define('rating', {
   rating_num: {
@@ -12,7 +12,7 @@ const Rating = db.define('rating', {
   review_text: {
     type: Seqeulize.TEXT
   }
-})
+});
 
 /*
   - Rating model needs:
@@ -21,4 +21,4 @@ const Rating = db.define('rating', {
       - [ ] foreign_key: candyId  (Rating.belongsTo(Stock))
 */
 
-module.exports = Rating
+module.exports = Rating;
