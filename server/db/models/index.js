@@ -1,11 +1,11 @@
-const db = require('../db')
-const User = require('./user')
-const Rating = require('./rating')
-const Stock = require('./stock')
-const Address = require('./address')
-const Images = require('./images')
-const CartItems = require('./cartItems')
-const Cart = require('./cart')
+const db = require('../db');
+const User = require('./user');
+const Rating = require('./rating');
+const Stock = require('./stock');
+const Address = require('./address');
+const Images = require('./images');
+const CartItems = require('./cartItems');
+const Cart = require('./cart');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -13,18 +13,20 @@ const Cart = require('./cart')
  *
  *    BlogPost.belongsTo(User)
  */
-Stock.hasMany(Rating)
-Rating.belongsTo(Stock)
-User.hasMany(Address)
-Address.belongsTo(User)
-User.hasMany(Rating)
-Rating.belongsTo(User)
-Images.belongsTo(Stock)
-Stock.hasMany(Images, { as: 'productId' })
-CartItems.belongsTo(Cart)
-CartItems.belongsTo(Stock)
-Cart.hasMany(CartItems)
-Cart.belongsTo(User)
+Images.belongsTo(Stock);
+Cart.belongsTo(User);
+Rating.belongsTo(User);
+Rating.belongsTo(Stock);
+Address.belongsTo(User);
+CartItems.belongsTo(Cart);
+CartItems.belongsTo(Stock);
+
+/* Edwin's Comment: Might end up deleting..*/
+// Stock.hasMany(Rating);
+// User.hasMany(Address);
+// User.hasMany(Rating);
+// Stock.hasMany(Images);
+// Cart.hasMany(CartItems);
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -41,4 +43,4 @@ module.exports = {
   CartItems,
   Images,
   Cart
-}
+};

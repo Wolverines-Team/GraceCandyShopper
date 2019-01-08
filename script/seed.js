@@ -1,8 +1,15 @@
 'use strict';
 
 const db = require('../server/db');
-const {User} = require('../server/db/models');
-const {Stock} = require('../server/db/models');
+const {
+  User,
+  Stock,
+  Address,
+  Images,
+  Cart,
+  CartItems,
+  Rating
+} = require('../server/db/models');
 
 async function seed() {
   await db.sync({force: true});
@@ -60,106 +67,257 @@ async function seed() {
     Stock.create({
       name: 'Jelly Beans',
       description: 'An American Classic',
-      images: '/images/jelly_beans.jpeg',
       quantity: 1000,
       price: 3.99,
       category: 'Jelly Beans',
-      averageReview: 4.5,
       brand: 'JB'
     }),
     Stock.create({
       name: 'Cherry Candy',
       description: 'Like a real cherry but better',
-      images: '/images/cherry_candy.jpeg',
+
       quantity: 120,
       price: 4.12,
       category: 'Candy',
-      averageReview: 4.2,
+
       brand: 'Candy Shop'
     }),
     Stock.create({
       name: 'Gummy Bears',
       description: 'Sweetest bears ever ',
-      images: '/images/gummy_bears.jpeg',
+
       quantity: 100,
       price: 2.49,
       category: 'Jelly Beans',
-      averageReview: 4.5,
+
       brand: 'Haribo'
     }),
     Stock.create({
       name: 'Assorted Chocolate',
       description: 'Perfect Halloween Treats',
-      images: '/images/halloweentreats.jpeg',
+
       quantity: 1000,
       price: 11.89,
       category: 'Chocolate',
-      averageReview: 4.7,
+
       brand: 'Nestle'
     }),
     Stock.create({
       name: 'Hard Candies',
-      images: '/images/hardcandies.jpeg',
+
       quantity: 40,
       price: 6.8,
       category: 'Candy',
-      averageReview: 4.2,
+
       brand: 'Candy Shop'
     }),
     Stock.create({
       name: 'Lollipops',
       description: 'Yummy!',
-      images: '/images/lollipops.jpeg',
+
       quantity: 700,
       price: 1.99,
       category: 'Candy',
-      averageReview: 5.0,
+
       brand: 'Candy Shop'
     }),
     Stock.create({
       name: 'M&M',
       description: 'An American Classic',
-      images: '/images/mandm.jpeg',
+
       quantity: 400,
       price: 4.19,
       category: 'Chocolate',
-      averageReview: 4.5,
+
       brand: 'M&M'
     }),
     Stock.create({
       name: 'Pinkle Candy',
       description: 'A South Korean delicacy',
-      images: '/images/pinkle_candy.jpeg',
+
       quantity: 10,
       price: 10.99,
       category: 'Exotic Deserts',
-      averageReview: 5.0,
+
       brand: 'Pinkle'
     }),
     Stock.create({
       name: 'Thai Sweets',
       description: 'A Thai delicacy',
-      images: '/images/thai_sweets.jpeg',
+
       quantity: 10,
       price: 10.99,
       category: 'Exotic Deserts',
-      averageReview: 5.0,
+
       brand: 'Thai'
     }),
     Stock.create({
       name: 'Turkish Delight',
       description: 'A Turkish classic',
-      images: '/images/turkish_delight.jpeg',
+
       quantity: 10,
       price: 10.99,
       category: 'Exotic Deserts',
-      averageReview: 5.0,
+
       brand: 'Lokumcu Baba'
+    })
+  ]);
+
+  const address = await Promise.all([
+    Address.create({
+      userId: 1,
+      street: '123 Main St',
+      city: 'Oak Park',
+      state: 'IL',
+      zip: '60301'
+    }),
+    Address.create({
+      userId: 2,
+      street: '26 Houghton St',
+      city: 'Somerville',
+      state: 'MA',
+      zip: '02134'
+    }),
+    Address.create({
+      userId: 3,
+      street: '130 Second St',
+      city: 'Cambridge',
+      state: 'MA',
+      zip: '02144'
+    }),
+    Address.create({
+      userId: 4,
+      street: '145 Lake Street',
+      city: 'Chicago',
+      state: 'IL',
+      zip: '60007'
+    }),
+    Address.create({
+      userId: 5,
+      street: '972 5th Ave',
+      city: 'New York',
+      state: 'NY',
+      zip: '10075'
+    })
+  ]);
+
+  const images = await Promise.all([
+    Images.create({
+      imageUrl: '/images/jelly_beans.jpeg',
+      stockId: 1
+    }),
+    Images.create({
+      imageUrl: '/images/cherry_candy.jpeg',
+      stockId: 2
+    }),
+    Images.create({
+      imageUrl: '/images/gummy_bears.jpeg',
+      stockId: 3
+    }),
+    Images.create({
+      imageUrl: '/images/halloweentreats.jpeg',
+      stockId: 4
+    }),
+    Images.create({
+      imageUrl: '/images/hardcandies.jpeg',
+      stockId: 5
+    }),
+    Images.create({
+      imageUrl: '/images/lollipops.jpeg',
+      stockId: 6
+    }),
+    Images.create({
+      imageUrl: '/images/mandm.jpeg',
+      stockId: 7
+    }),
+    Images.create({
+      imageUrl: '/images/pinkle_candy.jpeg',
+      stockId: 8
+    }),
+    Images.create({
+      imageUrl: '/images/thai_sweets.jpeg',
+      stockId: 9
+    }),
+    Images.create({
+      imageUrl: '/images/turkish_delight.jpeg',
+      stockId: 10
+    })
+  ]);
+
+  const cart = await Promise.all([
+    Cart.create({
+      stockId: 9,
+      userId: 1,
+      quantity: 12
+    }),
+    Cart.create({
+      stockId: 3,
+      userId: 1,
+      quantity: 3
+    }),
+    Cart.create({
+      stockId: 10,
+      userId: 1,
+      quantity: 2
+    }),
+    Cart.create({
+      stockId: 4,
+      userId: 1,
+      quantity: 20
+    })
+  ]);
+
+  const cartItems = await Promise.all([
+    CartItems.create({
+      cartId: 1,
+      quantity: 12,
+      stockId: 9
+    }),
+    CartItems.create({
+      cartId: 2,
+      quantity: 3,
+      stockId: 3
+    }),
+    CartItems.create({
+      cartId: 1,
+      quantity: 2,
+      stockId: 10
+    }),
+    CartItems.create({
+      cartId: 3,
+      quantity: 20,
+      stockId: 4
+    })
+  ]);
+
+  const ratings = await Promise.all([
+    Rating.create({
+      userId: 1,
+      stockId: 10,
+      rating_num: 5,
+      review_text: 'It is great, so tasty'
+    }),
+    Rating.create({
+      userId: 3,
+      stockId: 1,
+      rating_num: 5,
+      review_text: 'Yummmy!'
+    }),
+    Rating.create({
+      userId: 2,
+      stockId: 9,
+      rating_num: 5,
+      review_text: 'It is great, so tasty!'
     })
   ]);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${stocks.length} stocks`);
+  console.log(`seeded ${address.length} address`);
+  console.log(`seeded ${images.length} images`);
+  console.log(`seeded ${cart.length} cart`);
+  console.log(`seeded ${cartItems.length} cart items`);
+  console.log(`seeded ${ratings.length} ratings`);
   console.log(`seeded successfully`);
 }
 
