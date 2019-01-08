@@ -51,7 +51,7 @@ async function seed() {
     })
   ]);
 
-  const stocks = Promise.all([
+  const stocks = await Promise.all([
     Stock.create({
       name: 'Jelly Beans',
       description: 'An American Classic',
