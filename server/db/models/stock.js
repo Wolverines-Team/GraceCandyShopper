@@ -17,7 +17,7 @@ const Stock = db.define('stocks', {
     defaultValue: '../public/images/default_candy.jpeg'
   },
   quantity: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0,
@@ -36,7 +36,7 @@ const Stock = db.define('stocks', {
     defaultValue: 'candy'
   },
   averageReview: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     validate: {
       min: 1,
       max: 5
