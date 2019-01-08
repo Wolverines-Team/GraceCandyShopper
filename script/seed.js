@@ -51,9 +51,10 @@ async function seed () {
     })
   ])
 
-  // const stocks = await Promise.all([Stock.create({name: 'Jelly Bean'})])
+  const stocks = await Promise.all([Stock.create({ name: 'Jelly Bean' })])
 
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${stocks.length} stocks`)
   console.log(`seeded successfully`)
 }
 
