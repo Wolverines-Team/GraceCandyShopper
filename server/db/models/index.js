@@ -19,6 +19,7 @@ const Address = require('./address')
 
 module.exports = {
   User,
-  Address
+  Address,
+  Stock
   // Rating
 }
