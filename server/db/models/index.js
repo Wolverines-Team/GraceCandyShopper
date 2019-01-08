@@ -1,7 +1,8 @@
 const db = require('../db')
 const User = require('./user')
-const Rating = require('./rating')
+// const Rating = require('./rating')
 const Stock = require('./stock')
+const Address = require('./address')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -17,6 +18,7 @@ const Stock = require('./stock')
  */
 
 module.exports = {
-  User, Address,
-  Rating
+  User,
+  Address
+  // Rating
 }
