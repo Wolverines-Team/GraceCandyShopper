@@ -25,7 +25,8 @@ export class SingleProductAdmin extends Component {
       <div className='singleview'>
         <form
           onSubmit={
-            '  ' // thunk request for updating product
+            '  '
+            // thunk request for updating product
           }
         >
           <h1>{product.name}</h1>
