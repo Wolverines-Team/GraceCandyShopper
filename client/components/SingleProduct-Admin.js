@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Reviews } from './Reviews'
-import { updateProducts } from '../store'
+import { updateProducts, fetchProducts } from '../store'
 import CurrencyInput from 'react-currency-input'
 
 class SingleProductAdmin extends Component {
@@ -15,12 +15,15 @@ class SingleProductAdmin extends Component {
       quantity: 0,
       category: '',
       brand: '',
-      photosIds: []
+      photosIds: [],
+      ratings: []
     }
   }
 
   componentDidMount () {
-    const [{ name, price, description, quantity }] = this.props.products.filter(
+    const [
+      { name, price, description, quantity, ratings }
+    ] = this.props.products.filter(
       product => product.id == this.props.match.params.id
     )
     this.setState({
@@ -32,7 +35,7 @@ class SingleProductAdmin extends Component {
   }
 
   render () {
-    const { name, description, price, quantity } = this.state
+    const { name, description, price, quantity, ratings } = this.state
     return (
       <div className='singleview'>
         <form
@@ -69,12 +72,12 @@ class SingleProductAdmin extends Component {
               />
             </h4>
           </div>
-          {/* <Stars rating={product.reviews} */}
+          <Reviews ratings={ratings} />
           <h3>Price: ${price}</h3>
-          <CurrencyInput
-            prefix='$'
-            onChange={(evt, maskedvalue, floatvalue) => {
-              this.setState({ price: maskedvalue })
+          <input
+            className='input'
+            onChange={evt => {
+              this.setState({ price: evt.target.value })
             }}
             value={price}
           />
@@ -106,6 +109,9 @@ const mapDispatchToProps = dispatch => {
   return {
     updateProducts: product => {
       dispatch(updateProducts(product))
+    },
+    fetchProducts: () => {
+      dispatch(fetchProducts())
     }
   }
 }
