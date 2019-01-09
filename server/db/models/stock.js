@@ -26,11 +26,6 @@ const Stock = db.define('stocks', {
     allowNull: false,
     defaultValue: 0.99
   },
-  category: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    defaultValue: 'candy'
-  },
   brand: {
     type: Sequelize.STRING,
     allowNull: false,

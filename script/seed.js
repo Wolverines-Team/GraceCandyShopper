@@ -8,11 +8,12 @@ const {
   Images,
   Cart,
   CartItems,
-  Rating
+  Rating,
+  Category
 } = require('../server/db/models');
 
 async function seed() {
-  await db.sync({force: true});
+  await db.sync({ force: true });
   console.log('db synced!');
 
   const users = await Promise.all([
@@ -69,7 +70,7 @@ async function seed() {
       description: 'An American Classic',
       quantity: 1000,
       price: 3.99,
-      category: 'Jelly Beans',
+      // categoryId: 'Jelly Beans',
       brand: 'JB'
     }),
     Stock.create({
@@ -311,6 +312,41 @@ async function seed() {
     })
   ]);
 
+  const categories = await Promise.all([
+    Category.create({
+      category_name: 'Candy',
+      // stockId: 1
+    }),
+    Category.create({
+      category_name: 'Jelly Beans',
+      // stockId: 2
+    }),
+    Category.create({
+      category_name: 'Chocolate',
+      // stockId: 3
+    }),
+    Category.create({
+      category_name: 'Exocit Desserts',
+      // stockId: 4
+    })
+  ]);
+
+  // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
+
+  const stockCategory = await Promise.all([
+    await stocks[0].addCategories(categories[1]),
+    await stocks[1].addCategory(categories[0]),
+    await stocks[2].addCategory(categories[1]),
+    await stocks[3].addCategory(categories[2]),
+    await stocks[4].addCategory(categories[0]),
+    await stocks[5].addCategory(categories[0]),
+    await stocks[6].addCategory(categories[2]),
+    await stocks[7].addCategory(categories[3]),
+    await stocks[8].addCategory(categories[3]),
+    await stocks[9].addCategory(categories[3]),
+  ])
+
+  console.log('==========>>Stock Category Join==> ', stockCategory)
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${stocks.length} stocks`);
   console.log(`seeded ${address.length} address`);
@@ -318,8 +354,10 @@ async function seed() {
   console.log(`seeded ${cart.length} cart`);
   console.log(`seeded ${cartItems.length} cart items`);
   console.log(`seeded ${ratings.length} ratings`);
+  console.log(`seeded ${categories.length} categories`);
   console.log(`seeded successfully`);
 }
+
 
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.

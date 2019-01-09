@@ -6,6 +6,7 @@ const Address = require('./address');
 const Images = require('./images');
 const CartItems = require('./cartItems');
 const Cart = require('./cart');
+const Category = require('./categories');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -20,6 +21,9 @@ Rating.belongsTo(Stock);
 Address.belongsTo(User);
 CartItems.belongsTo(Cart);
 CartItems.belongsTo(Stock);
+Stock.belongsToMany(Category, { through: 'StockCategory' });
+Category.belongsToMany(Stock, { through: 'StockCategory' });
+
 
 /* Edwin's Comment: Might end up deleting..*/
 // Stock.hasMany(Rating);
@@ -42,5 +46,6 @@ module.exports = {
   Rating,
   CartItems,
   Images,
-  Cart
+  Cart,
+  Category
 };
