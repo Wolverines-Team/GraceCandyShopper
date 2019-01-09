@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-export const SingleProduct = props => {
+const CardView = props => {
   const { product } = props
 
   return (
@@ -18,6 +18,7 @@ export const SingleProduct = props => {
     </div>
   )
 }
+export default CardView
 
 // Currently, we're just exporting the component as-is. When we're ready to
 // hook it up to the redux store, we'll export the connected component by default:
