@@ -1,12 +1,10 @@
 const router = require('express').Router()
-const {
-  Category,
-  Stock
-} = require('../db/models')
+const { Stock } = require('../db/models')
+const Category = require('../db/models/categories')
 module.exports = router
 
-//Actual path: /api/categories/
-//GET all categories
+// Actual path: /api/categories/
+// GET all categories
 router.get('/', async (req, res, next) => {
   try {
     const categories = await Category.findAll()
@@ -16,18 +14,17 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/categories/:categoryId
-//GET all candies by the specific category
+// Actual path: /api/categories/:categoryId
+// GET all candies by the specific category
 
 // Edwin's Comment:
 // /categories/:categoryId
 // or should it be: /stocks/categories/:categoryId >>> depending on this decision, we will locate this router in a different file.
 router.get('/:categoryId', async (req, res, next) => {
   try {
-    const stockedCandies = await Category.findById(
-      req.params.categoryId,
-      { include: [Stock] }
-    )
+    const stockedCandies = await Category.findById(req.params.categoryId, {
+      include: [Stock]
+    })
     res.status(200).json(stockedCandies)
   } catch (err) {
     next(err)
