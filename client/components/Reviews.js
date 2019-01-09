@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+
 import Stars from './stars'
 
-export const Reviews = props => {
+const Reviews = props => {
   console.log(props.ratings)
   const ratings = props.ratings
 
@@ -24,5 +24,6 @@ export const Reviews = props => {
     </div>
   )
 }
+export default Reviews
 
 // ★☆
