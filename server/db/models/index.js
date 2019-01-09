@@ -21,7 +21,8 @@ Rating.belongsTo(Stock);
 Address.belongsTo(User);
 CartItems.belongsTo(Cart);
 CartItems.belongsTo(Stock);
-Stock.hasMany(Category);
+Stock.belongsToMany(Category, { through: 'StockCategory' });
+Category.belongsToMany(Stock, { through: 'StockCategory' });
 
 
 /* Edwin's Comment: Might end up deleting..*/

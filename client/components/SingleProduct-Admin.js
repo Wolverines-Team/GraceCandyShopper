@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Reviews } from './Reviews'
+import { updateProducts } from '../store'
+import CurrencyInput from 'react-currency-input'
 
-mapStateToProps = state => {
-  return { products: state.stock.products }
-}
-
-export class SingleProductAdmin extends Component {
+class SingleProductAdmin extends Component {
   constructor () {
     super()
     this.state = {
       name: '',
-      price: 0,
+      price: '0.00',
       description: '',
       quantity: 0,
       category: '',
@@ -20,15 +19,29 @@ export class SingleProductAdmin extends Component {
     }
   }
 
+  componentDidMount () {
+    const [{ name, price, description, quantity }] = this.props.products.filter(
+      product => product.id == this.props.match.params.id
+    )
+    this.setState({
+      name,
+      price,
+      description,
+      quantity
+    })
+  }
+
   render () {
+    const { name, description, price, quantity } = this.state
     return (
       <div className='singleview'>
         <form
-          onSubmit={
-            '  ' // thunk request for updating product
-          }
+          onSubmit={evt => {
+            evt.preventDefault()
+            this.props.updateProducts(this.state)
+          }}
         >
-          <h1>{product.name}</h1>
+          <h1>Name:{name}</h1>
           <input
             className='input'
             type='text'
@@ -37,39 +50,36 @@ export class SingleProductAdmin extends Component {
                 name: evt.target.value
               })
             }}
-            value={this.state.name}
+            value={name}
           />
-          <img src={product.imageUrl[1]} />
+          {/* <img src={product.imageUrl[1]} /> */}
           {/* <Images images={product.images} */}
           <div className='producttext'>
-            <h4>{product.description}</h4>
+            <h4>
+              description:{description}
+              <input
+                className='input'
+                type='text'
+                onChange={evt => {
+                  this.setState({
+                    description: evt.target.value
+                  })
+                }}
+                value={description}
+              />
+            </h4>
           </div>
-          <input
-            className='input'
-            type='text'
-            onChange={evt => {
-              this.setState({
-                description: evt.target.value
-              })
-            }}
-            value={this.state.description}
-          />
           {/* <Stars rating={product.reviews} */}
-          <h3>${product.price}</h3>
-          <input
-            className='input'
-            type='number'
-            min='1'
-            step='any'
-            onChange={evt => {
-              this.setState({
-                price: evt.target.value
-              })
+          <h3>Price: ${price}</h3>
+          <CurrencyInput
+            prefix='$'
+            onChange={(evt, maskedvalue, floatvalue) => {
+              this.setState({ price: maskedvalue })
             }}
-            value={this.state.price}
+            value={price}
           />
           {/* THUNK>>>> <button onclick={addToCart(product.id)}>Add To Cart</button> */}
-          <h4>{product.quantity}</h4>
+          <h4>Stock:{quantity}</h4>
           <input
             className='input'
             type='number'
@@ -78,14 +88,29 @@ export class SingleProductAdmin extends Component {
                 quantity: evt.target.value
               })
             }}
-            value={this.state.quantity}
+            value={quantity}
           />
           <button type='submit'>Save</button>
         </form>
         <div className='reviews'>
-          <Reviews product={product} />
+          <Reviews product={this.props.products} />
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({ products: state.products })
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateProducts: product => {
+      dispatch(updateProducts(product))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SingleProductAdmin)
