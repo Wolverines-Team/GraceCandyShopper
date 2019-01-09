@@ -28,6 +28,7 @@ class Routes extends Component {
         <Route exact path='/products' component={AllProducts} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
+        <Route path='/cart' component={Cart} />
         <Route path='/categories/:id' component={categoryView} />
 
         {this.props.user.role ? (
