@@ -215,3 +215,11 @@ form div {
   height: 60px;
   padding: 6px;
 }
+
+/* star_rating styles */
+
+.star_container {
+  background-color: white;
+    width: 100;
+    height: 50;
+}

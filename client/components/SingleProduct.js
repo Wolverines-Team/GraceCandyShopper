@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -10,11 +11,12 @@ const SingleProduct = props => {
     product => product.id == props.match.params.id
   )
   console.log(product)
+
   return (
-    <div className='singleview'>
+    <div className="singleview">
       <img src={product.imageUrl} />
       {/* <Images images={product.images} */}
-      <div className='producttext'>
+      <div className="producttext">
         <h4>{product.description}</h4>
       </div>
       {/* <Stars rating={product.averageReview} */}
@@ -23,6 +25,7 @@ const SingleProduct = props => {
         <Reviews product={product} />
       </div>
     </div>
+
   )
 }
 
