@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -13,19 +12,19 @@ const SingleProduct = props => {
   console.log(product)
 
   return (
-    <div className="singleview">
-      <img src={product.imageUrl} />
+    <div className='singleview'>
+      <h1>{product.name}</h1>
+      <img src={product.images[0].imageUrl} />
       {/* <Images images={product.images} */}
-      <div className="producttext">
+      <div className='producttext'>
         <h4>{product.description}</h4>
       </div>
       {/* <Stars rating={product.averageReview} */}
       <h3>${product.price}</h3>
       <div className='reviews'>
-        <Reviews product={product} />
+        <Reviews ratings={product.ratings} />
       </div>
     </div>
-
   )
 }
 

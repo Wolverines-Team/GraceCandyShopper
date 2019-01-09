@@ -3,19 +3,25 @@ import { connect } from 'react-redux'
 
 const Stars = props => {
   const stars = props.stars
-  switch (stars) {
-    case stars === 1:
-      return <h2>★☆☆☆☆</h2>
-    case stars === 2:
+  if (stars === 1) {
+    return <h2>★☆☆☆☆</h2>
+  } else {
+    if (stars === 2) {
       return <h2>★★☆☆☆</h2>
-    case stars === 3:
-      return <h2>★★★☆☆</h2>
-    case stars === 4:
-      return <h2>★★★★☆</h2>
-    case stars === 5:
-      return <h2>★★★★★</h2>
-    default:
-      return 'dooky'
+    } else {
+      if (stars === 3) {
+        return <h2>★★★☆☆</h2>
+      } else {
+        if (stars === 4) {
+          return <h2>★★★★☆</h2>
+        } else {
+          if (stars === 5) {
+            return <h2>★★★★★</h2>
+          }
+        }
+      }
+    }
   }
 }
+
 export default Stars

@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const { Category, Stock } = require('../db/models')
+const { Stock } = require('../db/models')
+const Category = require('../db/models/categories')
 module.exports = router
 
 // Actual path: /api/categories/
