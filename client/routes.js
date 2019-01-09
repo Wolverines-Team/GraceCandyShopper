@@ -6,11 +6,13 @@ import {
   Login,
   Signup,
   UserHome,
-  AllProducts,
   SingleProduct,
-  SingleProductAdmin
+  SingleProductAdmin,
+  Navbar
 } from './components'
 import { me } from './store'
+import { fetchProducts } from './store/products'
+import AllProducts from './components/allProducts'
 
 /**
  * COMPONENT
@@ -18,23 +20,23 @@ import { me } from './store'
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
+    this.props.fetchProducts()
   }
 
   render () {
     const { isLoggedIn } = this.props
-
+    console.log(this.props)
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route exact path='/login' component={Login} />
+        <Route path='/' component={Navbar} />
+        <Route path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route path='/products' component={AllProducts} />
         {this.props.user.isAdmin ? (
-          <Route path='/products/:id' component={SingleProductAdmin} />
+          <Route exact path='/products/:id' component={SingleProductAdmin} />
         ) : (
-          <Route path='/products/:id' component={SingleProduct} />
+          <Route exact path='/products/:id' component={SingleProduct} />
         )}
-
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -54,7 +56,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
@@ -62,6 +65,9 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData () {
       dispatch(me())
+    },
+    fetchProducts: () => {
+      dispatch(fetchProducts())
     }
   }
 }
