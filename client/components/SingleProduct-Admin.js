@@ -10,6 +10,7 @@ class SingleProductAdmin extends Component {
     super()
     this.state = {
       name: '',
+      id: 0,
       price: '0.00',
       description: '',
       quantity: 0,
@@ -22,26 +23,35 @@ class SingleProductAdmin extends Component {
 
   componentDidMount () {
     const [
-      { name, price, description, quantity, ratings }
+      { name, price, description, quantity, ratings, id }
     ] = this.props.products.filter(
       product => product.id == this.props.match.params.id
     )
     this.setState({
+      id,
       name,
       price,
       description,
-      quantity
+      quantity,
+      ratings
     })
   }
 
   render () {
-    const { name, description, price, quantity, ratings } = this.state
+    const { name, description, price, quantity, ratings, id } = this.state
     return (
       <div className='singleview'>
         <form
           onSubmit={evt => {
             evt.preventDefault()
-            this.props.updateProducts(this.state)
+            this.props.updateProducts({
+              id,
+              name,
+              price,
+              description,
+              quantity,
+              ratings
+            })
           }}
         >
           <h1>Name:{name}</h1>
@@ -72,7 +82,7 @@ class SingleProductAdmin extends Component {
               />
             </h4>
           </div>
-          <Reviews ratings={ratings} />
+
           <h3>Price: ${price}</h3>
           <input
             className='input'
@@ -96,7 +106,7 @@ class SingleProductAdmin extends Component {
           <button type='submit'>Save</button>
         </form>
         <div className='reviews'>
-          <Reviews product={this.props.products} />
+          <Reviews ratings={ratings} />
         </div>
       </div>
     )

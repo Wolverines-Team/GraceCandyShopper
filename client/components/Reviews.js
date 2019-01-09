@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Stars from './stars'
 
 export const Reviews = props => {
   console.log(props.ratings)
@@ -12,9 +13,8 @@ export const Reviews = props => {
           const { review_text, rating_num, id } = rating
           return (
             <div key={id}>
-              {/* <Stars rating={rating_num} /> */}
+              <Stars stars={rating_num} />
               <p>{review_text}</p>
-              <p>{rating_num}</p>
             </div>
           )
         })
