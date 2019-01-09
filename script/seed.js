@@ -334,7 +334,7 @@ async function seed() {
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 
   const stockCategory = await Promise.all([
-    await stocks[0].addCategory(categories[1]),
+    await stocks[0].addCategories(categories[1]),
     await stocks[1].addCategory(categories[0]),
     await stocks[2].addCategory(categories[1]),
     await stocks[3].addCategory(categories[2]),
