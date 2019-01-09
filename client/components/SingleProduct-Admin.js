@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Reviews } from './Reviews'
 import { updateProducts, fetchProducts } from '../store'
-import CurrencyInput from 'react-currency-input'
 
 class SingleProductAdmin extends Component {
   constructor () {
@@ -113,7 +112,7 @@ class SingleProductAdmin extends Component {
   }
 }
 
-const mapStateToProps = state => ({ products: state.products })
+const mapStateToProps = state => ({ products: state.products.products })
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -122,6 +121,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchProducts: () => {
       dispatch(fetchProducts())
+    },
+    fetchProductsByCategory: id => {
+      dispatch(fetchProductsByCategory(id))
     }
   }
 }

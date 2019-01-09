@@ -26,6 +26,6 @@ const SingleProduct = props => {
   )
 }
 
-const mapStateToProps = state => ({ products: state.products })
+const mapStateToProps = state => ({ products: state.products.products })
 
 export default connect(mapStateToProps)(SingleProduct)
