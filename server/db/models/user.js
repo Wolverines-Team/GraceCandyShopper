@@ -22,6 +22,7 @@ const User = db.define('user', {
     }
   },
   salt: {
+    // REVEW: who knows salt?
     type: Sequelize.STRING,
     // Making `.salt` act like a function hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
@@ -38,7 +39,7 @@ const User = db.define('user', {
   history: {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
   },
-  role: {
+  isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },

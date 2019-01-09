@@ -2,6 +2,7 @@ const Seqeulize = require('sequelize');
 const db = require('../db');
 
 const Rating = db.define('rating', {
+  // javascript convention is ratingNum
   rating_num: {
     type: Seqeulize.INTEGER,
     validate: {

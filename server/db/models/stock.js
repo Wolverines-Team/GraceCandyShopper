@@ -22,6 +22,7 @@ const Stock = db.define('stocks', {
     defaultValue: 10
   },
   price: {
+    // REVIEW: do not use float/double to represent money
     type: Sequelize.DOUBLE,
     allowNull: false,
     defaultValue: 0.99
