@@ -28,6 +28,7 @@ export default function (state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products
+
     default:
       return state
   }

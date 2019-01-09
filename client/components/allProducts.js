@@ -15,7 +15,7 @@ const AllProducts = props => {
           )
         })
       ) : (
-        <h1>No products</h1>
+        <h1>No products!</h1>
       )}
     </div>
   )

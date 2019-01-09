@@ -2,17 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {
-  Login,
-  Signup,
-  UserHome,
-  SingleProduct,
-  SingleProductAdmin,
-  Navbar
-} from './components'
+import { Login, Signup, UserHome, Navbar } from './components'
 import { me } from './store'
 import { fetchProducts } from './store/products'
 import AllProducts from './components/allProducts'
+import SingleProductAdmin from './components/SingleProduct-Admin'
+import SingleProduct from './components/SingleProduct'
 
 /**
  * COMPONENT
@@ -25,14 +20,15 @@ class Routes extends Component {
 
   render () {
     const { isLoggedIn } = this.props
-    console.log(this.props)
+
     return (
-      <Switch>
+      <div>
         <Route path='/' component={Navbar} />
+        <Route exact path='/products' component={AllProducts} />
         <Route path='/login' component={Login} />
-        <Route exact path='/signup' component={Signup} />
-        <Route path='/products' component={AllProducts} />
-        {this.props.user.isAdmin ? (
+        <Route path='/signup' component={Signup} />
+
+        {this.props.user.role ? (
           <Route exact path='/products/:id' component={SingleProductAdmin} />
         ) : (
           <Route exact path='/products/:id' component={SingleProduct} />
@@ -44,7 +40,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-      </Switch>
+      </div>
     )
   }
 }
