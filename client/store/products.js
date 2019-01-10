@@ -35,6 +35,14 @@ export const updateProducts = product => async dispatch => {
     console.error(error)
   }
 }
+export const createProduct = product => async dispatch => {
+  try {
+    const { data } = await axios.post(`/api/stocks/`, product)
+    dispatch(getProducts(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export default function (state = defaultProducts, action) {
   switch (action.type) {
