@@ -7,18 +7,15 @@ const CardView = props => {
 
   return (
     <div className='card'>
-      {product.images.length ? (
-        <img src={product.images[0].imageUrl} />
-      ) : (
-        <div />
-      )}
-      <div className='producttext'>
-        <Link to={`/products/${product.id}`}>
-          <h2>{product.name}</h2>
-        </Link>
-        <h3>${product.price}</h3>
-
-        <h4>{product.description}</h4>
+      <Link to={`/products/${product.id}`}>
+        <div className='card-img'>
+          <img src={product.images[0].imageUrl} />
+        </div>
+      </Link>
+      <div className='productText'>
+        <p>{product.name}</p>
+        <p>{product.description}</p>
+        <p>${product.price}</p>
       </div>
     </div>
   )

@@ -204,43 +204,127 @@ async function seed () {
 
   const images = await Promise.all([
     Images.create({
-      imageUrl: '/images/jelly_beans.jpeg',
+      imageUrl: '/images/candy01-1.png',
       stockId: 1
     }),
     Images.create({
-      imageUrl: '/images/cherry_candy.jpeg',
+      imageUrl: '/images/candy01-2.png',
+      stockId: 1
+    }),
+    Images.create({
+      imageUrl: '/images/candy02-1.png',
       stockId: 2
     }),
     Images.create({
-      imageUrl: '/images/gummy_bears.jpeg',
+      imageUrl: '/images/candy02-2.png',
+      stockId: 2
+    }),
+    Images.create({
+      imageUrl: '/images/candy02-3.png',
+      stockId: 2
+    }),
+    Images.create({
+      imageUrl: '/images/candy02-4.png',
+      stockId: 2
+    }),
+    Images.create({
+      imageUrl: '/images/candy03-1.png',
       stockId: 3
     }),
     Images.create({
-      imageUrl: '/images/halloweentreats.jpeg',
+      imageUrl: '/images/candy03-2.png',
+      stockId: 3
+    }),
+    Images.create({
+      imageUrl: '/images/candy03-3.png',
+      stockId: 3
+    }),
+    Images.create({
+      imageUrl: '/images/candy04-1.png',
       stockId: 4
     }),
     Images.create({
-      imageUrl: '/images/hardcandies.jpeg',
+      imageUrl: '/images/candy04-2.png',
+      stockId: 4
+    }),
+    Images.create({
+      imageUrl: '/images/candy04-3.png',
+      stockId: 4
+    }),
+    Images.create({
+      imageUrl: '/images/candy05-1.png',
       stockId: 5
     }),
     Images.create({
-      imageUrl: '/images/lollipops.jpeg',
+      imageUrl: '/images/candy05-2.png',
+      stockId: 5
+    }),
+    Images.create({
+      imageUrl: '/images/candy05-3.png',
+      stockId: 5
+    }),
+    Images.create({
+      imageUrl: '/images/candy06-1.png',
       stockId: 6
     }),
     Images.create({
-      imageUrl: '/images/mandm.jpeg',
+      imageUrl: '/images/candy06-2.png',
+      stockId: 6
+    }),
+    Images.create({
+      imageUrl: '/images/candy06-3.png',
+      stockId: 6
+    }),
+    Images.create({
+      imageUrl: '/images/candy07-1.png',
       stockId: 7
     }),
     Images.create({
-      imageUrl: '/images/pinkle_candy.jpeg',
+      imageUrl: '/images/candy07-2.png',
+      stockId: 7
+    }),
+    Images.create({
+      imageUrl: '/images/candy07-3.png',
+      stockId: 7
+    }),
+    Images.create({
+      imageUrl: '/images/candy07-4.png',
+      stockId: 7
+    }),
+    Images.create({
+      imageUrl: '/images/candy07-5.png',
+      stockId: 7
+    }),
+    Images.create({
+      imageUrl: '/images/candy08-1.png',
       stockId: 8
     }),
     Images.create({
-      imageUrl: '/images/thai_sweets.jpeg',
+      imageUrl: '/images/candy08-2.png',
+      stockId: 8
+    }),
+    Images.create({
+      imageUrl: '/images/candy09-1.png',
       stockId: 9
     }),
     Images.create({
-      imageUrl: '/images/turkish_delight.jpeg',
+      imageUrl: '/images/candy09-2.png',
+      stockId: 9
+    }),
+    Images.create({
+      imageUrl: '/images/candy09-3.png',
+      stockId: 9
+    }),
+    Images.create({
+      imageUrl: '/images/candy10-1.png',
+      stockId: 10
+    }),
+    Images.create({
+      imageUrl: '/images/candy10-2.png',
+      stockId: 10
+    }),
+    Images.create({
+      imageUrl: '/images/candy10-3.png',
       stockId: 10
     })
   ])
