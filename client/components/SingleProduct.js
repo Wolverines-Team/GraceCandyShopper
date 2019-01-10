@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Reviews from './Reviews'
+import SideBar from './SideBar'
 
 const SingleProduct = props => {
   console.log(props.match.params.id)

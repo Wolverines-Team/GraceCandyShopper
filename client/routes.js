@@ -1,22 +1,35 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Route, Switch } from 'react-router-dom'
+import {
+  withRouter,
+  Route,
+  Switch,
+  BrowserRouter as Router
+} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Login, Signup, UserHome, Navbar } from './components'
 import { me } from './store'
-import { fetchProducts, fetchProductsByCategory } from './store/products'
+import {
+  fetchProducts,
+  fetchProductsByCategory,
+  fetchCategories
+} from './store/products'
 import AllProducts from './components/allProducts'
 import SingleProductAdmin from './components/admin/SingleProduct-Admin'
 import SingleProduct from './components/SingleProduct'
-import categoryView from './components/categoryView'
+import CategoryView from './components/categoryView'
 import Cart from './components/Cart'
 import createProduct from './components/admin/createProduct'
+import SideBar from './components/SideBar'
+
+import Stripe from './components/stripe'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount () {
+    this.props.fetchCategories()
     this.props.loadInitialData()
     this.props.fetchProducts()
   }
@@ -27,25 +40,29 @@ class Routes extends Component {
     return (
       <div>
         <Route path='/' component={Navbar} />
+        <Route path='/products' component={SideBar} />
         <Route exact path='/products' component={AllProducts} />
-        <Route exact path='/newproduct' component={createProduct} />
+
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
         <Route path='/cart' component={Cart} />
-        <Route path='/categories/:id' component={categoryView} />
+        <Route path='/products/categories/:id' component={CategoryView} />
 
         {this.props.user.isAdmin ? (
-          <Route exact path='/products/:id' component={SingleProductAdmin} />
+          <div>
+            <Route exact path='/products/:id' component={SingleProductAdmin} />
+            <Route exact path='/newproduct' component={createProduct} />
+          </div>
         ) : (
           <Route exact path='/products/:id' component={SingleProduct} />
         )}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path='/home' component={UserHome} />
+            <Route path='/home' component={Stripe} />
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
+        <Route path='/home' component={Login} />
       </div>
     )
   }
@@ -73,6 +90,9 @@ const mapDispatch = dispatch => {
     },
     fetchProductsByCategory: id => {
       dispatch(fetchProductsByCategory(id))
+    },
+    fetchCategories: () => {
+      dispatch(fetchCategories())
     }
   }
 }

@@ -1,8 +1,8 @@
-import flatten from 'lodash/flatten';
+import flat from 'array.prototype.flat';
 import entries from 'object.entries';
 import isSubset from 'is-subset';
 import functionName from 'function.prototype.name';
-import { nodeHasProperty } from './Utils';
+import getAdapter from './getAdapter';
 
 export function propsOfNode(node) {
   return (node && node.props) || {};
@@ -10,7 +10,25 @@ export function propsOfNode(node) {
 
 export function childrenOfNode(node) {
   if (!node) return [];
-  return Array.isArray(node.rendered) ? flatten(node.rendered, true) : [node.rendered];
+
+  const adapter = getAdapter();
+  const adapterHasIsFragment = adapter.isFragment && typeof adapter.isFragment === 'function';
+
+  const renderedArray = Array.isArray(node.rendered) ? flat(node.rendered, 1) : [node.rendered];
+
+  // React adapters before 16 will not have isFragment
+  if (!adapterHasIsFragment) {
+    return renderedArray;
+  }
+
+  return flat(renderedArray.map((currentChild) => {
+    // If the node is a Fragment, we want to return its children, not the fragment itself
+    if (adapter.isFragment(currentChild)) {
+      return childrenOfNode(currentChild);
+    }
+
+    return currentChild;
+  }), 1);
 }
 
 export function hasClassName(node, className) {
@@ -53,9 +71,8 @@ export function findParentNode(root, targetNode) {
       if (!node.rendered) {
         return false;
       }
-      return Array.isArray(node.rendered)
-        ? node.rendered.indexOf(targetNode) !== -1
-        : node.rendered === targetNode;
+
+      return childrenOfNode(node).indexOf(targetNode) !== -1;
     },
   );
   return results[0] || null;
@@ -89,15 +106,12 @@ export function pathToNode(node, root) {
 }
 
 export function parentsOfNode(node, root) {
-  return pathToNode(node, root).reverse();
+  return (pathToNode(node, root) || []).reverse();
 }
 
 export function nodeHasId(node, id) {
   return propsOfNode(node).id === id;
 }
-
-
-export { nodeHasProperty };
 
 const CAN_NEVER_MATCH = {};
 function replaceUndefined(v) {

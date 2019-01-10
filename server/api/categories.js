@@ -1,15 +1,14 @@
 const router = require('express').Router()
-const {
-  Category,
-  Stock
-} = require('../db/models')
+const { Stock, Images } = require('../db/models')
+const Category = require('../db/models/categories')
+
 const { requireLogin, requireAdmin } = require('./util')
 
 module.exports = router
 
-//Actual path: /api/categories/
-//GET all categories
-//Accessibility: For all users
+// Actual path: /api/categories/
+// GET all categories
+// Accessibility: For all users
 router.get('/', async (req, res, next) => {
   try {
     const categories = await Category.findAll()
@@ -19,13 +18,13 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/categories/:categoryId
-//GET all candies by the specific category
-//Accessibility: For all users
+// Actual path: /api/categories/:categoryId
+// GET all candies by the specific category
+// Accessibility: For all users
 router.get('/:categoryId', async (req, res, next) => {
   try {
     const stockedCandies = await Category.findById(req.params.categoryId, {
-      include: [Stock]
+      include: [{ model: Stock, include: [Images] }]
     })
     res.status(200).json(stockedCandies)
   } catch (err) {
@@ -33,26 +32,26 @@ router.get('/:categoryId', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/categories/
+// Actual path: /api/categories/
 // Creating a new category
 // Accessibility: For Admin only. (Need to add..)
 router.post('/', async (req, res, next) => {
   try {
-    //Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
+    // Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
     const { category_name } = req.body
-    const newCategory = await Category.create({ category_name });
+    const newCategory = await Category.create({ category_name })
     res.status(200).json(newCategory)
   } catch (err) {
     next(err)
   }
 })
 
-//Actual path: /api/categories/:categoryId
+// Actual path: /api/categories/:categoryId
 // Updating an existing category
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:categoryId', async (req, res, next) => {
   try {
-    //Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
+    // Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
     const currentCategory = await Category.findById(req.params.categoryId)
 
     const updatedCategory = await currentCategory.update({
@@ -65,7 +64,7 @@ router.put('/:categoryId', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/categories/:categoryId
+// Actual path: /api/categories/:categoryId
 // Deleting an existing category
 // Accessibility: For Admin only. (Need to add..)
 router.delete('/:categoryId', async (req, res, next) => {

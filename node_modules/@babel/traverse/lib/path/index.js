@@ -154,7 +154,7 @@ class NodePath {
   }
 
   buildCodeFrameError(msg, Error = SyntaxError) {
-    return this.hub.file.buildCodeFrameError(this.node, msg, Error);
+    return this.hub.buildError(this.node, msg, Error);
   }
 
   traverse(visitor, state) {
