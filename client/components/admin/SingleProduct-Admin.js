@@ -40,9 +40,9 @@ class SingleProductAdmin extends Component {
     return (
       <div className='singleview'>
         <form
-          onSubmit={evt => {
+          onSubmit={async evt => {
             evt.preventDefault()
-            this.props.updateProducts({
+            await this.props.updateProducts({
               id,
               name,
               price,
@@ -50,6 +50,8 @@ class SingleProductAdmin extends Component {
               quantity,
               ratings
             })
+            this.props.fetchProducts()
+            this.props.history.push('/products')
           }}
         >
           <h1>Name:{name}</h1>

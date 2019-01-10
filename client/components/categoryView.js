@@ -2,23 +2,30 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CardView from './CardView'
 import { fetchProductsByCategory } from '../store'
+import SideBar from './SideBar'
 
 class CategoryView extends Component {
   constructor () {
     super()
+    this.state = { products: [] }
   }
   componentDidMount () {
     this.props.fetchProductsByCategory(this.props.match.params.id)
   }
   render () {
+    // const products = this.props.products.filter(
+    //   product => product.id == this.props.match.params.id
+    // )
+
     const products = this.props.products.stocks
+
     return (
       <div>
         {products ? (
           products.map(product => {
             return (
               <div key={product.id}>
-                <CardView product={product} history={this.props.history} />
+                <CardView product={product} />
               </div>
             )
           })
