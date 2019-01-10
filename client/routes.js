@@ -6,9 +6,11 @@ import { Login, Signup, UserHome, Navbar } from './components'
 import { me } from './store'
 import { fetchProducts, fetchProductsByCategory } from './store/products'
 import AllProducts from './components/allProducts'
-import SingleProductAdmin from './components/SingleProduct-Admin'
+import SingleProductAdmin from './components/admin/SingleProduct-Admin'
 import SingleProduct from './components/SingleProduct'
 import categoryView from './components/categoryView'
+import Cart from './components/Cart'
+import createProduct from './components/admin/createProduct'
 
 /**
  * COMPONENT
@@ -26,12 +28,13 @@ class Routes extends Component {
       <div>
         <Route path='/' component={Navbar} />
         <Route exact path='/products' component={AllProducts} />
+        <Route exact path='/newproduct' component={createProduct} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
         <Route path='/cart' component={Cart} />
         <Route path='/categories/:id' component={categoryView} />
 
-        {this.props.user.role ? (
+        {this.props.user.isAdmin ? (
           <Route exact path='/products/:id' component={SingleProductAdmin} />
         ) : (
           <Route exact path='/products/:id' component={SingleProduct} />

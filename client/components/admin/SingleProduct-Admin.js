@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Reviews } from './Reviews'
-import { updateProducts, fetchProducts } from '../store'
+import Reviews from '../Reviews'
+import { updateProducts, fetchProducts } from '../../store'
 
 class SingleProductAdmin extends Component {
   constructor () {
