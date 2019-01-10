@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CardView from './CardView'
 import { fetchProductsByCategory } from '../store'
+import SideBar from './SideBar'
 
 const AllProducts = props => {
   let products = props.products
