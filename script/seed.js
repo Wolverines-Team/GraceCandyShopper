@@ -21,45 +21,45 @@ async function seed () {
       email: 'DavidRichy@email.com',
       username: 'DavidRich',
       password: 'RichyRich',
-      cartId: 4,
+      // cartId: 4,
       history: [5, 6],
-      role: false,
+      isAdmin: false,
       visits: 0
     }),
     User.create({
       email: 'ShanonSalas@email.com',
       username: 'ShanonSal',
       password: '123',
-      cartId: 1,
+      // cartId: 1,
       history: [2, 3],
-      role: false,
+      isAdmin: false,
       visits: 12
     }),
     User.create({
       email: 'BenSari@email.com',
       username: 'BenSari',
       password: 'I<3Dogs',
-      cartId: 7,
+      // cartId: 7,
       history: [8, 9],
-      role: true,
+      isAdmin: true,
       visits: 35
     }),
     User.create({
       email: 'DannyDevito@email.com',
       username: 'DannyO',
       password: 'TrashMan',
-      cartId: 10,
+      // cartId: 10,
       history: [11, 12],
-      role: false,
+      isAdmin: false,
       visits: 22
     }),
     User.create({
       email: 'DonnyDarko@email.com',
       username: 'DonnyBoy',
       password: 'RabbitFear',
-      cartId: 13,
+      // cartId: 13,
       history: [14, 15],
-      role: false,
+      isAdmin: false,
       visits: 66
     })
   ])
