@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const db = require('../server/db');
+const db = require('../server/db')
 const {
   User,
   Stock,
@@ -8,13 +8,13 @@ const {
   Images,
   Cart,
   CartItems,
-  Rating,
-  Category
-} = require('../server/db/models');
+  Rating
+} = require('../server/db/models')
+const Category = require('../server/db/models/categories')
 
 async function seed() {
-  await db.sync({ force: true });
-  console.log('db synced!');
+  await db.sync({ force: true })
+  console.log('db synced!')
 
   const users = await Promise.all([
     User.create({
@@ -62,7 +62,7 @@ async function seed() {
       isAdmin: false,
       visits: 66
     })
-  ]);
+  ])
 
   const stocks = await Promise.all([
     Stock.create({
@@ -162,7 +162,7 @@ async function seed() {
 
       brand: 'Lokumcu Baba'
     })
-  ]);
+  ])
 
   const address = await Promise.all([
     Address.create({
@@ -200,7 +200,7 @@ async function seed() {
       state: 'NY',
       zip: '10075'
     })
-  ]);
+  ])
 
   const images = await Promise.all([
     Images.create({
@@ -243,30 +243,30 @@ async function seed() {
       imageUrl: '/images/turkish_delight.jpeg',
       stockId: 10
     })
-  ]);
+  ])
 
   const cart = await Promise.all([
     Cart.create({
       stockId: 9,
       userId: 1,
-      quantity: 12
+      total_quantity: 12
     }),
     Cart.create({
       stockId: 3,
-      userId: 1,
-      quantity: 3
+      userId: 2,
+      total_quantity: 3
     }),
     Cart.create({
       stockId: 10,
-      userId: 1,
-      quantity: 2
+      userId: 2,
+      total_quantity: 2
     }),
     Cart.create({
       stockId: 4,
       userId: 1,
-      quantity: 20
+      total_quantity: 20
     })
-  ]);
+  ])
 
   const cartItems = await Promise.all([
     CartItems.create({
@@ -285,11 +285,11 @@ async function seed() {
       stockId: 10
     }),
     CartItems.create({
-      cartId: 3,
+      cartId: 2,
       quantity: 20,
       stockId: 4
     })
-  ]);
+  ])
 
   const ratings = await Promise.all([
     Rating.create({
@@ -310,31 +310,31 @@ async function seed() {
       rating_num: 5,
       review_text: 'It is great, so tasty!'
     })
-  ]);
+  ])
 
   const categories = await Promise.all([
     Category.create({
-      category_name: 'Candy',
+      category_name: 'Candy'
       // stockId: 1
     }),
     Category.create({
-      category_name: 'Jelly Beans',
+      category_name: 'Jelly Beans'
       // stockId: 2
     }),
     Category.create({
-      category_name: 'Chocolate',
+      category_name: 'Chocolate'
       // stockId: 3
     }),
     Category.create({
-      category_name: 'Exocit Desserts',
+      category_name: 'Exocit Desserts'
       // stockId: 4
     })
-  ]);
+  ])
 
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 
   const stockCategory = await Promise.all([
-    await stocks[0].addCategories(categories[1]),
+    await stocks[0].addCategory(categories[1]),
     await stocks[1].addCategory(categories[0]),
     await stocks[2].addCategory(categories[1]),
     await stocks[3].addCategory(categories[2]),
@@ -343,36 +343,35 @@ async function seed() {
     await stocks[6].addCategory(categories[2]),
     await stocks[7].addCategory(categories[3]),
     await stocks[8].addCategory(categories[3]),
-    await stocks[9].addCategory(categories[3]),
+    await stocks[9].addCategory(categories[3])
   ])
 
   console.log('==========>>Stock Category Join==> ', stockCategory)
-  console.log(`seeded ${users.length} users`);
-  console.log(`seeded ${stocks.length} stocks`);
-  console.log(`seeded ${address.length} address`);
-  console.log(`seeded ${images.length} images`);
-  console.log(`seeded ${cart.length} cart`);
-  console.log(`seeded ${cartItems.length} cart items`);
-  console.log(`seeded ${ratings.length} ratings`);
-  console.log(`seeded ${categories.length} categories`);
-  console.log(`seeded successfully`);
+  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${stocks.length} stocks`)
+  console.log(`seeded ${address.length} address`)
+  console.log(`seeded ${images.length} images`)
+  console.log(`seeded ${cart.length} cart`)
+  console.log(`seeded ${cartItems.length} cart items`)
+  console.log(`seeded ${ratings.length} ratings`)
+  console.log(`seeded ${categories.length} categories`)
+  console.log(`seeded successfully`)
 }
-
 
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
 // The `seed` function is concerned only with modifying the database.
 async function runSeed() {
-  console.log('seeding...');
+  console.log('seeding...')
   try {
-    await seed();
+    await seed()
   } catch (err) {
-    console.error(err);
-    process.exitCode = 1;
+    console.error(err)
+    process.exitCode = 1
   } finally {
-    console.log('closing db connection');
-    await db.close();
-    console.log('db connection closed');
+    console.log('closing db connection')
+    await db.close()
+    console.log('db connection closed')
   }
 }
 
@@ -380,8 +379,8 @@ async function runSeed() {
 // `Async` functions always return a promise, so we can use `catch` to handle
 // any errors that might occur inside of `seed`.
 if (module === require.main) {
-  runSeed();
+  runSeed()
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed;
+module.exports = seed

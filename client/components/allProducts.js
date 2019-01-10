@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CardView from './CardView'
+import { fetchProductsByCategory } from '../store'
 
 const AllProducts = props => {
   let products = props.products
   return (
     <div>
-      {products.length ? (
+      {products ? (
         products.map(product => {
           return (
             <div key={product.id}>
@@ -21,6 +22,6 @@ const AllProducts = props => {
   )
 }
 
-const mapStateToProps = state => ({ products: state.products })
+const mapStateToProps = state => ({ products: state.products.products })
 
 export default connect(mapStateToProps)(AllProducts)

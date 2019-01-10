@@ -2,43 +2,55 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Reviews } from './Reviews'
-import { updateProducts } from '../store'
-import CurrencyInput from 'react-currency-input'
+import { updateProducts, fetchProducts } from '../store'
 
 class SingleProductAdmin extends Component {
   constructor () {
     super()
     this.state = {
       name: '',
+      id: 0,
       price: '0.00',
       description: '',
       quantity: 0,
       category: '',
       brand: '',
-      photosIds: []
+      photosIds: [],
+      ratings: []
     }
   }
 
   componentDidMount () {
-    const [{ name, price, description, quantity }] = this.props.products.filter(
+    const [
+      { name, price, description, quantity, ratings, id }
+    ] = this.props.products.filter(
       product => product.id == this.props.match.params.id
     )
     this.setState({
+      id,
       name,
       price,
       description,
-      quantity
+      quantity,
+      ratings
     })
   }
 
   render () {
-    const { name, description, price, quantity } = this.state
+    const { name, description, price, quantity, ratings, id } = this.state
     return (
       <div className='singleview'>
         <form
           onSubmit={evt => {
             evt.preventDefault()
-            this.props.updateProducts(this.state)
+            this.props.updateProducts({
+              id,
+              name,
+              price,
+              description,
+              quantity,
+              ratings
+            })
           }}
         >
           <h1>Name:{name}</h1>
@@ -69,12 +81,12 @@ class SingleProductAdmin extends Component {
               />
             </h4>
           </div>
-          {/* <Stars rating={product.reviews} */}
+
           <h3>Price: ${price}</h3>
-          <CurrencyInput
-            prefix='$'
-            onChange={(evt, maskedvalue, floatvalue) => {
-              this.setState({ price: maskedvalue })
+          <input
+            className='input'
+            onChange={evt => {
+              this.setState({ price: evt.target.value })
             }}
             value={price}
           />
@@ -93,19 +105,25 @@ class SingleProductAdmin extends Component {
           <button type='submit'>Save</button>
         </form>
         <div className='reviews'>
-          <Reviews product={this.props.products} />
+          <Reviews ratings={ratings} />
         </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({ products: state.products })
+const mapStateToProps = state => ({ products: state.products.products })
 
 const mapDispatchToProps = dispatch => {
   return {
     updateProducts: product => {
       dispatch(updateProducts(product))
+    },
+    fetchProducts: () => {
+      dispatch(fetchProducts())
+    },
+    fetchProductsByCategory: id => {
+      dispatch(fetchProductsByCategory(id))
     }
   }
 }

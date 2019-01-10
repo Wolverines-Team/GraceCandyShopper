@@ -7,12 +7,13 @@ const CardView = props => {
 
   return (
     <div className='card'>
-      <img src={product.imageUrl} />
+      {product.images ? <img src={product.images[0].imageUrl} /> : <div />}
       <div className='producttext'>
         <Link to={`/products/${product.id}`}>
           <h2>{product.name}</h2>
         </Link>
         <h3>${product.price}</h3>
+
         <h4>{product.description}</h4>
       </div>
     </div>
