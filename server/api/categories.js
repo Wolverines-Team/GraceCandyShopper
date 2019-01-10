@@ -10,10 +10,6 @@ module.exports = router
 //Actual path: /api/categories/
 //GET all categories
 //Accessibility: For all users
-const { Stock } = require('../db/models')
-const Category = require('../db/models/categories')
-module.exports = router
-
 router.get('/', async (req, res, next) => {
   try {
     const categories = await Category.findAll()

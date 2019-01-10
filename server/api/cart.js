@@ -6,11 +6,10 @@ module.exports = router
 //Actual path: /api/cart/:cartId
 //Show all cart items
 //Accessibility: For all users
-router.get(':userId/:cartId', async (req, res, next) => {
+router.get('/:cartId', async (req, res, next) => {
   try {
     const singleCartView = await CartItem.findAll({
-      where: { id: req.params.cartId },
-      include: [{ model: Cart }]
+      where: { id: req.params.cartId }
     })
     res.json(singleCartView)
   } catch (err) {
@@ -34,27 +33,29 @@ router.post('/:cartId', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/stocks/:stockId
-// Updating an existing candy
+//Actual path: /api/cart/:cartId
+// Updating the number of quantity in the cart items list.
 // Accessibility: For Admin only. (Need to add..)
-router.put('/:stockId', async (req, res, next) => {
+router.put('/:cartItemId', async (req, res, next) => {
   try {
-    const oldCandy = await Stock.findById(req.params.stockId)
-    const updatedCandy = await oldCandy.update(req.body)
-    res.status(200).json(updatedCandy)
+    const currentCartItem = await CartItem.findById(req.params.cartItemId)
+    const updatedCartItem = await currentCartItem.update({
+      quantity: req.body.quantity
+    })
+    res.status(200).json(updatedCartItem)
   } catch (err) {
     next(err)
   }
 })
 
-//Actual path: /api/stocks/:stockId
-// Deleting an existing candy
+//Actual path: /api/cart/:cartId
+// Deleting an existing candy in the cart item list.
 // Accessibility: For Admin only. (Need to add..)
-router.delete('/:stockId', async (req, res, next) => {
+router.delete('/:cartItemId', async (req, res, next) => {
   try {
-    await Stock.destroy({
+    await CartItem.destroy({
       where: {
-        id: req.params.stockId
+        id: req.params.cartItemId
       }
     })
     res.sendStatus(200)

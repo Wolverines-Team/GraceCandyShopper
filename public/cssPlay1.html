@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width initial-scale=1.0'>
+  <title>GraceShopper</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script defer src="/bundle.js"></script>
+</head>
+
+<body>
+  <div class="outline">
+  <div class="navRow">
+    <div><img src="./images/wLogo.png" class="wLogo" /></div>
+    <div class="dropdown1">
+      <button class="dropbtn1">FIND YOUR SWEETS</button>
+      <div class="dropdown-content1">
+        <ul>
+          <li></li>
+        </ul>
+        <div class="dropdown-list1">
+          <ul>
+            <li><a href="#">Candy</a></li>
+            <hr />
+            <li class="thin"><a href="#">New</a></li>
+            <li class="thin"><a href="#">Sale!</a></li>
+            <li class="thin"><a href="#">Lollipops</a></li>
+            <li class="thin"><a href="#">Gold Collections</a></li>
+            <li class="thin"><a href="#">Jelly Beans</a></li>
+          </ul>
+        </div>
+
+        <div class="dropdown-list1">
+          <ul>
+            <li><a href="#">Gummy</a></li>
+            <hr />
+            <li class="thin"><a href="#">Signature Filabelles</a></li>
+            <li class="thin"><a href="#">Sour</a></li>
+            <li class="thin"><a href="#">Novelty</a></li>
+            <li class="thin"><a href="#">Rainbow</a></li>
+          </ul>
+        </div>
+        <div class="dropdown-list1">
+          <ul>
+            <li><a href="#">Chocolate</a></li>
+            <hr />
+            <li class="thin"><a href="#">Chocolate Bar</a></li>
+            <li class="thin"><a href="#">Choc-a-Lot</a></li>
+            <li class="thin"><a href="#">Fudge</a></li>
+            <li class="thin"><a href="#">Candy Cafe Bites</a></li>
+            <li class="thin"><a href="#">Hand Dipped</a></li>
+          </ul>
+        </div>
+        <div class="dropdown-list1">
+          <ul>
+            <li><a href="#">Collections</a></li>
+            <hr />
+            <li class="thin"><a href="#">Valentine's Day</a></li>
+            <li class="thin"><a href="#">Chrismas</a></li>
+            <li class="thin"><a href="#">City Collection</a></li>
+            <li class="thin"><a href="#">Mean Girls</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown2">
+      <button class="dropbtn2">STORE LOCATION</button>
+      <div class="dropdown-content2">
+        <a href="#">New York</a>
+        <a href="#">Chicago</a>
+        <a href="#">Miami</a>
+        <a href="#">Los Angeles</a>
+      </div>
+    </div>
+    <div class="dropdown3">
+      <button class="dropbtn3">ABOUT US</button>
+      <div class="dropdown-content3">
+        <a href="#">About Us</a>
+        <a href="#">Events</a>
+        <a href="#">Inspiration</a>
+      </div>
+    </div>
+    <div class="dropdown4">
+      <button class="dropbtn4">SIGN UP | LOGIN</button>
+    </div>
+    <div class="dropdown5">
+      <button class="dropbtn5">SHOPPING BAG</button>
+      <div class="bag"><img src="./images/shoppingBag.png" id="bag" /></div>
+    </div>
+  </div>
+  </div>
+
+
+
+  
+  <div class="s-outline">
+    <img class="mySlides" src="images/candy02-1.png">
+    <img class="mySlides" src="images/candy02-2.png" style="display:none">
+    <img class="mySlides" src="images/candy02-3.png" style="display:none">
+    <img class="mySlides" src="images/candy02-4.png" style="display:none">
+  
+    <div class="s-row">
+      <div class="w3-col s4">
+        <img class="demo opacity hover-opacity-off" src="images/candy02-1.png" style="width:50px;cursor:pointer" onclick="currentDiv(1)">
+      </div>
+      <div class="w3-col s4">
+        <img class="demo opacity hover-opacity-off" src="images/candy02-2.png" style="width:50px;cursor:pointer" onclick="currentDiv(2)">
+      </div>
+      <div class="w3-col s4">
+        <img class="demo opacity hover-opacity-off" src="images/candy02-3.png" style="width:50px;cursor:pointer" onclick="currentDiv(3)">
+      </div>
+      <div class="w3-col s4">
+        <img class="demo opacity hover-opacity-off" src="images/candy02-4.png" style="width:50px;cursor:pointer" onclick="currentDiv(4)">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function currentDiv(n) {
+      showDivs(slideIndex = n);
+    }
+
+    
+    function showDivs(n) {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("demo");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length}
+      for (let i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" opacity-off", "");
+      }
+      x[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " opacity-off";
+    }
+
+    currentDiv(1)
+    </script>
+  
+</body>
+
+</html>

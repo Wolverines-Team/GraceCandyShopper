@@ -5,6 +5,10 @@ const Cart = db.define('cart', {
   total_quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 0
+  },
+  isPurchased: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 });
 
