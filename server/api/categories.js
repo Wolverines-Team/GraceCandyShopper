@@ -24,10 +24,9 @@ router.get('/', async (req, res, next) => {
 //Accessibility: For all users
 router.get('/:categoryId', async (req, res, next) => {
   try {
-    const stockedCandies = await Category.findById(
-      req.params.categoryId,
-      { include: [Stock] }
-    )
+    const stockedCandies = await Category.findById(req.params.categoryId, {
+      include: [Stock]
+    })
     res.status(200).json(stockedCandies)
   } catch (err) {
     next(err)

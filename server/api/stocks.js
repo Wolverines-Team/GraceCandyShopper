@@ -1,9 +1,6 @@
 const router = require('express').Router()
-const {
-  Stock
-} = require('../db/models')
 const { requireLogin, requireAdmin } = require('./util')
-
+const { Stock, Rating, Images } = require('../db/models')
 module.exports = router
 
 //Actual path: /api/stocks/
@@ -11,7 +8,9 @@ module.exports = router
 //Accessibility: For all users
 router.get('/', async (req, res, next) => {
   try {
-    const stocks = await Stock.findAll()
+    const stocks = await Stock.findAll({
+      include: [{ model: Rating }, { model: Images }]
+    })
     res.json(stocks)
   } catch (err) {
     next(err)
@@ -30,13 +29,14 @@ router.get('/:stockId', async (req, res, next) => {
   }
 })
 
+
 //Actual path: /api/stocks
 //Create a new candy product(stock).
 //Accessibility: For Admin only. (Need to add..)
 router.post('/', async (req, res, next) => {
   try {
-    //Edwin's Comment: Is the whole req.body what we want? Or is there a different form we would prefer?
-    const newCandy = await Stock.create(req.body);
+    // Edwin's Comment: Is the whole req.body what we want? Or is there a different form we would prefer?
+    const newCandy = await Stock.create(req.body)
     res.status(200).json(newCandy)
   } catch (err) {
     next(err)
@@ -55,6 +55,7 @@ router.put('/:stockId', async (req, res, next) => {
     next(err)
   }
 })
+
 
 //Actual path: /api/stocks/:stockId
 // Deleting an existing candy

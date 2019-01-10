@@ -1,28 +1,29 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React from 'react'
 
+import Stars from './stars'
 
-export const Reviews = props => {
-  const reviews = [
-    { name: 'dirk', review_text: 'yo this candy slaps', rating_num: 1, id: 0 }
-  ]
-
+const Reviews = props => {
+  console.log(props.ratings)
+  const ratings = props.ratings
 
   return (
     <div>
-      {reviews.map(review => {
-        const {name, review_text, rating_num, id} = review;
-        return (
-
-          <div key={id}>
-
-            {/* <Stars rating={rating_num} /> */}
-            <p>{review_text}</p>
-          </div>
-        );
-      })}
+      {ratings ? (
+        ratings.map(rating => {
+          const { review_text, rating_num, id } = rating
+          return (
+            <div key={id}>
+              <Stars stars={rating_num} />
+              <p>{review_text}</p>
+            </div>
+          )
+        })
+      ) : (
+        <h1>No Reviews Yet</h1>
+      )}
     </div>
-  );
-};
+  )
+}
+export default Reviews
 
 // ★☆
