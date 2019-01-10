@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import Stars from './stars'
 
 class Reviews extends Component {
   constructor () {
     super()
+    this.state = {
+      description: '',
+      stars: 0,
+      name: ''
+    }
   }
 
   render () {
@@ -25,8 +32,8 @@ class Reviews extends Component {
         ) : (
           <h1>No Reviews Yet</h1>
         )}
-        {!props.user.role ? (
-          <div>
+        {!this.props.user.role ? (
+          <form>
             <h3>Write Review:</h3>
             <input
               className='input'
@@ -36,9 +43,9 @@ class Reviews extends Component {
                   name: evt.target.value
                 })
               }}
-              value={name}
+              value={this.props.description}
             />
-          </div>
+          </form>
         ) : (
           <h1>{''}</h1>
         )}
@@ -54,17 +61,7 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => {
-  return {
-    loadInitialData () {
-      dispatch(me())
-    },
-    fetchProducts: () => {
-      dispatch(fetchProducts())
-    },
-    fetchProductsByCategory: id => {
-      dispatch(fetchProductsByCategory(id))
-    }
-  }
+  return {}
 }
 
 // The `withRouter` wrapper makes sure that updates are not blocked

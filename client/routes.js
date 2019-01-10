@@ -34,7 +34,7 @@ class Routes extends Component {
         <Route path='/cart' component={Cart} />
         <Route path='/categories/:id' component={categoryView} />
 
-        {this.props.user.role ? (
+        {this.props.user.isAdmin ? (
           <Route exact path='/products/:id' component={SingleProductAdmin} />
         ) : (
           <Route exact path='/products/:id' component={SingleProduct} />

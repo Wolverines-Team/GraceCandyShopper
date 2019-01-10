@@ -6,7 +6,7 @@ import { logout } from '../store'
 
 const Navbar = () => (
   <div className='outline'>
-    {/* <div className='navRow'>
+    <div className='navRow'>
       <div>
         <img src='./images/wLogo.png' className='wLogo' />
       </div>
@@ -131,7 +131,7 @@ const Navbar = () => (
           <img src='./images/shoppingBag.png' id='bag' />
         </div>
       </div>
-    </div> */}
+    </div>
   </div>
 )
 /**
