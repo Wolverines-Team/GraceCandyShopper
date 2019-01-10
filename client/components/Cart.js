@@ -55,9 +55,9 @@ const mapStateToProps = state => ({items: state.items});
 
 const mapDispatchToProps = dispatch => {
   return {
-    getItems: () => dispatch(fetchItems()),
-    addItems: newItem => dispatch(postItems(newItem)),
-    removeItems: itemId => dispatch(deleteItems(itemId()))
+    getItems: () => dispatch(fetchItems())
+    // addItems: newItem => dispatch(postItems(newItem)),
+    // removeItems: itemId => dispatch(deleteItems(itemId()))
   };
 };
 
