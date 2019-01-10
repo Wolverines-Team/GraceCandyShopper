@@ -30,8 +30,7 @@ const factory = new SyncWaterfallHookCodeFactory();
 class SyncWaterfallHook extends Hook {
 	constructor(args) {
 		super(args);
-		if (args.length < 1)
-			throw new Error("Waterfall hooks must have at least one argument");
+		if(args.length < 1) throw new Error("Waterfall hooks must have at least one argument");
 	}
 
 	tapAsync() {

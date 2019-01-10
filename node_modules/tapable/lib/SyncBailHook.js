@@ -11,10 +11,7 @@ class SyncBailHookCodeFactory extends HookCodeFactory {
 	content({ onError, onResult, onDone, rethrowIfPossible }) {
 		return this.callTapsSeries({
 			onError: (i, err) => onError(err),
-			onResult: (i, result, next) =>
-				`if(${result} !== undefined) {\n${onResult(
-					result
-				)};\n} else {\n${next()}}\n`,
+			onResult: (i, result, next) => `if(${result} !== undefined) {\n${onResult(result)};\n} else {\n${next()}}\n`,
 			onDone,
 			rethrowIfPossible
 		});
