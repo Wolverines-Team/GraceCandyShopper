@@ -14,6 +14,7 @@ const Cart = require('./cart');
  *    BlogPost.belongsTo(User)
  */
 Images.belongsTo(Stock);
+Stock.hasMany(Images);
 Cart.belongsTo(User);
 Rating.belongsTo(User);
 Rating.belongsTo(Stock);

@@ -15,6 +15,21 @@ nav a {
   margin: 1em;
 }
 
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+hr {
+  background-color: rgb(211, 211, 211);
+  color: rgb(211, 211, 211);
+  border: solid 0px rgb(211, 211, 211);
+  height: 1px;
+}
+
+/* PART 1 NAVBAR */
+/* PART 1 NAVBAR */
+
 li {
   display: block;
 }
@@ -22,17 +37,12 @@ li {
   font-weight: lighter;
 }
 
-hr {
+ul hr {
   background-color: rgb(144, 187, 204);
   color: rgb(144, 187, 204);
   border: solid 0px rgb(144, 187, 204);
   height: 1px;
   width: 154px;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
 }
 
 .outline {
@@ -92,7 +102,9 @@ form div {
   position: relative;
   display: flex;
 }
-.dropdown4:hover .dropbtn4 {background-color: rgb(57, 185, 178);}
+.dropdown4:hover .dropbtn4 {
+  background-color: rgb(57, 185, 178);
+}
 
 .dropbtn5 {
   background-color: rgb(57, 149, 185);
@@ -107,8 +119,12 @@ form div {
   position: relative;
   display: flex;
 }
-.dropdown5:hover .dropbtn5 {background-color: rgb(105, 75, 175);}
-.dropdown5:hover .bag {background-color:  rgb(105, 75, 175);}
+.dropdown5:hover .dropbtn5 {
+  background-color: rgb(105, 75, 175);
+}
+.dropdown5:hover .bag {
+  background-color: rgb(105, 75, 175);
+}
 
 .dropdown1 {
   position: relative;
@@ -132,8 +148,12 @@ form div {
   text-decoration: none;
   display: block;
 }
-.dropdown1:hover .dropdown-content1 {display: flex;}
-.dropdown1:hover .dropbtn1 {background-color: rgb(57, 149, 185);}
+.dropdown1:hover .dropdown-content1 {
+  display: flex;
+}
+.dropdown1:hover .dropbtn1 {
+  background-color: rgb(57, 149, 185);
+}
 
 .dropdown2 {
   position: relative;
@@ -153,8 +173,12 @@ form div {
   text-decoration: none;
   display: block;
 }
-.dropdown2:hover .dropdown-content2 {display: block;}
-.dropdown2:hover .dropbtn2 {background-color: rgb(57, 149, 185);}
+.dropdown2:hover .dropdown-content2 {
+  display: block;
+}
+.dropdown2:hover .dropbtn2 {
+  background-color: rgb(57, 149, 185);
+}
 
 .dropdown3 {
   position: relative;
@@ -174,8 +198,12 @@ form div {
   text-decoration: none;
   display: block;
 }
-.dropdown3:hover .dropdown-content3 {display: block;}
-.dropdown3:hover .dropbtn3 {background-color: rgb(57, 149, 185);}
+.dropdown3:hover .dropdown-content3 {
+  display: block;
+}
+.dropdown3:hover .dropbtn3 {
+  background-color: rgb(57, 149, 185);
+}
 
 .dropdown {
   position: relative;
@@ -187,7 +215,7 @@ form div {
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -198,11 +226,17 @@ form div {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
-.dropdown:hover .dropbtn {background-color: rgb(57, 149, 185);}
+.dropdown:hover .dropbtn {
+  background-color: rgb(57, 149, 185);
+}
 
 .bag {
   background-color: rgb(57, 149, 185);
@@ -216,10 +250,154 @@ form div {
   padding: 6px;
 }
 
-/* star_rating styles */
+/* PART 2 SLIDESHOW*/
+/* PART 2 SLIDESHOW*/
 
-.star_container {
-  background-color: white;
-    width: 100;
-    height: 50;
+.s-outline {
+  display: flex;
+  margin: auto;
+  padding: 20px;
+  max-width: 640px;
+  flex-direction: column;
+}
+
+.s-row {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  -webkit-transition: left 1s;
+  transition: left 1s;
+}
+
+.mySlides {
+  max-width: 500px;
+  margin: auto;
+}
+
+.demo {
+  width: 50px;
+  cursor: pointer;
+}
+
+.opacity {
+  opacity: 0.75;
+}
+
+.opacity-off {
+  opacity: 1;
+}
+
+.hover-opacity-off:hover {
+  opacity: 1;
+}
+
+.animate-left {
+  position: relative;
+  animation: animateleft 0.6s;
+}
+
+@keyframes animateleft {
+  from {
+    left: -300%;
+    opacity: 0;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+/* PART 3 SIDEBAR AND ALLCARDS*/
+/* PART 3 SIDEBAR AND ALLCARDS*/
+
+.side-outline {
+  margin-left: 120px;
+  margin-top: 30px;
+  width: 150px;
+}
+
+.side-outline ul {
+  padding: 0;
+}
+
+.side-outline li {
+  font-size: 14px;
+  padding: 5px 0;
+}
+
+.main-outline {
+  display: flex;
+}
+
+.card-outline {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1100px;
+}
+
+.card {
+  width: 340px;
+  /* border: solid 1px rgb(211, 211, 211); */
+}
+
+.productText p {
+  margin: 4px 0;
+  padding-left: 10px;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+.card-img {
+  padding-top: 25px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.card-img img {
+  width: 330px;
+  max-height: 330px;
+}
+
+/* PART 4 SINGLE PRODUCT*/
+/* PART 4 SINGLE PRODUCT*/
+
+.productName h1 {
+  font-weight: thin;
+  font-family: "Trebuchet MS";
+  font-size: 40px;
+}
+
+.hide {
+  display: none;
+}
+
+.single-outline {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  max-width: 1050px;
+}
+
+.productName {
+  width: 400px;
+  padding-top: 60px;
+}
+
+.review {
+  width: 400px;
+  padding-top: 60px;
+}
+
+.review p {
+  font-weight: thin;
+  line-height: 30px;
+}
+
+.productName button {
+  background-color: rgb(57, 149, 185);
+  width: 170px;
+  height: 47px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: rgb(223, 223, 223);
 }

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-type Props = {};
+// type Props = {};
 
 export default class StarRating extends Component {
   render() {
