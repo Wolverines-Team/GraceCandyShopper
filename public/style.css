@@ -48,6 +48,9 @@ ul hr {
 .outline {
   display: flex;
 }
+.card{
+  border: 2px solid black;
+}
 
 .navRow {
   position: relative;

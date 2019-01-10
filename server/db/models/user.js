@@ -17,7 +17,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
-    get () {
+    get() {
       return () => this.getDataValue('password')
     }
   },
@@ -25,20 +25,17 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     // Making `.salt` act like a function hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
-    get () {
+    get() {
       return () => this.getDataValue('salt')
     }
   },
   googleId: {
     type: Sequelize.STRING
   },
-  cartId: {
-    type: Sequelize.INTEGER
-  },
   history: {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
   },
-  role: {
+  isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },

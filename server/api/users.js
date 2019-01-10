@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { User } = require('../db/models')
+const { requireLogin, requireAdmin } = require('./util')
 module.exports = router
 
 //All users. (Edwin's Comment: for Admin's view??)
