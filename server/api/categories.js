@@ -3,10 +3,13 @@ const {
   Category,
   Stock
 } = require('../db/models')
+const { requireLogin, requireAdmin } = require('./util')
+
 module.exports = router
 
 //Actual path: /api/categories/
 //GET all categories
+//Accessibility: For all users
 router.get('/', async (req, res, next) => {
   try {
     const categories = await Category.findAll()
@@ -18,10 +21,7 @@ router.get('/', async (req, res, next) => {
 
 //Actual path: /api/categories/:categoryId
 //GET all candies by the specific category
-
-// Edwin's Comment:
-// /categories/:categoryId
-// or should it be: /stocks/categories/:categoryId >>> depending on this decision, we will locate this router in a different file.
+//Accessibility: For all users
 router.get('/:categoryId', async (req, res, next) => {
   try {
     const stockedCandies = await Category.findById(
@@ -34,15 +34,50 @@ router.get('/:categoryId', async (req, res, next) => {
   }
 })
 
-// //creating a new category
-// router.post('/', async (req, res, next) => {
-//   try {
-//     //Edwin's comment: Do we want the entire req.body form?
-//     const newCategory = await Category.create(req.body);
-//     res.status(200).json(newCategory)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+//Actual path: /api/categories/
+// Creating a new category
+// Accessibility: For Admin only. (Need to add..)
+router.post('/', async (req, res, next) => {
+  try {
+    //Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
+    const { category_name } = req.body
+    const newCategory = await Category.create({ category_name });
+    res.status(200).json(newCategory)
+  } catch (err) {
+    next(err)
+  }
+})
 
-// //Do we need a delete for this?? router.delete()
+//Actual path: /api/categories/:categoryId
+// Updating an existing category
+// Accessibility: For Admin only. (Need to add..)
+router.put('/:categoryId', async (req, res, next) => {
+  try {
+    //Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
+    const currentCategory = await Category.findById(req.params.categoryId)
+
+    const updatedCategory = await currentCategory.update({
+      category_name: req.body.category_name
+    })
+
+    res.status(200).json(updatedCategory)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//Actual path: /api/categories/:categoryId
+// Deleting an existing category
+// Accessibility: For Admin only. (Need to add..)
+router.delete('/:categoryId', async (req, res, next) => {
+  try {
+    await Category.destroy({
+      where: {
+        id: req.params.categoryId
+      }
+    })
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})

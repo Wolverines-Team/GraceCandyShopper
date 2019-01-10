@@ -2,8 +2,13 @@ const router = require('express').Router()
 const {
   Stock
 } = require('../db/models')
+const { requireLogin, requireAdmin } = require('./util')
+
 module.exports = router
 
+//Actual path: /api/stocks/
+//GET all stocks
+//Accessibility: For all users
 router.get('/', async (req, res, next) => {
   try {
     const stocks = await Stock.findAll()
@@ -13,17 +18,9 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/categories', async (req, res, next) => {
-  try {
-    const categories = await Stock.findAll({
-      attributes: ['category']
-    })
-    res.json(categories)
-  } catch (err) {
-    next(err)
-  }
-})
-
+//Actual path: /api/stocks/:stockId
+//GET single candy
+//Accessibility: For all users
 router.get('/:stockId', async (req, res, next) => {
   try {
     const candy = await Stock.findById(req.params.stockId)
@@ -33,7 +30,9 @@ router.get('/:stockId', async (req, res, next) => {
   }
 })
 
-//Create a candy product(stock).
+//Actual path: /api/stocks
+//Create a new candy product(stock).
+//Accessibility: For Admin only. (Need to add..)
 router.post('/', async (req, res, next) => {
   try {
     //Edwin's Comment: Is the whole req.body what we want? Or is there a different form we would prefer?
@@ -44,6 +43,9 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+//Actual path: /api/stocks/:stockId
+// Updating an existing candy
+// Accessibility: For Admin only. (Need to add..)
 router.put('/:stockId', async (req, res, next) => {
   try {
     const oldCandy = await Stock.findById(req.params.stockId)
@@ -54,7 +56,9 @@ router.put('/:stockId', async (req, res, next) => {
   }
 })
 
-
+//Actual path: /api/stocks/:stockId
+// Deleting an existing candy
+// Accessibility: For Admin only. (Need to add..)
 router.delete('/:stockId', async (req, res, next) => {
   try {
     await Stock.destroy({
