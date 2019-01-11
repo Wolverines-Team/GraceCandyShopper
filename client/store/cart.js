@@ -1,96 +1,99 @@
-import axios from 'axios';
+import axios from 'axios'
 
-//"OZLEM`S NOTE"
-//GET_ITEM means products in the cart
+// "OZLEM`S NOTE"
+// GET_ITEM means products in the cart
 
-//action types
-const GET_ITEM = 'GET_ITEM';
-const ADD_ITEM = 'ADD_ITEM';
-const REMOVE_ITEM = 'REMOVE_ITEM';
-const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
+// action types
+const GET_ITEM = 'GET_ITEM'
+const ADD_ITEM = 'ADD_ITEM'
+const REMOVE_ITEM = 'REMOVE_ITEM'
+const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
 
-//action creator
+// action creator
 export const getItem = items => ({
   type: GET_ITEM,
   items
-});
+})
 
 export const addItem = newItem => ({
   type: ADD_ITEM,
   newItem
-});
+})
 
 export const removeItem = itemId => ({
   type: REMOVE_ITEM,
   itemId
-});
+})
 
 export const updateQuantity = item => ({
   type: UPDATE_QUANTITY,
   item
-});
+})
 
-//thunk creators
+// thunk creators
 export const fetchItems = () => async dispatch => {
   try {
-    const {data} = await axios.get('/api/cart');
-    console.log('cart is looking like ===>', DataTransferItemList);
-    dispatch(getItem(data));
+    const { data } = await axios.get('/api/cart')
+    console.log('cart is looking like ===>', DataTransferItemList)
+    dispatch(getItem(data))
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}
 
 // OZLEM`S COMMENT
-//!!! IMPORTANT NOTE: WE WILL GOING TO ADD NEW ITEMS/PRODUCTS TO THE CART
-//I AM NOT SURE ABOUT THE NAME , IN DB NAME IS STOCK ID, HOWEVER I AM USING IN HERE 'item.id'
+//! !! IMPORTANT NOTE: WE WILL GOING TO ADD NEW ITEMS/PRODUCTS TO THE CART
+// I AM NOT SURE ABOUT THE NAME , IN DB NAME IS STOCK ID, HOWEVER I AM USING IN HERE 'item.id'
 
 export const postItems = newItem => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/cart`, newItem);
-    dispatch(addItem(data));
+    const { data } = await axios.post(`/api/cart`, newItem)
+    dispatch(addItem(data))
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}
 
 export const deleteItems = itemId => async dispatch => {
-  await axios.delete(`/api/cart/${itemId}`);
-  dispatch(removeItem(itemId));
-};
+  await axios.delete(`/api/cart/${itemId}`)
+  dispatch(removeItem(itemId))
+}
 
 // OZLEM`S COMMENTS
 // I AM NOT SURE ABOUT HOW CAN I CHANGE THE QUANTITY , IS IT OKAY `item.quantity`???
 
+// Noah's Comment
+// workaround could be 2 args with the quantity being pulled from the event.target.value of the quantity input on the cart component
+
 export const updateItemQuantity = item => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/cart/${item.id}`, item.quantity);
-    dispatch(updateQuantity(data));
+    const { data } = await axios.put(`/api/cart/${item.id}`, item.quantity)
+    dispatch(updateQuantity(data))
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}
 
 // Reducer
-const defaultState = [];
+const defaultState = []
 
-export default function(cartState = defaultState, action) {
+export default function (cartState = defaultState, action) {
   switch (action.type) {
     case GET_ITEM:
-      return action.items;
+      return action.items
     case ADD_ITEM:
-      return [...cartState, action.newItem];
+      return [...cartState, action.newItem]
     case REMOVE_ITEM:
-      return cartState.filter(item => item.id !== action.itemId);
+      return cartState.filter(item => item.id !== action.itemId)
     case UPDATE_QUANTITY:
       return cartState.map(item => {
         if (item.id === action.item.id) {
-          return {...item, ...action.item};
+          return { ...item, ...action.item }
         } else {
-          return item;
+          return item
         }
-      });
+      })
     default:
-      return cartState;
+      return cartState
   }
 }
