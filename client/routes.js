@@ -1,70 +1,70 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   withRouter,
   Route,
   Switch,
   BrowserRouter as Router
-} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, Navbar } from './components'
-import { me } from './store'
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Login, Signup, UserHome, Navbar } from './components';
+import { me } from './store';
 import {
   fetchProducts,
   fetchProductsByCategory,
   fetchCategories
-} from './store/products'
-import AllProducts from './components/allProducts'
-import SingleProductAdmin from './components/admin/SingleProduct-Admin'
-import SingleProduct from './components/SingleProduct'
-import CategoryView from './components/categoryView'
-import Cart from './components/Cart'
-import createProduct from './components/admin/createProduct'
-import SideBar from './components/SideBar'
-
-import Stripe from './components/stripe'
+} from './store/products';
+import AllProducts from './components/allProducts';
+import SingleProductAdmin from './components/admin/SingleProduct-Admin';
+import SingleProduct from './components/SingleProduct';
+import CategoryView from './components/categoryView';
+import Cart from './components/Cart';
+import createProduct from './components/admin/createProduct';
+import SideBar from './components/SideBar';
+import Stripe from './components/stripe';
+import welcomeBar from './components/welcomeBar';
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
-    this.props.fetchCategories()
-    this.props.loadInitialData()
-    this.props.fetchProducts()
+  componentDidMount() {
+    this.props.fetchCategories();
+    this.props.loadInitialData();
+    this.props.fetchProducts();
   }
 
-  render () {
-    const { isLoggedIn } = this.props
+  render() {
+    const { isLoggedIn } = this.props;
 
     return (
       <div>
-        <Route path='/' component={Navbar} />
-        <Route path='/products' component={SideBar} />
-        <Route exact path='/products' component={AllProducts} />
+        <Route path="/" component={Navbar} />
+        <Route path="/products" component={SideBar} />
+        <Route exact path="/products" component={AllProducts} />
 
-        <Route path='/login' component={Login} />
-        <Route path='/signup' component={Signup} />
-        <Route path='/cart' component={Cart} />
-        <Route path='/products/categories/:id' component={CategoryView} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/products/categories/:id" component={CategoryView} />
 
         {this.props.user.isAdmin ? (
           <div>
-            <Route exact path='/products/:id' component={SingleProductAdmin} />
-            <Route exact path='/newproduct' component={createProduct} />
+            <Route exact path="/products/:id" component={SingleProductAdmin} />
+            <Route exact path="/newproduct" component={createProduct} />
           </div>
         ) : (
-          <Route exact path='/products/:id' component={SingleProduct} />
+          <Route exact path="/products/:id" component={SingleProduct} />
         )}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path='/home' component={Stripe} />
+            <Route path="/home" component={welcomeBar} />
           </Switch>
         )}
-        <Route path='/home' component={Login} />
+        <Route path="/home" component={Login} />
       </div>
-    )
+    );
   }
 }
 
@@ -77,34 +77,29 @@ const mapState = state => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     user: state.user
-  }
-}
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData () {
-      dispatch(me())
+    loadInitialData() {
+      dispatch(me());
     },
     fetchProducts: () => {
-      dispatch(fetchProducts())
+      dispatch(fetchProducts());
     },
     fetchProductsByCategory: id => {
-      dispatch(fetchProductsByCategory(id))
+      dispatch(fetchProductsByCategory(id));
     },
     fetchCategories: () => {
-      dispatch(fetchCategories())
+      dispatch(fetchCategories());
     }
-  }
-}
+  };
+};
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(Routes)
-)
+export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 /**
  * PROP TYPES
@@ -112,4 +107,4 @@ export default withRouter(
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
-}
+};
