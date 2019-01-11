@@ -4,6 +4,7 @@ module.exports = router
 router.use('/users', require('./users'))
 router.use('/stocks', require('./stocks'))
 router.use('/categories', require('./categories'))
+router.use('/cart', require('./cart'))
 router.use('/reviews', require('./reviews'))
 
 router.use((req, res, next) => {

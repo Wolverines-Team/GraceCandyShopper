@@ -3,7 +3,8 @@ const db = require('../db');
 
 const CartItems = db.define('cartItem', {
   quantity: {
-    type: Seqeulize.INTEGER
+    type: Seqeulize.INTEGER,
+    defaultValue: 1
   }
 });
 
