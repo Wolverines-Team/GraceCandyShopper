@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Reviews from '../Reviews'
-import { updateProducts, fetchProducts } from '../../store'
+import { updateProducts, fetchProducts, deleteProduct } from '../../store'
 
 class SingleProductAdmin extends Component {
   constructor () {
@@ -14,14 +14,14 @@ class SingleProductAdmin extends Component {
       quantity: 0,
       category: '',
       brand: '',
-      photosIds: [],
+      images: [],
       ratings: []
     }
   }
 
   componentDidMount () {
     const [
-      { name, price, description, quantity, ratings, id }
+      { description, id, name, price, quantity, ratings, images }
     ] = this.props.products.filter(
       product => product.id == this.props.match.params.id
     )
@@ -31,12 +31,22 @@ class SingleProductAdmin extends Component {
       price,
       description,
       quantity,
-      ratings
+      ratings,
+      images
     })
   }
 
   render () {
-    const { name, description, price, quantity, ratings, id } = this.state
+    const {
+      id,
+      name,
+      price,
+      description,
+      quantity,
+      ratings,
+      images
+    } = this.state
+
     return (
       <div className='singleview'>
         <form
@@ -65,8 +75,11 @@ class SingleProductAdmin extends Component {
             }}
             value={name}
           />
-          {/* <img src={product.imageUrl[1]} /> */}
-          {/* <Images images={product.images} */}
+          {images.length ? (
+            <img src={images[1].imageUrl} height='200' width='200' />
+          ) : (
+            <div />
+          )}
           <div className='producttext'>
             <h4>
               description:{description}
@@ -86,6 +99,7 @@ class SingleProductAdmin extends Component {
           <h3>Price: ${price}</h3>
           <input
             className='input'
+            type='number'
             onChange={evt => {
               this.setState({ price: evt.target.value })
             }}
@@ -104,9 +118,19 @@ class SingleProductAdmin extends Component {
             value={quantity}
           />
           <button type='submit'>Save</button>
+          <button
+            onClick={evt => {
+              evt.preventDefault()
+              this.props.deleteProduct(id)
+              this.props.fetchProducts()
+              this.props.history.push('/products')
+            }}
+          >
+            DELETE PRODUCT
+          </button>
         </form>
         <div className='reviews'>
-          <Reviews ratings={ratings} />
+          <Reviews product={{ ratings }} />
         </div>
       </div>
     )
@@ -125,6 +149,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchProductsByCategory: id => {
       dispatch(fetchProductsByCategory(id))
+    },
+    deleteProduct: id => {
+      dispatch(deleteProduct(id))
     }
   }
 }

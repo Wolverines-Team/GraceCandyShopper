@@ -9,7 +9,11 @@ const CardView = props => {
     <div className='card'>
       <Link to={`/products/${product.id}`}>
         <div className='card-img'>
-          <img src={product.images[0].imageUrl} />
+          {product.images[0] ? (
+            <img src={product.images[0].imageUrl} />
+          ) : (
+            <h1>No Image</h1>
+          )}
         </div>
       </Link>
       <div className='productText'>
