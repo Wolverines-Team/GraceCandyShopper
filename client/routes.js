@@ -21,8 +21,8 @@ import CategoryView from './components/categoryView'
 import Cart from './components/Cart'
 import createProduct from './components/admin/createProduct'
 import SideBar from './components/SideBar'
-
 import Stripe from './components/stripe'
+import welcomeBar from './components/welcomeBar'
 
 /**
  * COMPONENT
@@ -59,7 +59,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path='/home' component={Stripe} />
+            <Route path='/home' component={welcomeBar} />
           </Switch>
         )}
         <Route path='/home' component={Login} />

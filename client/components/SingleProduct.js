@@ -5,13 +5,10 @@ import Reviews from './Reviews'
 import SideBar from './SideBar'
 
 const SingleProduct = props => {
-  console.log(props.match.params.id)
-  console.log(props.products)
   const [product] = props.products.filter(
-    product => product.id == props.match.params.id
+    product => product.id === Number(props.match.params.id)
   )
   let firstId = product.images[0].id
-  console.log('product.images', firstId)
 
   function currentDiv (n) {
     let slideIndex = n
@@ -79,16 +76,17 @@ const SingleProduct = props => {
 
         <div className='review'>
           <hr />
-          <h4>WHY YOU WANT THIS</h4>
-          <p>{product.description}</p>
-          <Reviews product={product} />
-          <hr />
           <h4>SHIPPING INFO</h4>
           <p>
             This item typically ships within 1-2 business days. This processing
             time is in addition to time in transit via your chosen shipping
             method.
           </p>
+          <hr />
+          <h4>REVIEWS</h4>
+          <p>{product.description}</p>
+          <Reviews product={product} />
+          <hr />
         </div>
       </div>
     </div>
