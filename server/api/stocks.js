@@ -5,9 +5,9 @@ const { Stock, Rating, Images, StockCategory } = require('../db/models')
 
 module.exports = router
 
-//Actual path: /api/stocks/
-//GET all stocks
-//Accessibility: For all users
+// Actual path: /api/stocks/
+// GET all stocks
+// Accessibility: For all users
 router.get('/', async (req, res, next) => {
   try {
     const stocks = await Stock.findAll({
@@ -19,9 +19,9 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/stocks/:stockId
-//GET single candy
-//Accessibility: For all users
+// Actual path: /api/stocks/:stockId
+// GET single candy
+// Accessibility: For all users
 router.get('/:stockId', async (req, res, next) => {
   try {
     const candy = await Stock.findById(req.params.stockId)
@@ -31,20 +31,27 @@ router.get('/:stockId', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/stocks
-//Create a new candy product(stock).
-//Accessibility: For Admin only. (Need to add..)
+// Actual path: /api/stocks
+// Create a new candy product(stock).
+// Accessibility: For Admin only. (Need to add..)
 router.post('/', async (req, res, next) => {
   try {
     // Edwin's Comment: Is the whole req.body what we want? Or is there a different form we would prefer?
-    const newCandy = await Stock.create(req.body)
+    const newCandy = await Stock.create({
+      name: req.body.name,
+      description: req.body.description,
+      quantity: req.body.quantity,
+      price: req.body.price,
+      brand: req.body.brand,
+      images: [{ id: 0, imageUrl: '/images/candy10-1.png' }]
+    })
     res.status(200).json(newCandy)
   } catch (err) {
     next(err)
   }
 })
 
-//Actual path: /api/stocks/:stockId
+// Actual path: /api/stocks/:stockId
 // Updating an existing candy
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:stockId', async (req, res, next) => {
@@ -57,7 +64,7 @@ router.put('/:stockId', async (req, res, next) => {
   }
 })
 
-//Actual path: /api/stocks/:stockId
+// Actual path: /api/stocks/:stockId
 // Deleting an existing candy
 // Accessibility: For Admin only. (Need to add..)
 router.delete('/:stockId', async (req, res, next) => {

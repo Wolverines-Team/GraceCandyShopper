@@ -48,15 +48,30 @@ export const updateProducts = product => async dispatch => {
 }
 export const createReview = review => async () => {
   try {
-    const { data } = await axios.post(`/api/reviews/${review.id}`, review)
+    await axios.post(`/api/reviews/`, review)
+    fetchProducts()
+  } catch (error) {
+    console.error(error)
+  }
+}
+export const deleteReview = id => async () => {
+  try {
+    await axios.delete(`/api/reviews/${id}`)
   } catch (error) {
     console.error(error)
   }
 }
 export const createProduct = product => async dispatch => {
   try {
-    const { data } = await axios.post(`/api/stocks/`, product)
+    const { data } = await axios.post(`/api/stocks`, product)
     dispatch(getProducts(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+export const deleteProduct = stockId => async () => {
+  try {
+    await axios.delete(`/api/stocks/${stockId}`)
   } catch (error) {
     console.error(error)
   }
