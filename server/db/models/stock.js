@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const Stock = db.define('stocks', {
   name: {
@@ -29,8 +29,8 @@ const Stock = db.define('stocks', {
   brand: {
     type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: 'CandyShop',
-  },
-})
+    defaultValue: 'CandyShop'
+  }
+});
 
-module.exports = Stock
+module.exports = Stock;
