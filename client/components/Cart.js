@@ -7,6 +7,7 @@ import {
   updateItemQuantity
 } from '../store/cart';
 import {Link} from 'react-router-dom';
+import SingleProduct from './SingleProduct';
 
 export const Cart = props => {
   const items = props.items || [];
@@ -22,15 +23,43 @@ export const Cart = props => {
     );
   }
   return (
-    <body className="cart">
-      <tr>
-        <th> ITEM </th>
-        <th> QUANTITY </th>
-        <th> UNIT PRICE </th>
-        <th> ITEM TOTAL</th>
-      </tr>
-    </body>
+    <div className="cart_container">
+      <h1>MY BAG</h1>
+      <button type="button"> CHECKOUT</button>
+      <table id="cart_table">
+        <tbody>
+          <tr>
+            <th> ITEM </th>
+            <th> QUANTITY </th>
+            <th> UNIT PRICE </th>
+            <th> ITEM TOTAL</th>
+          </tr>
+          <tr>
+            {items.map(item => (
+              <SingleProduct
+                key={item.id}
+                item={item.name}
+                quantity={item.quantity}
+                price={item.price}
+              />
+            ))}
+          </tr>
+        </tbody>
+      </table>
+      <button type="button"> CHECKOUT</button>
+    </div>
   );
 };
 
-export default Cart;
+const mapStateToProps = state => ({items: state.items});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getItems: () => dispatch(fetchItems())
+    // addItems: newItem => dispatch(postItems(newItem)),
+    // removeItems: itemId => dispatch(deleteItems(itemId()))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+//export default Cart;
