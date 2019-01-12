@@ -1,61 +1,42 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import CardView from './CardView'
-import { fetchProducts } from '../store'
-import SideBar from './SideBar'
-import { Link } from 'react-router-dom'
 
-class AllProducts extends Component {
-  constructor () {
-    super()
-  }
-  componentDidMount () {
-    this.props.fetchProducts()
-  }
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import CardView from './CardView';
+import SideBar from './SideBar';
 
-  render () {
-    let products = this.props.products
-    return (
-      <div className='outline'>
+const AllProducts = props => {
+  let products = props.products;
+  return (
+    <div className="outline">
+      <div className="all-outline">
         <SideBar />
-
-        {this.props.user.isAdmin ? (
-          <Link to='/newproduct'>New Product</Link>
-        ) : (
-          <div />
-        )}
-        <div className='card-outline'>
+        <div className="card-outline">
           {products.length ? (
             products.map(product => {
               return (
                 <div key={product.id}>
-                  <CardView product={product} history={this.props.history} />
+                  <CardView product={product} history={props.history} />
                 </div>
-              )
+              );
             })
           ) : (
             <h1>No products!</h1>
           )}
         </div>
       </div>
-    )
-  }
-}
+    </div>
+  );
+};
 
 const mapStateToProps = state => ({
   products: state.products.products,
-  user: state.user
-})
+  cart: state.cart
+});
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchProducts: () => {
-      dispatch(fetchProducts())
-    }
-  }
-}
+    addItem: newItem => dispatch(addItem(newItem))
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AllProducts)
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);

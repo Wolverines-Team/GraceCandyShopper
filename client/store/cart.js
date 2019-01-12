@@ -15,10 +15,10 @@ export const getItem = items => ({
   items
 })
 
-export const addItem = newItem => ({
+export const addItem = item => ({
   type: ADD_ITEM,
-  newItem
-})
+  item
+});
 
 export const removeItem = itemId => ({
   type: REMOVE_ITEM,
@@ -30,12 +30,14 @@ export const updateQuantity = item => ({
   item
 })
 
-// thunk creators
-export const fetchItems = () => async dispatch => {
+
+//thunk creators
+export const fetchItems = cartId => async dispatch => {
   try {
-    const { data } = await axios.get('/api/cart')
-    console.log('cart is looking like ===>', DataTransferItemList)
-    dispatch(getItem(data))
+
+    const { data } = await axios.post('api/cart');
+    dispatch(getItem(data));
+
   } catch (error) {
     console.log(error)
   }
@@ -45,10 +47,13 @@ export const fetchItems = () => async dispatch => {
 //! !! IMPORTANT NOTE: WE WILL GOING TO ADD NEW ITEMS/PRODUCTS TO THE CART
 // I AM NOT SURE ABOUT THE NAME , IN DB NAME IS STOCK ID, HOWEVER I AM USING IN HERE 'item.id'
 
-export const postItems = newItem => async dispatch => {
+export const postItems = (cartId, item) => async dispatch => {
   try {
-    const { data } = await axios.post(`/api/cart`, newItem)
-    dispatch(addItem(data))
+
+    const { data } = await axios.post(`/api/cart/${newItem.cartId}`, newItem);
+    dispatch(addItem(data));
+
+
   } catch (error) {
     console.log(error)
   }
@@ -67,8 +72,9 @@ export const deleteItems = itemId => async dispatch => {
 
 export const updateItemQuantity = item => async dispatch => {
   try {
-    const { data } = await axios.put(`/api/cart/${item.id}`, item.quantity)
-    dispatch(updateQuantity(data))
+    const { data } = await axios.put(`/api/cart/${item.id}`, item.quantity);
+    dispatch(updateQuantity(data));
+
   } catch (error) {
     console.error(error)
   }
@@ -82,13 +88,15 @@ export default function (cartState = defaultState, action) {
     case GET_ITEM:
       return action.items
     case ADD_ITEM:
-      return [...cartState, action.newItem]
+
+      return [...cartState, action.item];
     case REMOVE_ITEM:
-      return cartState.filter(item => item.id !== action.itemId)
+      console.log('are you hitting there??====>');
+      return cartState.filter(item => item.id !== action.itemId);
     case UPDATE_QUANTITY:
       return cartState.map(item => {
-        if (item.id === action.item.id) {
-          return { ...item, ...action.item }
+        if (item.stockId === action.item.stockId) {
+          return { ...item, ...action.item };
         } else {
           return item
         }

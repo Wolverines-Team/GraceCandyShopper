@@ -1,31 +1,28 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Stars from './stars'
 import { deleteReview, createReview, fetchProducts } from '../store'
 
+
 class Reviews extends Component {
-  constructor () {
-    super()
+  constructor() {
+    super();
     this.state = {
-      review_text: '',
-      rating_num: 0,
-      userId: 0
-    }
+      description: '',
+      stars: 0,
+      name: ''
+    };
   }
 
-  componentDidMount () {
-    this.setState({ ratings: this.props.product.ratings })
-  }
-  render () {
-    const ratings = this.props.product.ratings
+  render() {
+    const ratings = this.props.ratings;
 
     return (
       <div>
         {ratings ? (
           ratings.map(rating => {
-            const { review_text, rating_num, id } = rating
+            const { review_text, rating_num, id } = rating;
             return (
               <div key={id}>
                 <Stars stars={rating_num} />
@@ -45,7 +42,7 @@ class Reviews extends Component {
                   <div />
                 )}
               </div>
-            )
+            );
           })
         ) : (
           <h1>No Reviews Yet</h1>
@@ -79,30 +76,31 @@ class Reviews extends Component {
             />
             <hr />
             <input
-              className='input'
-              type='text'
+              className="input"
+              type="text"
               onChange={evt => {
                 this.setState({
-                  review_text: evt.target.value
-                })
+
+                  name: evt.target.value
+                });
               }}
               value={this.state.review_text}
             />
             <button type='submit'>Post Review</button>
           </form>
         ) : (
-          <h1>{''}</h1>
+          <h1 />
         )}
       </div>
-    )
+    );
   }
 }
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
     user: state.user
-  }
-}
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
@@ -120,11 +118,6 @@ const mapDispatch = dispatch => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(Reviews)
-)
+export default withRouter(connect(mapState, mapDispatch)(Reviews));
 
 // ★☆
