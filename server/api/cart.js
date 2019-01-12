@@ -9,9 +9,9 @@ module.exports = router
 // Accessibility: For all users
 router.get('/:cartId', async (req, res, next) => {
   try {
-    const singleCartView = await CartItems.findOrCreate({
+    const singleCartView = await Cartfind({
       where: { cartId: req.params.cartId },
-      include: [{ model: Stock }]
+      include: [{ model: CartItems }]
     })
     res.json(singleCartView)
   } catch (err) {
