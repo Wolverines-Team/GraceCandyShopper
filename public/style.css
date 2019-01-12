@@ -59,6 +59,10 @@ ul hr {
   width: 190px;
 }
 
+button:focus {
+  outline: 0;
+}
+
 .dropbtn1 {
   background-color: rgba(153, 40, 144, 0.849);
   color: white;
@@ -125,6 +129,9 @@ ul hr {
 .dropdown5:hover .bag {
   background-color: rgb(105, 75, 175);
 }
+.dropdown5:hover span {
+  color: rgb(105, 75, 175);
+}
 
 .dropdown1 {
   position: relative;
@@ -132,8 +139,8 @@ ul hr {
 }
 .dropdown-content1 {
   display: none;
-  position: fixed;
-  left: 220px;
+  position: absolute;
+  left: -180px;
   margin-top: 94px;
   background-color: rgb(57, 149, 185);
   min-width: 1010px;
@@ -243,11 +250,21 @@ ul hr {
   height: 70px;
   border: none;
   margin-top: auto;
+  display: flex;
+  justify-content: center;
 }
 
 #bag {
   height: 60px;
   padding: 6px;
+}
+
+.bag span {
+  z-index: 2;
+  padding-top: 32px;
+  color: rgb(57, 149, 185);
+  font-weight: bold;
+  position: absolute;
 }
 
 /* PART 2 SLIDESHOW*/
@@ -310,8 +327,13 @@ ul hr {
 /* PART 3 SIDEBAR AND ALLCARDS*/
 /* PART 3 SIDEBAR AND ALLCARDS*/
 
+.all-outline {
+  display: flex;
+  margin: auto;
+}
+
 .side-outline {
-  margin-left: 120px;
+  margin-left: 100px;
   margin-top: 30px;
   width: 150px;
 }
@@ -333,16 +355,104 @@ ul hr {
   display: flex;
   flex-wrap: wrap;
   max-width: 1100px;
+  padding-top: 10px;
+  padding-left: 10px;
 }
 
 .card {
   width: 340px;
-  /* border: solid 1px rgb(211, 211, 211); */
+  border: solid 1px rgb(255, 255, 255);
+}
+
+.card:hover {
+  border-top: solid 1px rgb(211, 211, 211);
+  border-left: solid 1px rgb(211, 211, 211);
+  border-right: solid 1px rgb(211, 211, 211);
+}
+
+.card-extend {
+  display: none;
+  position: absolute;
+  border-bottom: solid 1px rgb(211, 211, 211);
+  border-left: solid 1px rgb(211, 211, 211);
+  border-right: solid 1px rgb(211, 211, 211);
+  width: 340px;
+  height: 110px;
+  background-color: white;
+  z-index: 2;
+}
+
+.single-card-outline:hover .card {
+  border-top: solid 1px rgb(211, 211, 211);
+  border-left: solid 1px rgb(211, 211, 211);
+  border-right: solid 1px rgb(211, 211, 211);
+}
+
+.single-card-outline:hover .card-extend {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-extend button {
+  background-color: rgb(57, 149, 185);
+  border-color: rgb(57, 149, 185);
+  width: 300px;
+  height: 40px;
+  border-radius: 3px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  margin: 10px auto 12px;
+  display: flex;
+  cursor: pointer;
+}
+
+.card-extend button:hover {
+  background-color: rgb(130, 203, 231);
+  border-color: rgb(130, 203, 231);
+}
+
+.card-extend button span {
+  margin: auto;
+}
+
+.card-extend input {
+  width: 130px;
+  height: 35px;
+  outline: none;
+  display: flex;
+  margin-left: auto;
+  border: solid 1px white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.qty-bar {
+  border: solid 1px rgb(0, 0, 0);
+  width: 296px;
+  height: 40px;
+  display: flex;
+  margin: auto;
+}
+
+.qty-text {
+  color: rgb(163, 163, 163);
+  margin: 11px 10px;
+  font-weight: 100;
+}
+
+.qty-sign {
+  color: rgb(57, 149, 185);
+  margin: 0px 10px;
+  font-size: 44px;
+  line-height: 32px;
+  font-family: Georgia;
+  cursor: pointer;
 }
 
 .productText p {
   margin: 4px 0;
-  padding-left: 10px;
+  padding-left: 21px;
   font-family: sans-serif;
   font-weight: 100;
 }
@@ -400,4 +510,39 @@ ul hr {
   border-radius: 5px;
   font-size: 16px;
   color: rgb(223, 223, 223);
+}
+
+/* PART 5 SIGN-IN*/
+/* PART 5 SIGN-IN*/
+
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.sign-in-outline {
+  margin: auto;
+  padding-top: 25px;
+}
+
+.sign-in input {
+  height: 30px;
+  margin-top: 10px;
+  font-size: 18px;
+  background-color: white;
+}
+
+.sign-in button {
+  background-color: rgb(57, 149, 185);
+  border-color: rgb(57, 149, 185);
+  width: 100px;
+  height: 40px;
+  border-radius: 3px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  margin: 10px auto 12px;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
 }
