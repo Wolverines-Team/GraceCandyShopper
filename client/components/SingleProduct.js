@@ -37,6 +37,7 @@ const SingleProduct = props => {
       <div className="single-outline">
         <div className="productName">
           <h1>{product.name.toUpperCase() + ' $' + product.price}</h1>
+
           <button
             onClick={() => {
               //arguments are samples.need to figure out how to get the cartId into the below method later.
@@ -54,6 +55,7 @@ const SingleProduct = props => {
             {' '}
             ADD TO BAG
           </button>
+
         </div>
 
         <div className="s-outline">
@@ -110,6 +112,7 @@ const SingleProduct = props => {
   );
 };
 
+
 const mapStateToProps = state => {
   console.log('=====what does STATE look like?===> ', state);
   return {
@@ -126,3 +129,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
+

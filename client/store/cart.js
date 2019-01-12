@@ -39,8 +39,10 @@ export const getCart = cartId => ({
 //thunk creators
 export const fetchItems = cartId => async dispatch => {
   try {
+
     const { data } = await axios.get(`/api/cart/${cartId}`);
     // console.log('cart is looking like ===>', data);
+
     dispatch(getItem(data));
   } catch (error) {
     console.log(error);
@@ -53,8 +55,10 @@ export const fetchItems = cartId => async dispatch => {
 
 export const postItems = (cartId, item) => async dispatch => {
   try {
+
     console.log('what is our item ===>', item);
     const { data } = await axios.post(`/api/cart/${cartId}`, item);
+
     dispatch(addItem(data));
   } catch (error) {
     console.log(error);
@@ -102,7 +106,7 @@ export default function(cartState = defaultState, action) {
       return cartState.filter(item => item.id !== action.itemId);
     case UPDATE_QUANTITY:
       return cartState.map(item => {
-        if (item.id === action.item.id) {
+        if (item.stockId === action.item.stockId) {
           return { ...item, ...action.item };
         } else {
           return item;

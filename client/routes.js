@@ -24,12 +24,14 @@ import SideBar from './components/SideBar';
 import Stripe from './components/stripe';
 import welcomeBar from './components/welcomeBar';
 
+
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.fetchCategories();
+
+
     this.props.loadInitialData();
     this.props.fetchProducts();
   }
@@ -40,19 +42,17 @@ class Routes extends Component {
     return (
       <div>
         <Route path="/" component={Navbar} />
-        <Route path="/products" component={SideBar} />
-        <Route exact path="/products" component={AllProducts} />
 
+        <Route exact path="/products" component={AllProducts} />
+        <Route exact path="/newproduct" component={createProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
-        <Route path="/products/categories/:id" component={CategoryView} />
+        <Route path="/categories/:id" component={categoryView} />
 
         {this.props.user.isAdmin ? (
-          <div>
-            <Route exact path="/products/:id" component={SingleProductAdmin} />
-            <Route exact path="/newproduct" component={createProduct} />
-          </div>
+          <Route exact path="/products/:id" component={SingleProductAdmin} />
+
         ) : (
           <Route exact path="/products/:id" component={SingleProduct} />
         )}
@@ -60,6 +60,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={welcomeBar} />
+
           </Switch>
         )}
         <Route path="/home" component={Login} />
@@ -90,9 +91,11 @@ const mapDispatch = dispatch => {
     },
     fetchProductsByCategory: id => {
       dispatch(fetchProductsByCategory(id));
+
     },
     fetchCategories: () => {
       dispatch(fetchCategories());
+
     }
   };
 };
