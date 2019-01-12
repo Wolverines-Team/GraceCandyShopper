@@ -10,6 +10,7 @@ const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
+
     <div className="outline">
       <div className="sign-in-outline">
         {' '}
@@ -32,6 +33,7 @@ const AuthForm = props => {
         </form>
         <a href="/auth/google">{displayName} with Google</a>
       </div>
+
     </div>
   );
 };

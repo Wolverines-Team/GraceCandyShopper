@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Reviews from '../Reviews';
 import { updateProducts, fetchProducts } from '../../store';
 
+
 class SingleProductAdmin extends Component {
   constructor() {
     super();
@@ -31,11 +32,14 @@ class SingleProductAdmin extends Component {
       price,
       description,
       quantity,
+
       ratings
+
     });
   }
 
   render() {
+
     const { name, description, price, quantity, ratings, id } = this.state;
     return (
       <div className="singleview">
@@ -43,6 +47,7 @@ class SingleProductAdmin extends Component {
           onSubmit={evt => {
             evt.preventDefault();
             this.props.updateProducts({
+
               id,
               name,
               price,
@@ -63,8 +68,10 @@ class SingleProductAdmin extends Component {
             }}
             value={name}
           />
+
           {/* <img src={product.imageUrl[1]} /> */}
           {/* <Images images={product.images} */}
+
           <div className="producttext">
             <h4>
               description:{description}
@@ -85,6 +92,7 @@ class SingleProductAdmin extends Component {
           <input
 
             className="input"
+
             onChange={evt => {
               this.setState({ price: evt.target.value });
             }}
@@ -103,10 +111,12 @@ class SingleProductAdmin extends Component {
             value={quantity}
           />
 
+
           <button type="submit">Save</button>
         </form>
         <div className="reviews">
           <Reviews ratings={ratings} />
+
         </div>
       </div>
     );
@@ -125,7 +135,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchProductsByCategory: id => {
 
+
       dispatch(fetchProductsByCategory(id));
+
     }
   };
 };

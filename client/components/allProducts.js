@@ -1,4 +1,5 @@
 
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CardView from './CardView';
@@ -10,6 +11,7 @@ const AllProducts = props => {
     <div className="outline">
       <div className="all-outline">
         <SideBar />
+
         <div className="card-outline">
           {products.length ? (
             products.map(product => {
@@ -24,6 +26,7 @@ const AllProducts = props => {
           )}
         </div>
       </div>
+
     </div>
   );
 };
@@ -31,12 +34,15 @@ const AllProducts = props => {
 const mapStateToProps = state => ({
   products: state.products.products,
   cart: state.cart
+
 });
 
 const mapDispatchToProps = dispatch => {
   return {
+
     addItem: newItem => dispatch(addItem(newItem))
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
+

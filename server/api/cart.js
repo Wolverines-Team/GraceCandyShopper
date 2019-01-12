@@ -26,8 +26,8 @@ router.post('/:cartId', async (req, res, next) => {
   try {
     const newItem = await CartItems.create({
       cartId: req.params.cartId,
-      stockId: req.body.stockId,
-      quantity: req.body.quantity
+      stockId: req.body.id
+      // quantity: req.body.quantity
     })
     res.status(200).json(newItem)
   } catch (err) {
@@ -35,11 +35,12 @@ router.post('/:cartId', async (req, res, next) => {
   }
 })
 
-// Actual path: /api/cart/:cartId
+// Actual path: /api/cart/:cartItemId
 // Updating the number of quantity in the cart items list.
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:cartItemId', async (req, res, next) => {
   try {
+    console.log('===Are you hitting here in server???===', req.body)
     const currentCartItem = await CartItems.findById(req.params.cartItemId)
     const updatedCartItem = await currentCartItem.update({
       quantity: req.body.quantity
@@ -61,6 +62,21 @@ router.delete('/:cartItemId', async (req, res, next) => {
       }
     })
     res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Actual path: /api/cart/cartItems
+// Show all cart items in single cart
+// Accessibility: For all users
+router.get('/cartItems', async (req, res, next) => {
+  try {
+    const allItemsInTheCart = await CartItems.findAll({
+      where: { cartId: req.params.cartId },
+      include: [Stock]
+    })
+    res.json(singleCartView)
   } catch (err) {
     next(err)
   }

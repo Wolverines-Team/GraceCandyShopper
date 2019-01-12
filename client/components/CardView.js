@@ -93,6 +93,7 @@ const CardView = props => {
     </div>
   )
 }
+
 const mapStateToProps = state => ({ user: state.user, cart: state.cart })
 
 const mapDispatchToProps = dispatch => {
