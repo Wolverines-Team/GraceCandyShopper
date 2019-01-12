@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User } = require('../db/models')
+const { User, Cart } = require('../db/models')
 const { requireLogin, requireAdmin } = require('./util')
 module.exports = router
 
@@ -21,7 +21,12 @@ router.get('/', async (req, res, next) => {
 // Single user (Edwin's comment: For signed in user view? If so, need to do something with authentication?)
 router.get('/:userId', async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.userId)
+    const user = await User.findById(
+      { where: { id: req.params.userId } },
+      {
+        include: [{ model: Cart }]
+      }
+    )
     res.status(200).json(user)
   } catch (err) {
     next(err)

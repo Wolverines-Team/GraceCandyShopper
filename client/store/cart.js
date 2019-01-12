@@ -18,7 +18,7 @@ export const getItem = items => ({
 export const addItem = item => ({
   type: ADD_ITEM,
   item
-});
+})
 
 export const removeItem = itemId => ({
   type: REMOVE_ITEM,
@@ -30,14 +30,11 @@ export const updateQuantity = item => ({
   item
 })
 
-
-//thunk creators
+// thunk creators
 export const fetchItems = cartId => async dispatch => {
   try {
-
-    const { data } = await axios.post('api/cart');
-    dispatch(getItem(data));
-
+    const { data } = await axios.get(`api/cart/${cartId}`)
+    dispatch(getItem(data))
   } catch (error) {
     console.log(error)
   }
@@ -49,11 +46,8 @@ export const fetchItems = cartId => async dispatch => {
 
 export const postItems = (cartId, item) => async dispatch => {
   try {
-
-    const { data } = await axios.post(`/api/cart/${newItem.cartId}`, newItem);
-    dispatch(addItem(data));
-
-
+    const { data } = await axios.post(`/api/cart/${newItem.cartId}`, newItem)
+    dispatch(addItem(data))
   } catch (error) {
     console.log(error)
   }
@@ -72,9 +66,8 @@ export const deleteItems = itemId => async dispatch => {
 
 export const updateItemQuantity = item => async dispatch => {
   try {
-    const { data } = await axios.put(`/api/cart/${item.id}`, item.quantity);
-    dispatch(updateQuantity(data));
-
+    const { data } = await axios.put(`/api/cart/${item.id}`, item.quantity)
+    dispatch(updateQuantity(data))
   } catch (error) {
     console.error(error)
   }
@@ -88,15 +81,14 @@ export default function (cartState = defaultState, action) {
     case GET_ITEM:
       return action.items
     case ADD_ITEM:
-
-      return [...cartState, action.item];
+      return [...cartState, action.item]
     case REMOVE_ITEM:
-      console.log('are you hitting there??====>');
-      return cartState.filter(item => item.id !== action.itemId);
+      console.log('are you hitting there??====>')
+      return cartState.filter(item => item.id !== action.itemId)
     case UPDATE_QUANTITY:
       return cartState.map(item => {
         if (item.stockId === action.item.stockId) {
-          return { ...item, ...action.item };
+          return { ...item, ...action.item }
         } else {
           return item
         }

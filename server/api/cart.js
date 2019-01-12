@@ -1,56 +1,56 @@
-const router = require('express').Router();
-const { CartItems, Cart, Stock } = require('../db/models');
+const router = require('express').Router()
+const { CartItems, Cart, Stock } = require('../db/models')
 
-const { requireLogin } = require('./util');
-module.exports = router;
+const { requireLogin } = require('./util')
+module.exports = router
 
-//Actual path: /api/cart/:cartId
-//Show all cart items
-//Accessibility: For all users
+// Actual path: /api/cart/:cartId
+// Show all cart items
+// Accessibility: For all users
 router.get('/:cartId', async (req, res, next) => {
   try {
-    const singleCartView = await CartItems.findAll({
+    const singleCartView = await CartItems.findOrCreate({
       where: { cartId: req.params.cartId },
-      include: [Stock]
-    });
-    res.json(singleCartView);
+      include: [{ model: Stock }]
+    })
+    res.json(singleCartView)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-//Actual path: /api/cart
-//Adding candy item to single user's cart.
-//Accessibility: User, Guest (Need to add..)
+// Actual path: /api/cart
+// Adding candy item to single user's cart.
+// Accessibility: User, Guest (Need to add..)
 router.post('/:cartId', async (req, res, next) => {
   try {
     const newItem = await CartItems.create({
       cartId: req.params.cartId,
       stockId: req.body.stockId,
       quantity: req.body.quantity
-    });
-    res.status(200).json(newItem);
+    })
+    res.status(200).json(newItem)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-//Actual path: /api/cart/:cartId
+// Actual path: /api/cart/:cartId
 // Updating the number of quantity in the cart items list.
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:cartItemId', async (req, res, next) => {
   try {
-    const currentCartItem = await CartItems.findById(req.params.cartItemId);
+    const currentCartItem = await CartItems.findById(req.params.cartItemId)
     const updatedCartItem = await currentCartItem.update({
       quantity: req.body.quantity
-    });
-    res.status(200).json(updatedCartItem);
+    })
+    res.status(200).json(updatedCartItem)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-//Actual path: /api/cart/:cartId
+// Actual path: /api/cart/:cartId
 // Deleting an existing candy in the cart item list.
 // Accessibility: For Admin only. (Need to add..)
 router.delete('/:cartItemId', async (req, res, next) => {
@@ -59,9 +59,9 @@ router.delete('/:cartItemId', async (req, res, next) => {
       where: {
         id: req.params.cartItemId
       }
-    });
-    res.sendStatus(200);
+    })
+    res.sendStatus(200)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})

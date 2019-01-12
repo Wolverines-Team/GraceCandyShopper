@@ -31,7 +31,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
   const strategy = new GoogleStrategy(
     googleConfig,
-    (token, refreshToken, profile, done) => {
+    async (token, refreshToken, profile, done) => {
       const googleId = profile.id
       const username = profile.displayName
       const email = profile.emails[0].value
@@ -39,13 +39,8 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
         where: { googleId },
         defaults: { username, email }
       })
-      const cart = Cart.findOrCreate({
-        where: { userId: user.id }
-      })
-      user
-        .setCarts([cart])
-        .then(([user]) => done(null, user))
-        .catch(done)
+
+      user.then(([user]) => done(null, user)).catch(done)
     }
   )
 
