@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const User = require('../db/models/user')
+const { User, Cart } = require('../db/models')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    const user = await User.findOne({where: {email: req.body.email}})
+    const user = await User.findOne({ where: { email: req.body.email } })
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -21,8 +21,20 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
-    req.login(user, err => (err ? next(err) : res.json(user)))
+    const newUser = await User.create({
+      sessionId: req.session.id,
+      password: req.body.password,
+      email: req.body.email,
+      username: req.body.email
+    })
+    let cart
+    if (req.google.id) {
+      cart = await Cart.create({ userId: req.google.id })
+    } else {
+      cart = await Cart.create({ userId: req.session.id })
+    }
+
+    req.login(user, err => (err ? next(err) : res.json(newUser)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists')

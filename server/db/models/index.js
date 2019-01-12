@@ -17,6 +17,7 @@ const Order = require('./order')
 Images.belongsTo(Stock)
 Stock.hasMany(Images)
 Cart.belongsTo(User)
+User.hasMany(Cart)
 Rating.belongsTo(User)
 Rating.belongsTo(Stock)
 Address.belongsTo(User)
@@ -39,6 +40,7 @@ Stock.hasMany(Rating)
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+db.sync()
 
 module.exports = {
   User,

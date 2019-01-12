@@ -63,6 +63,7 @@ class Reviews extends Component {
               })
             }}
           >
+            <h3>What did you think?:</h3>
             <h3>Stars:</h3>
             <input
               className='input'
@@ -76,7 +77,7 @@ class Reviews extends Component {
               }}
               value={this.state.rating_num}
             />
-            <h3>What did you think?:</h3>
+            <hr />
             <input
               className='input'
               type='text'
