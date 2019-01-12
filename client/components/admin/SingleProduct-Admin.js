@@ -14,14 +14,14 @@ class SingleProductAdmin extends Component {
       quantity: 0,
       category: '',
       brand: '',
-      photosIds: [],
+      images: [],
       ratings: []
     };
   }
 
   componentDidMount() {
     const [
-      { name, price, description, quantity, ratings, id }
+      { description, id, name, price, quantity, ratings, images }
     ] = this.props.products.filter(
       product => product.id == this.props.match.params.id
     );
@@ -83,6 +83,7 @@ class SingleProductAdmin extends Component {
 
           <h3>Price: ${price}</h3>
           <input
+
             className="input"
             onChange={evt => {
               this.setState({ price: evt.target.value });
@@ -101,6 +102,7 @@ class SingleProductAdmin extends Component {
             }}
             value={quantity}
           />
+
           <button type="submit">Save</button>
         </form>
         <div className="reviews">
@@ -122,6 +124,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchProducts());
     },
     fetchProductsByCategory: id => {
+
       dispatch(fetchProductsByCategory(id));
     }
   };

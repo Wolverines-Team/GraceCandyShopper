@@ -42,6 +42,7 @@ const CardView = props => {
   // let firstId = product.images[0].id
 
   return (
+
     <div className="single-card-outline">
       <div className="card">
         <Link to={`/products/${product.id}`}>

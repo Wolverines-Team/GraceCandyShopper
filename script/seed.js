@@ -8,6 +8,7 @@ const {
   Images,
   Cart,
   CartItems,
+
   Rating
 } = require('../server/db/models');
 const Category = require('../server/db/models/categories');
@@ -333,22 +334,22 @@ async function seed() {
     Cart.create({
       stockId: 9,
       userId: 1,
-      quantity: 12
+      total_quantity: 12
     }),
     Cart.create({
       stockId: 3,
-      userId: 1,
-      quantity: 3
+      userId: 2,
+      total_quantity: 3
     }),
     Cart.create({
       stockId: 10,
-      userId: 1,
-      quantity: 2
+      userId: 2,
+      total_quantity: 2
     }),
     Cart.create({
       stockId: 4,
       userId: 1,
-      quantity: 20
+      total_quantity: 20
     })
   ]);
 
@@ -369,7 +370,7 @@ async function seed() {
       stockId: 10
     }),
     CartItems.create({
-      cartId: 3,
+      cartId: 2,
       quantity: 20,
       stockId: 4
     })
@@ -415,6 +416,17 @@ async function seed() {
     })
   ]);
 
+
+  const historyItems = await Promise.all([
+    HistoryItems.create({
+      cart_id: 1,
+      stock_id: 1,
+      quantity: 13,
+      historical_price: 10
+    })
+  ])
+  console.log('===================HISTORYITEMS++++++ ', historyItems)
+
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 
   const stockCategory = await Promise.all([
@@ -446,7 +458,6 @@ async function seed() {
 // This way we can isolate the error handling and exit trapping.
 // The `seed` function is concerned only with modifying the database.
 async function runSeed() {
-  console.log('seeding...');
   try {
     await seed();
   } catch (err) {

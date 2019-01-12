@@ -8,12 +8,11 @@ class CreateProduct extends Component {
     this.state = {
       name: '',
       id: 0,
-      price: '0.00',
+      price: '000',
       description: '',
       quantity: 0,
       category: 0,
       brand: '',
-      photosIds: [],
       ratings: []
     };
   }
@@ -64,7 +63,7 @@ class CreateProduct extends Component {
             </h4>
           </div>
 
-          <h3>Price: ${price}</h3>
+          <h3>Price(in cents): ${price}</h3>
           <input
             className="input"
             onChange={evt => {
