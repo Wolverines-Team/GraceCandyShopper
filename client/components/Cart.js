@@ -22,10 +22,11 @@ export class Cart extends Component {
     //so important make this cart id alive!!!
     // this.props.addItems(1, {stockId: 9, quantity: 12});
     //this.props.removeItems(5);
-    this.props.getItems(1);
+    this.props.getItems(5);
   }
 
   handleChange = item => {
+    console.log('insisde handleChange==== item:?>>> ', item);
     this.props.updateQuantity(item);
   };
 
@@ -63,7 +64,7 @@ export class Cart extends Component {
                     type="input"
                     defaultValue={item.quantity}
                     onChange={evt => {
-                      item.quantity = evt.target.value;
+                      item.quantity = Number(evt.target.value);
                     }}
                   />
                   <button
@@ -76,7 +77,9 @@ export class Cart extends Component {
                   </button>
                 </td>
                 <td>{item.stock.price}</td>
-                <td>100</td>
+                <td>
+                  {Math.floor(item.quantity * item.stock.price * 100) / 100}
+                </td>
 
                 <button
                   onClick={() => {

@@ -47,6 +47,7 @@ const CardView = props => {
       <div className="card">
         <Link to={`/products/${product.id}`}>
           <div className="card-img">
+
             <img src={product.images[0].imageUrl} />
           </div>
         </Link>
@@ -55,6 +56,7 @@ const CardView = props => {
           <p>{product.description}</p>
           <p>${product.price}</p>
         </div>
+
       </div>
       <div className="card-extend">
         <div className="qty-bar">
@@ -90,10 +92,12 @@ const CardView = props => {
         >
           <span>ADD TO BAG</span>
         </button>
+
       </div>
     </div>
   );
 };
+
 const mapStateToProps = state => ({ user: state.user, cart: state.cart });
 
 const mapDispatchToProps = dispatch => {
@@ -103,5 +107,6 @@ const mapDispatchToProps = dispatch => {
     updateQuantity: newItem => dispatch(updateQuantity(newItem))
   };
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardView);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import {Link} from 'react-router-dom'
 import { logout } from '../store';
+
 import { NavLink, withRouter } from 'react-router-dom';
 
 const Navbar = props => {
@@ -39,6 +40,7 @@ const Navbar = props => {
           <div className="dropdown-content1">
             <ul>
               <li />
+
             </ul>
             <div className="dropdown-list1">
               <ul>
@@ -128,6 +130,7 @@ const Navbar = props => {
               </ul>
             </div>
           </div>
+
         </div>
         <div className="dropdown2">
           <button className="dropbtn2">STORE LOCATION</button>
@@ -164,13 +167,16 @@ const Navbar = props => {
     </div>
   );
 };
+
 /**
  * CONTAINER
  */
 const mapState = state => {
   return {
+
     isLoggedIn: !!state.user.id,
     cart: state.cart
+
   };
 };
 const mapDispatch = dispatch => {
@@ -180,7 +186,9 @@ const mapDispatch = dispatch => {
     }
   };
 };
+
 export default withRouter(connect(mapState, mapDispatch)(Navbar));
+
 /**
  * PROP TYPES
  */

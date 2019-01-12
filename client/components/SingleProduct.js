@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import Reviews from './Reviews'
-import SideBar from './SideBar'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Reviews from './Reviews';
+import SideBar from './SideBar';
+import { postItems, fetchItems } from '../store';
 
 const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
-  )
-  let firstId = product.images[0].id
+  );
+  let firstId = product.images[0].id;
 
   function currentDiv(n) {
     let slideIndex = n;
@@ -36,7 +37,25 @@ const SingleProduct = props => {
       <div className="single-outline">
         <div className="productName">
           <h1>{product.name.toUpperCase() + ' $' + product.price}</h1>
-          <button type="button">ADD TO BAG</button>
+
+          <button
+            onClick={() => {
+              //arguments are samples.need to figure out how to get the cartId into the below method later.
+              // console.log('What are products???====>', product);
+              // //product is a single stock..
+              // //if: that item is in the cart already, invoke the updateItem.
+              // console.log('=====props from singleProducts===>> ', props);
+              // if (!product || product.id !==)
+
+              //else: if item does not exist in the cart, invoke the addItems.
+              props.addItem(5, product);
+            }}
+            type="button"
+          >
+            {' '}
+            ADD TO BAG
+          </button>
+
         </div>
 
         <div className="s-outline">
@@ -93,6 +112,21 @@ const SingleProduct = props => {
   );
 };
 
-const mapStateToProps = state => ({ products: state.products.products });
 
-export default connect(mapStateToProps)(SingleProduct);
+const mapStateToProps = state => {
+  console.log('=====what does STATE look like?===> ', state);
+  return {
+    userId: state.user.id,
+    products: state.products.products
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: (cartId, item) => dispatch(postItems(cartId, item)),
+    fetchItems: cartId => dispatch(fetchItems(cartId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
+
