@@ -65,102 +65,75 @@ async function seed() {
   ]);
 
   const stocks = await Promise.all([
-    Stock.create({
-      name: 'Jelly Beans',
-      description: 'An American Classic',
-      quantity: 1000,
-      price: 3.99,
-      // categoryId: 'Jelly Beans',
-      brand: 'JB'
+    await Stock.create({
+      name: 'Whirly Pop',
+      description:
+        'Who rules the WHIRL? Wolverine’s Candy Bar does! Enjoy every lick of this sweet classic or give it as an easy and enticing gift!',
+      quantity: 500,
+      price: 3.75
     }),
-    Stock.create({
-      name: 'Cherry Candy',
-      description: 'Like a real cherry but better',
-
-      quantity: 120,
-      price: 4.12,
-      category: 'Candy',
-
-      brand: 'Candy Shop'
-    }),
-    Stock.create({
-      name: 'Gummy Bears',
-      description: 'Sweetest bears ever ',
-
-      quantity: 100,
-      price: 2.49,
-      category: 'Jelly Beans',
-
-      brand: 'Haribo'
-    }),
-    Stock.create({
-      name: 'Assorted Chocolate',
-      description: 'Perfect Halloween Treats',
-
-      quantity: 1000,
-      price: 11.89,
-      category: 'Chocolate',
-
-      brand: 'Nestle'
-    }),
-    Stock.create({
-      name: 'Hard Candies',
-
+    await Stock.create({
+      name: 'Bar Tackle Box',
+      description:
+        'No one does signature sweeter than us! This exclusive Wolverine Candy Bar tackle box is stuffed full of delicious sweet and sour treats. Featuring a colorful blend of favorites',
       quantity: 40,
-      price: 6.8,
-      category: 'Candy',
-
-      brand: 'Candy Shop'
+      price: 26.0
     }),
-    Stock.create({
-      name: 'Lollipops',
-      description: 'Yummy!',
-
-      quantity: 700,
-      price: 1.99,
-      category: 'Candy',
-
-      brand: 'Candy Shop'
+    await Stock.create({
+      name: 'Sour Tackle Box',
+      description:
+        'Pucker up and feel the power of sour! Our tart candy experts curated this tackle box specifically to keep sour lovers chasing that flavor to the last bite.',
+      quantity: 40,
+      price: 26.0
     }),
-    Stock.create({
-      name: 'M&M',
-      description: 'An American Classic',
-
-      quantity: 400,
-      price: 4.19,
-      category: 'Chocolate',
-
-      brand: 'M&M'
+    await Stock.create({
+      name: 'White Chocolate Cupcake',
+      description:
+        'Creamy, dreamy and crunch-tastic! This cupcake container is stuffed with our addicting White Chocolate Sprinkled Pretzel Balls. Once you start munching, ya can not stop!',
+      quantity: 50,
+      price: 28.0
     }),
-    Stock.create({
-      name: 'Pinkle Candy',
-      description: 'A South Korean delicacy',
-
-      quantity: 10,
-      price: 10.99,
-      category: 'Exotic Deserts',
-
-      brand: 'Pinkle'
+    await Stock.create({
+      name: 'Aquatic Gummies Paint Can',
+      description:
+        'They’re cute, they’re colorful and they’re most definitely delicious! Dive into an ocean of flavor with this adorable Aquatic Gummy paint can!',
+      quantity: 40,
+      price: 17.0
     }),
-    Stock.create({
-      name: 'Thai Sweets',
-      description: 'A Thai delicacy',
-
-      quantity: 10,
-      price: 10.99,
-      category: 'Exotic Deserts',
-
-      brand: 'Thai'
+    await Stock.create({
+      name: 'Rainbow Sour Belts Paint Can',
+      description:
+        'Come on, belt it out! This signature paint can is stuffed with delicious Rainbow Sour Belts, an absolute favorite of ours. Buckle your belt for a yummy ride!',
+      quantity: 60,
+      price: 17.0
     }),
-    Stock.create({
-      name: 'Turkish Delight',
-      description: 'A Turkish classic',
-
-      quantity: 10,
-      price: 10.99,
-      category: 'Exotic Deserts',
-
-      brand: 'Lokumcu Baba'
+    await Stock.create({
+      name: 'Mini Neon Sour Worms Soda Can',
+      description:
+        'It’s time to squirm, it’s time for worms! Pop open this signature can, and wiggle on in. Hey, these worms are neon, they’re sour, and they’ve got super candy power!',
+      quantity: 80,
+      price: 12.0
+    }),
+    await Stock.create({
+      name: 'Signature Lollipops Wheel',
+      description:
+        'Wheel features the following flavors: Strawberry-Banana, Cherry, Blueberry, Gumball, Orange, Apple, Watermelon, Banana Split and Cotton Candy!',
+      quantity: 40,
+      price: 12.0
+    }),
+    await Stock.create({
+      name: 'Junk Food Gummies Pouch',
+      description:
+        'We’re calling this a total slam JUNK! We’ve got juuuust the mix-clusive for when you’re feeling hangry. Filled with Gummy Pizza, Gummy Fried Eggs, Gummy Hot Dogs, Gummy Burgers and Gummy Cola.',
+      quantity: 50,
+      price: 7.5
+    }),
+    await Stock.create({
+      name: 'Bake Shoppe Saltwater Taffy',
+      description:
+        'The heavenly taste of freshly baked goods in bite-size taffy bliss! In classic bakery flavors like Key Lime Pie, Cinnamon Roll, Red Velvet Cake and more, this saltwater taffy gives you a happy, comforting feeling every time.',
+      quantity: 30,
+      price: 14.0
     })
   ]);
 
@@ -397,37 +370,65 @@ async function seed() {
   ]);
 
   const categories = await Promise.all([
-    Category.create({
+    await Category.create({
       category_name: 'Candy'
-      // stockId: 1
     }),
-    Category.create({
-      category_name: 'Jelly Beans'
-      // stockId: 2
+    await Category.create({
+      category_name: 'Gummy'
     }),
-    Category.create({
+    await Category.create({
       category_name: 'Chocolate'
-      // stockId: 3
     }),
-    Category.create({
-      category_name: 'Exocit Desserts'
-      // stockId: 4
+    await Category.create({
+      category_name: 'Collection'
+    }),
+    await Category.create({
+      category_name: 'Lollipops'
+    }),
+    await Category.create({
+      category_name: 'Cupcake'
+    }),
+    await Category.create({
+      category_name: 'Paint Can'
+    }),
+    await Category.create({
+      category_name: 'Soda Can'
+    }),
+    await Category.create({
+      category_name: 'New'
+    }),
+    await Category.create({
+      category_name: 'Good-To-Go'
+    }),
+    await Category.create({
+      category_name: 'Saltwater Taffy'
     })
   ]);
 
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 
   const stockCategory = await Promise.all([
-    await stocks[0].addCategory(categories[1]),
+    await stocks[0].addCategory(categories[0]),
+    await stocks[0].addCategory(categories[4]),
     await stocks[1].addCategory(categories[0]),
+    await stocks[1].addCategory(categories[3]),
     await stocks[2].addCategory(categories[1]),
+    await stocks[2].addCategory(categories[3]),
+    await stocks[3].addCategory(categories[0]),
     await stocks[3].addCategory(categories[2]),
-    await stocks[4].addCategory(categories[0]),
-    await stocks[5].addCategory(categories[0]),
-    await stocks[6].addCategory(categories[2]),
-    await stocks[7].addCategory(categories[3]),
-    await stocks[8].addCategory(categories[3]),
-    await stocks[9].addCategory(categories[3])
+    await stocks[3].addCategory(categories[5]),
+    await stocks[4].addCategory(categories[1]),
+    await stocks[4].addCategory(categories[6]),
+    await stocks[5].addCategory(categories[1]),
+    await stocks[5].addCategory(categories[6]),
+    await stocks[6].addCategory(categories[1]),
+    await stocks[6].addCategory(categories[7]),
+    await stocks[7].addCategory(categories[0]),
+    await stocks[7].addCategory(categories[8]),
+    await stocks[8].addCategory(categories[1]),
+    await stocks[8].addCategory(categories[9]),
+    await stocks[9].addCategory(categories[0]),
+    await stocks[9].addCategory(categories[10])
   ]);
 
   console.log('==========>>Stock Category Join==> ', stockCategory);

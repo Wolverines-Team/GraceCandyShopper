@@ -51,7 +51,6 @@ const CardView = props => {
         </Link>
         <div className="productText">
           <p>{product.name}</p>
-          <p>{product.description}</p>
           <p>${product.price}</p>
         </div>
       </div>
