@@ -1,64 +1,75 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import Reviews from './Reviews';
-import SideBar from './SideBar';
-import { postItems, fetchItems } from '../store';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import Reviews from './Reviews'
+import SideBar from './SideBar'
+import { postItems, updateItemQuantity } from '../store'
 
 const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
-  );
-  let firstId = product.images[0].id;
+  )
+  const firstId = product.images[0].id
+  const submitResult = stockId => {
+    const cartId = props.info.id
 
-  function currentDiv(n) {
-    let slideIndex = n;
-    let x = document.getElementsByClassName('mySlides');
-    var dots = document.getElementsByClassName('demo');
+    if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
+      const quantity =
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity + 1
+      props.updateItemQuantity({
+        stockId,
+        cartId,
+        quantity
+        // price
+      })
+    } else {
+      props.postItems(cartId, {
+        stockId: id,
+        cartId
+        // price
+      })
+    }
+  }
+
+  function currentDiv (n) {
+    let slideIndex = n
+    let x = document.getElementsByClassName('mySlides')
+    var dots = document.getElementsByClassName('demo')
     if (n > x.length) {
-      slideIndex = 1;
+      slideIndex = 1
     }
     if (n < 1) {
-      slideIndex = x.length;
+      slideIndex = x.length
     }
     for (let i = 0; i < x.length; i++) {
-      x[i].className = 'mySlides hide';
+      x[i].className = 'mySlides hide'
     }
     for (let i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace('opacity-off', '');
+      dots[i].className = dots[i].className.replace('opacity-off', '')
     }
-    x[slideIndex - 1].className = 'mySlides';
+    x[slideIndex - 1].className = 'mySlides'
     dots[slideIndex - 1].className =
-      'demo opacity opacity-off hover-opacity-off';
+      'demo opacity opacity-off hover-opacity-off'
   }
 
   return (
-    <div className="main-outline">
-      <div className="single-outline">
-        <div className="productName">
+    <div className='main-outline'>
+      <div className='single-outline'>
+        <div className='productName'>
           <h1>{product.name.toUpperCase() + ' $' + product.price}</h1>
 
           <button
             onClick={() => {
-              //arguments are samples.need to figure out how to get the cartId into the below method later.
-              // console.log('What are products???====>', product);
-              // //product is a single stock..
-              // //if: that item is in the cart already, invoke the updateItem.
-              // console.log('=====props from singleProducts===>> ', props);
-              // if (!product || product.id !==)
-
-              //else: if item does not exist in the cart, invoke the addItems.
-              props.addItem(5, product);
+              submitResult(product.id, product.price)
             }}
-            type="button"
+            type='button'
           >
             {' '}
             ADD TO BAG
           </button>
-
         </div>
 
-        <div className="s-outline">
+        <div className='s-outline'>
           {product.images[0] &&
             product.images.map(m => {
               return (
@@ -68,10 +79,10 @@ const SingleProduct = props => {
                     src={m.imageUrl}
                   />
                 </div>
-              );
+              )
             })}
 
-          <div className="s-row">
+          <div className='s-row'>
             {product.images[0] &&
               product.images.map((m, i) => {
                 return (
@@ -84,16 +95,16 @@ const SingleProduct = props => {
                       }
                       src={m.imageUrl}
                       onClick={() => {
-                        currentDiv(i + 1);
+                        currentDiv(i + 1)
                       }}
                     />
                   </div>
-                );
+                )
               })}
           </div>
         </div>
 
-        <div className="review">
+        <div className='review'>
           <hr />
           <h4>SHIPPING INFO</h4>
           <p>
@@ -109,24 +120,27 @@ const SingleProduct = props => {
         </div>
       </div>
     </div>
-  );
-};
-
+  )
+}
 
 const mapStateToProps = state => {
-  console.log('=====what does STATE look like?===> ', state);
   return {
-    userId: state.user.id,
-    products: state.products.products
-  };
-};
+    user: state.user,
+    products: state.products.products,
+    cart: state.cart,
+    info: state.info
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: (cartId, item) => dispatch(postItems(cartId, item)),
-    fetchItems: cartId => dispatch(fetchItems(cartId))
-  };
-};
+    postItems: (id, newItem) => dispatch(postItems(id, newItem)),
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
+    updateItemQuantity: newItem => dispatch(updateItemQuantity(newItem))
+  }
+}
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SingleProduct)

@@ -17,6 +17,7 @@ const Order = require('./order')
 Images.belongsTo(Stock)
 Stock.hasMany(Images)
 Cart.belongsTo(User)
+User.hasMany(Cart)
 Rating.belongsTo(User)
 Rating.belongsTo(Stock)
 Address.belongsTo(User)
@@ -31,7 +32,7 @@ Stock.hasMany(Rating)
 // User.hasMany(Address);
 // User.hasMany(Rating);
 // Stock.hasMany(Images);
-// Cart.hasMany(CartItems);
+// Cart.hasMany(CartItems)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
