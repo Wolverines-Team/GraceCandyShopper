@@ -1,7 +1,7 @@
-const router = require('express').Router()
-const { requireLogin, requireAdmin } = require('./util')
-const { Stock, Rating } = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const { requireLogin, requireAdmin } = require('./util');
+const { Stock, Rating } = require('../db/models');
+module.exports = router;
 
 // Actual path: /api/stocks/
 // GET all stocks
@@ -15,12 +15,12 @@ router.post('/', async (req, res, next) => {
       stockId: req.body.stockId,
       userId: req.body.userId,
       rating_num: req.body.rating_num
-    })
-    res.status(200).json(newReview)
+    });
+    res.status(200).json(newReview);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 router.delete('/:id', async (req, res, next) => {
   try {
@@ -28,9 +28,9 @@ router.delete('/:id', async (req, res, next) => {
       where: {
         id: req.params.id
       }
-    })
-    res.sendStatus(200)
+    });
+    res.sendStatus(200);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});

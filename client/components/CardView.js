@@ -43,8 +43,13 @@ const CardView = props => {
   // let firstId = product.images[0].id
 
   return (
+<<<<<<< HEAD
     <div className='single-card-outline'>
       <div className='card'>
+=======
+    <div className="single-card-outline">
+      <div className="card">
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
         <Link to={`/products/${product.id}`}>
           <div className='card-img'>
             <img src={product.images[0].imageUrl} />

@@ -416,6 +416,7 @@ async function seed() {
     })
   ]);
 
+<<<<<<< HEAD
 
   // const historyItems = await Promise.all([
   //   HistoryItems.create({
@@ -426,6 +427,17 @@ async function seed() {
   //   })
   // ])
   // console.log('===================HISTORYITEMS++++++ ', historyItems)
+=======
+  const historyItems = await Promise.all([
+    HistoryItems.create({
+      cart_id: 1,
+      stock_id: 1,
+      quantity: 13,
+      historical_price: 10
+    })
+  ]);
+  console.log('===================HISTORYITEMS++++++ ', historyItems);
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
 
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 

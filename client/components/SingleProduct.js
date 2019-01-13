@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Reviews from './Reviews'
 import SideBar from './SideBar'
 import { postItems, fetchItems, updateQuantity } from '../store'
+=======
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Reviews from './Reviews';
+import SideBar from './SideBar';
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
 
 const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
+<<<<<<< HEAD
   )
   const firstId = product.images[0].id
   const submitResult = (id, price) => {
@@ -28,6 +37,10 @@ const SingleProduct = props => {
       })
     }
   }
+=======
+  );
+  let firstId = product.images[0].id;
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
 
   function currentDiv (n) {
     let slideIndex = n

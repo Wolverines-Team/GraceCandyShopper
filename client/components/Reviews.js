@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 
 import Stars from './stars'
 import { deleteReview, createReview, fetchProducts } from '../store'
+=======
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
 
+import Stars from './stars';
+import { deleteReview, createReview, fetchProducts } from '../store';
 
 
 class Reviews extends Component {
   constructor() {
     super();
     this.state = {
-      description: '',
-      stars: 0,
-      name: ''
+      review_text: '',
+      rating_num: 0,
+      userId: 0
     };
   }
 
+  componentDidMount() {
+    this.setState({ ratings: this.props.product.ratings });
+  }
   render() {
-    const ratings = this.props.ratings;
+    const ratings = this.props.product.ratings;
 
     return (
       <div>
@@ -82,10 +90,14 @@ class Reviews extends Component {
               type="text"
               onChange={evt => {
                 this.setState({
+<<<<<<< HEAD
 
 
                   name: evt.target.value
 
+=======
+                  review_text: evt.target.value
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
                 });
               }}
               value={this.state.review_text}

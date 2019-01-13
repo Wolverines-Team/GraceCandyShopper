@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const passport = require('passport')
 const router = require('express').Router()
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
@@ -5,6 +6,15 @@ const { User, Cart } = require('../db/models')
 require('../../secrets')
 module.exports = router
 console.log(process.env.GOOGLE_CLIENT_ID)
+=======
+const passport = require('passport');
+const router = require('express').Router();
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const { User } = require('../db/models');
+require('../../secrets');
+module.exports = router;
+console.log(process.env.GOOGLE_CLIENT_ID);
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
 /**
  * For OAuth keys and other secrets, your Node process will search
  * process.env to find environment variables. On your production server,
@@ -20,17 +30,18 @@ console.log(process.env.GOOGLE_CLIENT_ID)
  */
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-  console.log('Google client ID / secret not found. Skipping Google OAuth.')
+  console.log('Google client ID / secret not found. Skipping Google OAuth.');
 } else {
   const googleConfig = {
     clientID:
       '15149292007-9s6m66o1qajlns6c8p3ut4vqbv26ebp3.apps.googleusercontent.com',
     clientSecret: '8dna2RNM-Ljmx_EAbXQkhJdv',
     callbackURL: '/auth/google/callback'
-  }
+  };
 
   const strategy = new GoogleStrategy(
     googleConfig,
+<<<<<<< HEAD
     async (token, refreshToken, profile, done) => {
       const googleId = profile.id
       const username = profile.displayName
@@ -41,12 +52,25 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       })
 
       user.then(([user]) => done(null, user)).catch(done)
+=======
+    (token, refreshToken, profile, done) => {
+      const googleId = profile.id;
+      const username = profile.displayName;
+      const email = profile.emails[0].value;
+
+      User.findOrCreate({
+        where: { googleId },
+        defaults: { username, email }
+      })
+        .then(([user]) => done(null, user))
+        .catch(done);
+>>>>>>> 90e1e96b6a280c661b4cf78078423f29e0c2589d
     }
-  )
+  );
 
-  passport.use(strategy)
+  passport.use(strategy);
 
-  router.get('/', passport.authenticate('google', { scope: 'email' }))
+  router.get('/', passport.authenticate('google', { scope: 'email' }));
 
   router.get(
     '/callback',
@@ -54,5 +78,5 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       successRedirect: '/home',
       failureRedirect: '/login'
     })
-  )
+  );
 }
