@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Reviews from '../Reviews';
-import { updateProducts, fetchProducts, deleteProduct } from '../../store';
+import {
+  updateProducts,
+  fetchProducts,
+  deleteProduct,
+  fetchProductsByCategory
+} from '../../store';
 
 class SingleProductAdmin extends Component {
   constructor() {

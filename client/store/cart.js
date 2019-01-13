@@ -33,8 +33,7 @@ export const updateQuantity = item => ({
 //thunk creators
 export const fetchItems = cartId => async dispatch => {
   try {
-    const { data } = await axios.get(`/api/cart/${cartId}`);
-    console.log('cart is looking like ===>', data);
+    const { data } = await axios.post('api/cart');
     dispatch(getItem(data));
   } catch (error) {
     console.log(error);
@@ -45,10 +44,9 @@ export const fetchItems = cartId => async dispatch => {
 //! !! IMPORTANT NOTE: WE WILL GOING TO ADD NEW ITEMS/PRODUCTS TO THE CART
 // I AM NOT SURE ABOUT THE NAME , IN DB NAME IS STOCK ID, HOWEVER I AM USING IN HERE 'item.id'
 
-export const postItems = (cartId, item) => async dispatch => {
+export const postItems = (cartId, newItem) => async dispatch => {
   try {
-    console.log('what is our item ===>', item);
-    const { data } = await axios.post(`/api/cart/${cartId}`, item);
+    const { data } = await axios.post(`/api/cart/${newItem.cartId}`, newItem);
     dispatch(addItem(data));
   } catch (error) {
     console.log(error);
@@ -89,7 +87,7 @@ export default function(cartState = defaultState, action) {
       return cartState.filter(item => item.id !== action.itemId);
     case UPDATE_QUANTITY:
       return cartState.map(item => {
-        if (item.id === action.item.id) {
+        if (item.stockId === action.item.stockId) {
           return { ...item, ...action.item };
         } else {
           return item;

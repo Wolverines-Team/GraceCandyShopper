@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-const db = require('../server/db')
+const db = require('../server/db');
 const {
   User,
   Stock,
@@ -8,14 +8,14 @@ const {
   Images,
   Cart,
   CartItems,
-  Rating,
-} = require('../server/db/models')
-const Category = require('../server/db/models/categories')
-const HistoryItems = require('../server/db/models/historyItems')
+
+  Rating
+} = require('../server/db/models');
+const Category = require('../server/db/models/categories');
 
 async function seed() {
-  await db.sync({ force: true })
-  console.log('db synced!')
+  await db.sync({ force: true });
+  console.log('db synced!');
 
   const users = await Promise.all([
     User.create({
@@ -55,15 +55,15 @@ async function seed() {
       visits: 22
     }),
     User.create({
-      email: 'DonnyDarko@email.com',
-      username: 'DonnyBoy',
-      password: 'RabbitFear',
+      email: 'juneidea@gmail.com',
+      username: 'juneidea',
+      password: 'Rabbit',
       // cartId: 13,
       history: [14, 15],
-      isAdmin: false,
+      isAdmin: true,
       visits: 66
     })
-  ])
+  ]);
 
   const stocks = await Promise.all([
     Stock.create({
@@ -163,7 +163,7 @@ async function seed() {
 
       brand: 'Lokumcu Baba'
     })
-  ])
+  ]);
 
   const address = await Promise.all([
     Address.create({
@@ -201,134 +201,134 @@ async function seed() {
       state: 'NY',
       zip: '10075'
     })
-  ])
+  ]);
 
   const images = await Promise.all([
-    Images.create({
-      imageUrl: '/images/candy01-1.png',
-      stockId: 1
-    }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy01-2.png',
       stockId: 1
     }),
-    Images.create({
-      imageUrl: '/images/candy02-1.png',
-      stockId: 2
+    await Images.create({
+      imageUrl: '/images/candy01-1.png',
+      stockId: 1
     }),
-    Images.create({
-      imageUrl: '/images/candy02-2.png',
-      stockId: 2
-    }),
-    Images.create({
-      imageUrl: '/images/candy02-3.png',
-      stockId: 2
-    }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy02-4.png',
       stockId: 2
     }),
-    Images.create({
-      imageUrl: '/images/candy03-1.png',
-      stockId: 3
+    await Images.create({
+      imageUrl: '/images/candy02-3.png',
+      stockId: 2
     }),
-    Images.create({
-      imageUrl: '/images/candy03-2.png',
-      stockId: 3
+    await Images.create({
+      imageUrl: '/images/candy02-2.png',
+      stockId: 2
     }),
-    Images.create({
+    await Images.create({
+      imageUrl: '/images/candy02-1.png',
+      stockId: 2
+    }),
+    await Images.create({
       imageUrl: '/images/candy03-3.png',
       stockId: 3
     }),
-    Images.create({
-      imageUrl: '/images/candy04-1.png',
-      stockId: 4
+    await Images.create({
+      imageUrl: '/images/candy03-2.png',
+      stockId: 3
     }),
-    Images.create({
-      imageUrl: '/images/candy04-2.png',
-      stockId: 4
+    await Images.create({
+      imageUrl: '/images/candy03-1.png',
+      stockId: 3
     }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy04-3.png',
       stockId: 4
     }),
-    Images.create({
-      imageUrl: '/images/candy05-1.png',
-      stockId: 5
+    await Images.create({
+      imageUrl: '/images/candy04-2.png',
+      stockId: 4
     }),
-    Images.create({
-      imageUrl: '/images/candy05-2.png',
-      stockId: 5
+    await Images.create({
+      imageUrl: '/images/candy04-1.png',
+      stockId: 4
     }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy05-3.png',
       stockId: 5
     }),
-    Images.create({
-      imageUrl: '/images/candy06-1.png',
-      stockId: 6
+    await Images.create({
+      imageUrl: '/images/candy05-2.png',
+      stockId: 5
     }),
-    Images.create({
-      imageUrl: '/images/candy06-2.png',
-      stockId: 6
+    await Images.create({
+      imageUrl: '/images/candy05-1.png',
+      stockId: 5
     }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy06-3.png',
       stockId: 6
     }),
-    Images.create({
-      imageUrl: '/images/candy07-1.png',
-      stockId: 7
+    await Images.create({
+      imageUrl: '/images/candy06-2.png',
+      stockId: 6
     }),
-    Images.create({
-      imageUrl: '/images/candy07-2.png',
-      stockId: 7
+    await Images.create({
+      imageUrl: '/images/candy06-1.png',
+      stockId: 6
     }),
-    Images.create({
-      imageUrl: '/images/candy07-3.png',
-      stockId: 7
-    }),
-    Images.create({
-      imageUrl: '/images/candy07-4.png',
-      stockId: 7
-    }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy07-5.png',
       stockId: 7
     }),
-    Images.create({
-      imageUrl: '/images/candy08-1.png',
-      stockId: 8
+    await Images.create({
+      imageUrl: '/images/candy07-4.png',
+      stockId: 7
     }),
-    Images.create({
+    await Images.create({
+      imageUrl: '/images/candy07-3.png',
+      stockId: 7
+    }),
+    await Images.create({
+      imageUrl: '/images/candy07-2.png',
+      stockId: 7
+    }),
+    await Images.create({
+      imageUrl: '/images/candy07-1.png',
+      stockId: 7
+    }),
+    await Images.create({
       imageUrl: '/images/candy08-2.png',
       stockId: 8
     }),
-    Images.create({
-      imageUrl: '/images/candy09-1.png',
-      stockId: 9
+    await Images.create({
+      imageUrl: '/images/candy08-1.png',
+      stockId: 8
     }),
-    Images.create({
-      imageUrl: '/images/candy09-2.png',
-      stockId: 9
-    }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy09-3.png',
       stockId: 9
     }),
-    Images.create({
-      imageUrl: '/images/candy10-1.png',
+    await Images.create({
+      imageUrl: '/images/candy09-2.png',
+      stockId: 9
+    }),
+    await Images.create({
+      imageUrl: '/images/candy09-1.png',
+      stockId: 9
+    }),
+    await Images.create({
+      imageUrl: '/images/candy10-3.png',
       stockId: 10
     }),
-    Images.create({
+    await Images.create({
       imageUrl: '/images/candy10-2.png',
       stockId: 10
     }),
-    Images.create({
-      imageUrl: '/images/candy10-3.png',
+    await Images.create({
+      imageUrl: '/images/candy10-1.png',
       stockId: 10
     })
-  ])
+  ]);
 
   const cart = await Promise.all([
     Cart.create({
@@ -351,7 +351,7 @@ async function seed() {
       userId: 1,
       total_quantity: 20
     })
-  ])
+  ]);
 
   const cartItems = await Promise.all([
     CartItems.create({
@@ -374,7 +374,7 @@ async function seed() {
       quantity: 20,
       stockId: 4
     })
-  ])
+  ]);
 
   const ratings = await Promise.all([
     Rating.create({
@@ -395,7 +395,7 @@ async function seed() {
       rating_num: 5,
       review_text: 'It is great, so tasty!'
     })
-  ])
+  ]);
 
   const categories = await Promise.all([
     Category.create({
@@ -414,8 +414,7 @@ async function seed() {
       category_name: 'Exocit Desserts'
       // stockId: 4
     })
-  ])
-
+  ]);
 
   const historyItems = await Promise.all([
     HistoryItems.create({
@@ -424,8 +423,8 @@ async function seed() {
       quantity: 13,
       historical_price: 10
     })
-  ])
-  console.log('===================HISTORYITEMS++++++ ', historyItems)
+  ]);
+  console.log('===================HISTORYITEMS++++++ ', historyItems);
 
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 
@@ -440,34 +439,33 @@ async function seed() {
     await stocks[7].addCategory(categories[3]),
     await stocks[8].addCategory(categories[3]),
     await stocks[9].addCategory(categories[3])
-  ])
+  ]);
 
-  console.log('==========>>Stock Category Join==> ', stockCategory)
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${stocks.length} stocks`)
-  console.log(`seeded ${address.length} address`)
-  console.log(`seeded ${images.length} images`)
-  console.log(`seeded ${cart.length} cart`)
-  console.log(`seeded ${cartItems.length} cart items`)
-  console.log(`seeded ${ratings.length} ratings`)
-  console.log(`seeded ${categories.length} categories`)
-  console.log(`seeded successfully`)
+  console.log('==========>>Stock Category Join==> ', stockCategory);
+  console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${stocks.length} stocks`);
+  console.log(`seeded ${address.length} address`);
+  console.log(`seeded ${images.length} images`);
+  console.log(`seeded ${cart.length} cart`);
+  console.log(`seeded ${cartItems.length} cart items`);
+  console.log(`seeded ${ratings.length} ratings`);
+  console.log(`seeded ${categories.length} categories`);
+  console.log(`seeded successfully`);
 }
 
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
 // The `seed` function is concerned only with modifying the database.
 async function runSeed() {
-  console.log('seeding...')
   try {
-    await seed()
+    await seed();
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
+    console.error(err);
+    process.exitCode = 1;
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log('closing db connection');
+    await db.close();
+    console.log('db connection closed');
   }
 }
 
@@ -475,8 +473,8 @@ async function runSeed() {
 // `Async` functions always return a promise, so we can use `catch` to handle
 // any errors that might occur inside of `seed`.
 if (module === require.main) {
-  runSeed()
+  runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = seed;

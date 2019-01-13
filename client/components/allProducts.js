@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CardView from './CardView';
-import { fetchProducts } from '../store';
+import { fetchProducts, addItem } from '../store';
 import SideBar from './SideBar';
 import { Link } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ class AllProducts extends Component {
             products.map(product => {
               return (
                 <div key={product.id}>
-                  <CardView product={product} history={this.props.history} />
+                  <CardView product={product} history={props.history} />
                 </div>
               );
             })
@@ -44,14 +44,13 @@ class AllProducts extends Component {
 
 const mapStateToProps = state => ({
   products: state.products.products,
-  user: state.user
+  user: state.user,
+  cart: state.cart
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchProducts: () => {
-      dispatch(fetchProducts());
-    }
+    addItem: newItem => dispatch(addItem(newItem))
   };
 };
 
