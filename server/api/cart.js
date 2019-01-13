@@ -83,9 +83,9 @@ router.delete('/:cartItemId', async (req, res, next) => {
 router.get('/cartinfo/:userId', async (req, res, next) => {
   try {
     const cartIni = await Cart.findOrCreate({
-      where: { userId: req.params.userId, isPurchased: false }
+      where: { userId: req.user.id, isPurchased: false }
     })
-    res.json(cartIni)
+    res.json(cartIni[0].id)
   } catch (err) {
     next(err)
   }

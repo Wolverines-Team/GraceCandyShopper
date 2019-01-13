@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Login, Signup, Navbar } from './components'
-import { me, fetchItems, getCartIni } from './store'
+import { me, fetchItems, getCartInfo } from './store'
 import {
   fetchProducts,
   fetchProductsByCategory,
@@ -31,9 +31,7 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
     this.props.fetchProducts()
-    if (this.props.info.id === undefined) {
-      this.props.getCartIni(this.props.user.id)
-    }
+    this.props.getCartInfo(this.props.user.id)
   }
   componentDidUpdate () {
     this.props.fetchItems(this.props.info.id)
@@ -100,8 +98,8 @@ const mapDispatch = dispatch => {
     fetchItems: id => {
       dispatch(fetchItems(id))
     },
-    getCartIni: id => {
-      dispatch(getCartIni(id))
+    getCartInfo: id => {
+      dispatch(getCartInfo(id))
     }
   }
 }

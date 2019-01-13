@@ -26,15 +26,15 @@ const CardView = props => {
         stockId: id,
         quantity:
           props.cart.filter(stock => stock.stockId === id)[0].quantity + value,
-        cartId: cartId
-        // price: price
+        cartId,
+        price
       })
     } else {
       props.postItems(cartId, {
         stockId: id,
         quantity: value,
-        cartId: cartId
-        // price: price
+        cartId,
+        price: price
       })
     }
   }

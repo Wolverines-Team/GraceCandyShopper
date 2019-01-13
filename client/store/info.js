@@ -13,6 +13,7 @@ export const getCartIni = cartId => ({
 export const getCartInfo = userId => async dispatch => {
   try {
     const { data } = await axios.get(`/api/cart/cartinfo/${userId}`)
+
     dispatch(getCartIni(data))
   } catch (error) {
     console.error(error)
