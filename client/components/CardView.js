@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { addItem, postItems, updateQuantity, fetchItems } from '../store/cart'
+import {
+  addItem,
+  postItems,
+  updateItemQuantity,
+  fetchItems
+} from '../store/cart'
 import { connect } from 'react-redux'
 import { getCartIni } from '../store'
 
@@ -16,25 +21,26 @@ const CardView = props => {
     if (value > 1) qty[0].value = value - 1
     else qty[0].value = 1
   }
-  const submitResult = (id, price) => {
-    const qty = document.getElementsByName(`q${id}`)
-    let value = Number(qty[0].value)
-    let cartId = props.info.id
-    console.log('productId =', id, 'qty=', value, 'price=', price)
-    if (props.cart.filter(stock => stock.stockId === id)[0]) {
-      props.updateQuantity({
-        stockId: id,
-        quantity:
-          props.cart.filter(stock => stock.stockId === id)[0].quantity + value,
+  const submitResult = stockId => {
+    const qty = document.getElementsByName(`q${stockId}`)
+    const cartId = props.info.id
+    const value = Number(qty[0].value)
+
+    if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
+      const quantity =
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity +
+        value
+      props.updateItemQuantity({
+        stockId,
         cartId,
-        price
+        quantity
+        // price
       })
     } else {
       props.postItems(cartId, {
         stockId: id,
-        quantity: value,
-        cartId,
-        price: price
+        cartId
+        // price
       })
     }
   }
@@ -104,7 +110,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     postItems: (id, newItem) => dispatch(postItems(id, newItem)),
-    updateQuantity: newItem => dispatch(updateQuantity(newItem)),
+    updateItemQuantity: newItem => dispatch(updateItemQuantity(newItem)),
     getInfo: id => dispatch(getCartIni(id)),
     fetchItems: id => {
       dispatch(fetchItems(id))

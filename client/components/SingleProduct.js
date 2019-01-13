@@ -3,21 +3,23 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Reviews from './Reviews'
 import SideBar from './SideBar'
-import { postItems, fetchItems, updateQuantity } from '../store'
+import { postItems, updateItemQuantity } from '../store'
 
 const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
   )
   const firstId = product.images[0].id
-  const submitResult = (id, price) => {
+  const submitResult = stockId => {
     const cartId = props.info.id
-    if (props.cart.filter(stock => stock.stockId === id)[0]) {
-      props.updateQuantity({
-        stockId: id,
-        quantity:
-          props.cart.filter(stock => stock.stockId === id)[0].quantity + 1,
-        cartId
+
+    if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
+      const quantity =
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity + 1
+      props.updateItemQuantity({
+        stockId,
+        cartId,
+        quantity
         // price
       })
     } else {
@@ -134,7 +136,7 @@ const mapDispatchToProps = dispatch => {
   return {
     postItems: (id, newItem) => dispatch(postItems(id, newItem)),
 
-    updateQuantity: newItem => dispatch(updateQuantity(newItem))
+    updateItemQuantity: newItem => dispatch(updateItemQuantity(newItem))
   }
 }
 

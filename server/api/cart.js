@@ -39,8 +39,10 @@ router.post('/:cartId', async (req, res, next) => {
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:cartItemId', async (req, res, next) => {
   try {
-    console.log('===Are you hitting here in server???===', req.body)
-    const currentCartItem = await CartItems.findById(req.params.cartItemId)
+    const currentCartItem = await CartItems.findOne({
+      where: { stockId: req.body.stockId, cartId: req.body.cartId }
+    })
+    console.log(req.body)
     const updatedCartItem = await currentCartItem.update({
       quantity: req.body.quantity
     })

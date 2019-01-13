@@ -19,7 +19,7 @@ export class Cart extends Component {
   }
 
   componentDidMount () {
-    this.props.getItems(this.props.user.cartId)
+    this.props.getItems(this.props.info.id)
     // so important make this cart id alive!!!
     // this.props.addItems(1, {stockId: 9, quantity: 12});
     // this.props.removeItems(5);
@@ -111,7 +111,8 @@ export class Cart extends Component {
 const mapStateToProps = state => ({
   items: state.cart,
   user: state.user,
-  products: state.products.products
+  products: state.products.products,
+  info: state.info
 })
 
 const mapDispatchToProps = dispatch => {

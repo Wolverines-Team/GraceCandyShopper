@@ -48,7 +48,7 @@ export const fetchItems = cartId => async dispatch => {
 
 export const postItems = (cartId, newItem) => async dispatch => {
   try {
-    const { data } = await axios.post(`/api/cart/${cartId}`, item)
+    const { data } = await axios.post(`/api/cart/${cartId}`, newItem)
 
     dispatch(addItem(data))
   } catch (error) {
@@ -69,7 +69,7 @@ export const deleteItems = itemId => async dispatch => {
 
 export const updateItemQuantity = item => async dispatch => {
   try {
-    const { data } = await axios.put(`/api/cart/${item.id}`, item.quantity)
+    const { data } = await axios.put(`/api/cart/${item.id}`, item)
     dispatch(updateQuantity(data))
   } catch (error) {
     console.error(error)
