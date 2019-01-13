@@ -23,7 +23,7 @@ export class Cart extends Component {
     // so important make this cart id alive!!!
     // this.props.addItems(1, {stockId: 9, quantity: 12});
     // this.props.removeItems(5);
-    this.props.getItems(5)
+    // this.props.getItems(5)
   }
 
   handleChange = item => {
@@ -57,40 +57,49 @@ export class Cart extends Component {
               <th> UNIT PRICE </th>
               <th> ITEM TOTAL</th>
             </tr>
-            {items.map(item => (
-              <tr key={item.id}>
-                <td>{item.stock.name}</td>
-                <td>
-                  <input
-                    type='input'
-                    defaultValue={item.quantity}
-                    onChange={evt => {
-                      item.quantity = Number(evt.target.value)
-                    }}
-                  />
+            {items.map(item => {
+              console.log(item.id)
+              let product
+              if (this.props.products) {
+                product = this.props.products.filter(
+                  product => product.id === item.stockId
+                )
+              }
+              return (
+                <tr key={item.id}>
+                  <td>{product.name}</td>
+                  <td>
+                    <input
+                      type='input'
+                      defaultValue={item.quantity}
+                      onChange={evt => {
+                        item.quantity = Number(evt.target.value)
+                      }}
+                    />
+                    <button
+                      onClick={() => {
+                        this.handleChange(item)
+                      }}
+                    >
+                      {' '}
+                      add{' '}
+                    </button>
+                  </td>
+                  <td>{product.price}</td>
+                  <td>
+                    {Math.floor(item.quantity * product.price * 100) / 100}
+                  </td>
+
                   <button
                     onClick={() => {
-                      this.handleChange(item)
+                      this.props.removeItems(item.id)
                     }}
                   >
-                    {' '}
-                    add{' '}
+                    remove
                   </button>
-                </td>
-                <td>{item.stock.price}</td>
-                <td>
-                  {Math.floor(item.quantity * item.stock.price * 100) / 100}
-                </td>
-
-                <button
-                  onClick={() => {
-                    this.props.removeItems(item.id)
-                  }}
-                >
-                  remove
-                </button>
-              </tr>
-            ))}
+                </tr>
+              )
+            })}
           </tbody>
         </table>
         <button type='button'> CHECKOUT</button>
@@ -99,7 +108,11 @@ export class Cart extends Component {
   }
 }
 
-const mapStateToProps = state => ({ items: state.cart, user: state.user })
+const mapStateToProps = state => ({
+  items: state.cart,
+  user: state.user,
+  products: state.products.products
+})
 
 const mapDispatchToProps = dispatch => {
   return {

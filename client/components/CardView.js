@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { addItem, postItems, updateQuantity } from '../store/cart'
+import { addItem, postItems, updateQuantity, fetchItems } from '../store/cart'
 import { connect } from 'react-redux'
+import { getCartIni } from '../store'
 
 const CardView = props => {
   const addUp = id => {
@@ -18,22 +19,22 @@ const CardView = props => {
   const submitResult = (id, price) => {
     const qty = document.getElementsByName(`q${id}`)
     let value = Number(qty[0].value)
-    let cartId = props.user.cartId
+    let cartId = props.info.id
     console.log('productId =', id, 'qty=', value, 'price=', price)
     if (props.cart.filter(stock => stock.stockId === id)[0]) {
       props.updateQuantity({
         stockId: id,
         quantity:
           props.cart.filter(stock => stock.stockId === id)[0].quantity + value,
-        cartId: cartId,
-        price: price
+        cartId: cartId
+        // price: price
       })
     } else {
-      props.addItem({
+      props.postItems(cartId, {
         stockId: id,
         quantity: value,
-        cartId: cartId,
-        price: price
+        cartId: cartId
+        // price: price
       })
     }
   }
@@ -94,13 +95,20 @@ const CardView = props => {
   )
 }
 
-const mapStateToProps = state => ({ user: state.user, cart: state.cart })
+const mapStateToProps = state => ({
+  user: state.user,
+  cart: state.cart,
+  info: state.info
+})
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: newItem => dispatch(addItem(newItem)),
-    postItems: newItem => dispatch(postItems(newItem)),
-    updateQuantity: newItem => dispatch(updateQuantity(newItem))
+    postItems: (id, newItem) => dispatch(postItems(id, newItem)),
+    updateQuantity: newItem => dispatch(updateQuantity(newItem)),
+    getInfo: id => dispatch(getCartIni(id)),
+    fetchItems: id => {
+      dispatch(fetchItems(id))
+    }
   }
 }
 

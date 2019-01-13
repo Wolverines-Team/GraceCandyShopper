@@ -21,12 +21,7 @@ router.get('/', async (req, res, next) => {
 // Single user (Edwin's comment: For signed in user view? If so, need to do something with authentication?)
 router.get('/:userId', async (req, res, next) => {
   try {
-    const user = await User.findById(
-      { where: { id: req.params.userId } },
-      {
-        include: [{ model: Cart }]
-      }
-    )
+    const user = await User.findById({ where: { id: req.params.userId } })
     res.status(200).json(user)
   } catch (err) {
     next(err)

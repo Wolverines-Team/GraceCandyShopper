@@ -8,7 +8,6 @@ const GET_ITEM = 'GET_ITEM'
 const ADD_ITEM = 'ADD_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 const UPDATE_QUANTITY = 'UPDATE_QUANTITY'
-const GET_CART = 'GET_CART'
 
 // action creator
 export const getItem = items => ({
@@ -31,11 +30,6 @@ export const updateQuantity = item => ({
   item
 })
 
-export const getCart = cartId => ({
-  type: GET_CART,
-  cartId
-})
-
 // thunk creators
 export const fetchItems = cartId => async dispatch => {
   try {
@@ -54,7 +48,6 @@ export const fetchItems = cartId => async dispatch => {
 
 export const postItems = (cartId, item) => async dispatch => {
   try {
-    console.log('what is our item ===>', item)
     const { data } = await axios.post(`/api/cart/${cartId}`, item)
 
     dispatch(addItem(data))
@@ -83,14 +76,6 @@ export const updateItemQuantity = item => async dispatch => {
   }
 }
 
-// export const getCartInfo = cartId => async dispatch => {
-//   try {
-//     const {data} = await axios.get(`/api/cart/cartItems`);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 // Reducer
 const defaultState = []
 
@@ -102,6 +87,7 @@ export default function (cartState = defaultState, action) {
       return [...cartState, action.item]
     case REMOVE_ITEM:
       return cartState.filter(item => item.id !== action.itemId)
+
     case UPDATE_QUANTITY:
       return cartState.map(item => {
         if (item.stockId === action.item.stockId) {

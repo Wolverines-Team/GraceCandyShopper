@@ -417,15 +417,15 @@ async function seed() {
   ]);
 
 
-  const historyItems = await Promise.all([
-    HistoryItems.create({
-      cart_id: 1,
-      stock_id: 1,
-      quantity: 13,
-      historical_price: 10
-    })
-  ])
-  console.log('===================HISTORYITEMS++++++ ', historyItems)
+  // const historyItems = await Promise.all([
+  //   HistoryItems.create({
+  //     cart_id: 1,
+  //     stock_id: 1,
+  //     quantity: 13,
+  //     historical_price: 10
+  //   })
+  // ])
+  // console.log('===================HISTORYITEMS++++++ ', historyItems)
 
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 

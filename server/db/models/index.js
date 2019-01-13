@@ -32,7 +32,7 @@ Stock.hasMany(Rating)
 // User.hasMany(Address);
 // User.hasMany(Rating);
 // Stock.hasMany(Images);
-// Cart.hasMany(CartItems);
+// Cart.hasMany(CartItems)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -40,7 +40,6 @@ Stock.hasMany(Rating)
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
-db.sync()
 
 module.exports = {
   User,

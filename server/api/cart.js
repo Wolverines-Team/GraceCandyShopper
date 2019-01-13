@@ -9,9 +9,8 @@ module.exports = router
 // Accessibility: For all users
 router.get('/:cartId', async (req, res, next) => {
   try {
-    const singleCartView = await Cartfind({
-      where: { cartId: req.params.cartId },
-      include: [{ model: CartItems }]
+    const singleCartView = await CartItems.findAll({
+      where: { cartId: req.params.cartId }
     })
     res.json(singleCartView)
   } catch (err) {
@@ -26,8 +25,8 @@ router.post('/:cartId', async (req, res, next) => {
   try {
     const newItem = await CartItems.create({
       cartId: req.params.cartId,
-      stockId: req.body.id
-      // quantity: req.body.quantity
+      stockId: req.body.stockId,
+      quantity: req.body.quantity
     })
     res.status(200).json(newItem)
   } catch (err) {
@@ -67,16 +66,26 @@ router.delete('/:cartItemId', async (req, res, next) => {
   }
 })
 
-// Actual path: /api/cart/cartItems
-// Show all cart items in single cart
-// Accessibility: For all users
-router.get('/cartItems', async (req, res, next) => {
+// // Actual path: /api/cart/cartItems
+// // Show all cart items in single cart
+// // Accessibility: For all users
+// router.get('/cartItems', async (req, res, next) => {
+//   try {
+//     const allItemsInTheCart = await CartItems.findAll({
+//       where: { cartId: req.params.cartId },
+//       include: [Stock]
+//     })
+//     res.json(singleCartView)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+router.get('/cartinfo/:userId', async (req, res, next) => {
   try {
-    const allItemsInTheCart = await CartItems.findAll({
-      where: { cartId: req.params.cartId },
-      include: [Stock]
+    const cartIni = await Cart.findOrCreate({
+      where: { userId: req.params.userId, isPurchased: false }
     })
-    res.json(singleCartView)
+    res.json(cartIni)
   } catch (err) {
     next(err)
   }
