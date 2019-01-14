@@ -24,6 +24,7 @@ import SideBar from './components/SideBar';
 import Stripe from './components/stripe';
 import welcomeBar from './components/welcomeBar';
 import Dashboard from './components/admin/Dashboard';
+import CheckedoutItems from './components/admin/CheckoutItems';
 
 /**
  * COMPONENT
@@ -51,13 +52,19 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/categories/:id" component={CategoryView} />
-        <Route exact path="/dashboard" component={Dashboard} />
 
+        <Route exact path="/checkoutitem" component={CheckedoutItems} />
         {this.props.user.isAdmin ? (
           <Route exact path="/products/:id" component={SingleProductAdmin} />
         ) : (
           <Route exact path="/products/:id" component={SingleProduct} />
         )}
+        {this.props.user.isAdmin ? (
+          <Route exact path="/dashboard" component={Dashboard} />
+        ) : (
+          <Route path="/home" component={welcomeBar} />
+        )}
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

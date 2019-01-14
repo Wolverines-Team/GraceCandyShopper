@@ -19,6 +19,9 @@ const Dashboard = props => {
       <Link to="/products">
         <button type="button">EDIT EXISTING PRODUCT</button>
       </Link>
+      <Link to="/checkoutitem">
+        <button type="button">PURCHASED ITEM</button>
+      </Link>
     </div>
   );
 };

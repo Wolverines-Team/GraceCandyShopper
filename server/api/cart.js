@@ -1,8 +1,8 @@
-const router = require('express').Router()
-const { CartItems, Cart, Stock } = require('../db/models')
+const router = require('express').Router();
+const { CartItems, Cart, Stock } = require('../db/models');
 
-const { requireLogin } = require('./util')
-module.exports = router
+const { requireLogin } = require('./util');
+module.exports = router;
 
 // Actual path: /api/cart/:cartId
 // Show all cart items
@@ -11,12 +11,12 @@ router.get('/:cartId', async (req, res, next) => {
   try {
     const singleCartView = await CartItems.findAll({
       where: { cartId: req.params.cartId }
-    })
-    res.json(singleCartView)
+    });
+    res.json(singleCartView);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Actual path: /api/cart
 // Adding candy item to single user's cart.
@@ -27,12 +27,12 @@ router.post('/:cartId', async (req, res, next) => {
       cartId: req.params.cartId,
       stockId: req.body.stockId,
       quantity: req.body.quantity
-    })
-    res.status(200).json(newItem)
+    });
+    res.status(200).json(newItem);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Actual path: /api/cart/:cartItemId
 // Updating the number of quantity in the cart items list.
@@ -41,16 +41,16 @@ router.put('/:cartItemId', async (req, res, next) => {
   try {
     const currentCartItem = await CartItems.findOne({
       where: { stockId: req.body.stockId, cartId: req.body.cartId }
-    })
-    console.log(req.body)
+    });
+    console.log(req.body);
     const updatedCartItem = await currentCartItem.update({
       quantity: req.body.quantity
-    })
-    res.status(200).json(updatedCartItem)
+    });
+    res.status(200).json(updatedCartItem);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Actual path: /api/cart/:cartId
 // Deleting an existing candy in the cart item list.
@@ -61,12 +61,12 @@ router.delete('/:cartItemId', async (req, res, next) => {
       where: {
         id: req.params.cartItemId
       }
-    })
-    res.sendStatus(200)
+    });
+    res.sendStatus(200);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // // Actual path: /api/cart/cartItems
 // // Show all cart items in single cart
@@ -86,9 +86,12 @@ router.get('/cartinfo/:userId', async (req, res, next) => {
   try {
     const cartIni = await Cart.findOrCreate({
       where: { userId: req.user.id, isPurchased: false }
-    })
-    res.json(cartIni[0].id)
+    });
+    res.json(cartIni[0].id);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
+
+//Admin access to purchased carts
+//coming here..
