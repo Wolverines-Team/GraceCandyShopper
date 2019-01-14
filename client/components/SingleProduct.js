@@ -1,75 +1,75 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import Reviews from './Reviews'
-import SideBar from './SideBar'
-import { postItems, updateItemQuantity } from '../store'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Reviews from './Reviews';
+import SideBar from './SideBar';
+import { postItems, updateItemQuantity } from '../store';
 
 const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
-  )
-  const firstId = product.images[0].id
+  );
+  const firstId = product.images[0].id;
   const submitResult = stockId => {
-    const cartId = props.info.id
+    const cartId = props.info.id;
 
     if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
       const quantity =
-        props.cart.filter(stock => stock.stockId === stockId)[0].quantity + 1
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity + 1;
       props.updateItemQuantity({
         stockId,
         cartId,
         quantity
         // price
-      })
+      });
     } else {
       props.postItems(cartId, {
         stockId,
         cartId
         // price
-      })
+      });
     }
-  }
+  };
 
-  function currentDiv (n) {
-    let slideIndex = n
-    let x = document.getElementsByClassName('mySlides')
-    var dots = document.getElementsByClassName('demo')
+  function currentDiv(n) {
+    let slideIndex = n;
+    let x = document.getElementsByClassName('mySlides');
+    var dots = document.getElementsByClassName('demo');
     if (n > x.length) {
-      slideIndex = 1
+      slideIndex = 1;
     }
     if (n < 1) {
-      slideIndex = x.length
+      slideIndex = x.length;
     }
     for (let i = 0; i < x.length; i++) {
-      x[i].className = 'mySlides hide'
+      x[i].className = 'mySlides hide';
     }
     for (let i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace('opacity-off', '')
+      dots[i].className = dots[i].className.replace('opacity-off', '');
     }
-    x[slideIndex - 1].className = 'mySlides'
+    x[slideIndex - 1].className = 'mySlides';
     dots[slideIndex - 1].className =
-      'demo opacity opacity-off hover-opacity-off'
+      'demo opacity opacity-off hover-opacity-off';
   }
 
   return (
-    <div className='main-outline'>
-      <div className='single-outline'>
-        <div className='productName'>
+    <div className="main-outline">
+      <div className="single-outline">
+        <div className="productName">
           <h1>{product.name.toUpperCase() + ' $' + product.price}</h1>
 
           <button
             onClick={() => {
-              submitResult(product.id, product.price)
+              submitResult(product.id, product.price);
             }}
-            type='button'
+            type="button"
           >
             {' '}
             ADD TO BAG
           </button>
         </div>
 
-        <div className='s-outline'>
+        <div className="s-outline">
           {product.images[0] &&
             product.images.map(m => {
               return (
@@ -79,10 +79,10 @@ const SingleProduct = props => {
                     src={m.imageUrl}
                   />
                 </div>
-              )
+              );
             })}
 
-          <div className='s-row'>
+          <div className="s-row">
             {product.images[0] &&
               product.images.map((m, i) => {
                 return (
@@ -95,16 +95,16 @@ const SingleProduct = props => {
                       }
                       src={m.imageUrl}
                       onClick={() => {
-                        currentDiv(i + 1)
+                        currentDiv(i + 1);
                       }}
                     />
                   </div>
-                )
+                );
               })}
           </div>
         </div>
 
-        <div className='review'>
+        <div className="review">
           <hr />
           <h4>SHIPPING INFO</h4>
           <p>
@@ -120,8 +120,8 @@ const SingleProduct = props => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => {
   return {
@@ -129,18 +129,15 @@ const mapStateToProps = state => {
     products: state.products.products,
     cart: state.cart,
     info: state.info
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     postItems: (id, newItem) => dispatch(postItems(id, newItem)),
 
     updateItemQuantity: newItem => dispatch(updateItemQuantity(newItem))
-  }
-}
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SingleProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

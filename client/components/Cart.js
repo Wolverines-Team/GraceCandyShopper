@@ -1,25 +1,25 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   fetchItems,
   postItems,
   deleteItems,
   updateItemQuantity
-} from '../store'
-import { Link } from 'react-router-dom'
-import SingleProduct from './SingleProduct'
+} from '../store';
+import { Link } from 'react-router-dom';
+import SingleProduct from './SingleProduct';
 
 // Ozlem`s Note:
 // For now we need to enter data hard coded as cart id, and for adding and seeing the current items in the cart we need to add first, comment it and call getItems(see ComponentDidMount( ) area )
 
 export class Cart extends Component {
-  constructor () {
-    super()
-    this.state = { quantity: 1 }
+  constructor() {
+    super();
+    this.state = { quantity: 1 };
   }
 
-  componentDidMount () {
-    this.props.getItems(this.props.info.id)
+  componentDidMount() {
+    this.props.getItems(this.props.info.id);
     // so important make this cart id alive!!!
     // this.props.addItems(1, {stockId: 9, quantity: 12});
     // this.props.removeItems(5);
@@ -27,29 +27,29 @@ export class Cart extends Component {
   }
 
   handleChange = item => {
-    console.log('insisde handleChange==== item:?>>> ', item)
-    this.props.updateQuantity(item)
-  }
+    console.log('insisde handleChange==== item:?>>> ', item);
+    this.props.updateQuantity(item);
+  };
 
-  render () {
-    console.log('is this the props ===>', this.props)
-    const items = this.props.items || []
+  render() {
+    console.log('is this the props ===>', this.props);
+    const items = this.props.items || [];
     if (items.length === 0 || !items) {
       return (
-        <div className='empty_cart'>
+        <div className="empty_cart">
           <h2>MY SHOPPING BAG</h2>
           <p>Your bag is empty, but it doesn't have to be!</p>
-          <Link to='/'>
-            <button type='button'> GO TO HOME PAGE FOR SOME SWEETS!</button>
+          <Link to="/">
+            <button type="button"> GO TO HOME PAGE FOR SOME SWEETS!</button>
           </Link>
         </div>
-      )
+      );
     }
     return (
-      <div className='cart_container'>
+      <div className="cart_container">
         <h1>MY BAG</h1>
-        <button type='button'> CHECKOUT</button>
-        <table id='cart_table'>
+        <button type="button"> CHECKOUT</button>
+        <table id="cart_table">
           <tbody>
             <tr>
               <th> ITEM </th>
@@ -58,27 +58,27 @@ export class Cart extends Component {
               <th> ITEM TOTAL</th>
             </tr>
             {items.map(item => {
-              console.log(item.id)
-              let product
+              console.log(item.id);
+              let product;
               if (this.props.products) {
                 product = this.props.products.filter(
                   product => product.id === item.stockId
-                )
+                );
               }
               return (
                 <tr key={item.id}>
                   <td>{product.name}</td>
                   <td>
                     <input
-                      type='input'
+                      type="input"
                       defaultValue={item.quantity}
                       onChange={evt => {
-                        item.quantity = Number(evt.target.value)
+                        item.quantity = Number(evt.target.value);
                       }}
                     />
                     <button
                       onClick={() => {
-                        this.handleChange(item)
+                        this.handleChange(item);
                       }}
                     >
                       {' '}
@@ -92,19 +92,19 @@ export class Cart extends Component {
 
                   <button
                     onClick={() => {
-                      this.props.removeItems(item.id)
+                      this.props.removeItems(item.id);
                     }}
                   >
                     remove
                   </button>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
-        <button type='button'> CHECKOUT</button>
+        <button type="button"> CHECKOUT</button>
       </div>
-    )
+    );
   }
 }
 
@@ -113,7 +113,7 @@ const mapStateToProps = state => ({
   user: state.user,
   products: state.products.products,
   info: state.info
-})
+});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -121,11 +121,8 @@ const mapDispatchToProps = dispatch => {
     addItems: (cartId, newItem) => dispatch(postItems(cartId, newItem)),
     removeItems: itemId => dispatch(deleteItems(itemId)),
     updateQuantity: item => dispatch(updateItemQuantity(item))
-  }
-}
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Cart)
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 // export default Cart;
