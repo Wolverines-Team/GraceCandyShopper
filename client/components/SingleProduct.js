@@ -24,7 +24,7 @@ const SingleProduct = props => {
       });
     } else {
       props.postItems(cartId, {
-        stockId: id,
+        stockId,
         cartId
         // price
       });
