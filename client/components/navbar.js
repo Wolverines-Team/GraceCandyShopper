@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
+
 import { NavLink, withRouter } from 'react-router-dom';
 import { fetchProductsByCategory } from '../store/products';
 
@@ -224,6 +225,7 @@ const Navbar = props => {
     </div>
   );
 };
+
 /**
  * CONTAINER
  */
@@ -244,7 +246,9 @@ const mapDispatch = dispatch => {
     }
   };
 };
+
 export default withRouter(connect(mapState, mapDispatch)(Navbar));
+
 /**
  * PROP TYPES
  */

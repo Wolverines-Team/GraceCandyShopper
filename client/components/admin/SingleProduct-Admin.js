@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Reviews from '../Reviews';
-import { updateProducts, fetchProducts } from '../../store';
+import {
+  updateProducts,
+  fetchProducts,
+  deleteProduct,
+  fetchProductsByCategory
+} from '../../store';
 
 class SingleProductAdmin extends Component {
   constructor() {
@@ -14,14 +19,14 @@ class SingleProductAdmin extends Component {
       quantity: 0,
       category: '',
       brand: '',
-      photosIds: [],
+      images: [],
       ratings: []
     };
   }
 
   componentDidMount() {
     const [
-      { name, price, description, quantity, ratings, id }
+      { description, id, name, price, quantity, ratings, images }
     ] = this.props.products.filter(
       product => product.id == this.props.match.params.id
     );
@@ -31,7 +36,8 @@ class SingleProductAdmin extends Component {
       price,
       description,
       quantity,
-      ratings
+      ratings,
+      images
     });
   }
 
@@ -40,7 +46,7 @@ class SingleProductAdmin extends Component {
     return (
       <div className="singleview">
         <form
-          onSubmit={evt => {
+          onSubmit={async evt => {
             evt.preventDefault();
             this.props.updateProducts({
               id,
@@ -50,6 +56,8 @@ class SingleProductAdmin extends Component {
               quantity,
               ratings
             });
+            this.props.fetchProducts();
+            this.props.history.push('/products');
           }}
         >
           <h1>Name:{name}</h1>
@@ -63,8 +71,10 @@ class SingleProductAdmin extends Component {
             }}
             value={name}
           />
+
           {/* <img src={product.imageUrl[1]} /> */}
           {/* <Images images={product.images} */}
+
           <div className="producttext">
             <h4>
               description:{description}
@@ -84,12 +94,13 @@ class SingleProductAdmin extends Component {
           <h3>Price: ${price}</h3>
           <input
             className="input"
+            type="number"
             onChange={evt => {
               this.setState({ price: evt.target.value });
             }}
             value={price}
           />
-          {/* THUNK>>>> <button onclick={addToCart(product.id)}>Add To Cart</button> */}
+
           <h4>Stock:{quantity}</h4>
           <input
             className="input"
@@ -101,10 +112,21 @@ class SingleProductAdmin extends Component {
             }}
             value={quantity}
           />
+
           <button type="submit">Save</button>
+          <button
+            onClick={evt => {
+              evt.preventDefault();
+              this.props.deleteProduct(id);
+              this.props.fetchProducts();
+              this.props.history.push('/products');
+            }}
+          >
+            DELETE PRODUCT
+          </button>
         </form>
         <div className="reviews">
-          <Reviews ratings={ratings} />
+          <Reviews product={ratings} />
         </div>
       </div>
     );

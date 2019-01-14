@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import {
+  withRouter,
+  Route,
+  Switch,
+  BrowserRouter as Router
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Login, Signup, UserHome, Navbar } from './components';
-import { me } from './store';
-import { fetchProducts, fetchProductsByCategory } from './store/products';
+import { Login, Signup, Navbar } from './components';
+import { me, fetchItems, getCartInfo } from './store';
+import {
+  fetchProducts,
+  fetchProductsByCategory,
+  fetchCategories
+} from './store/products';
 import AllProducts from './components/allProducts';
 import SingleProductAdmin from './components/admin/SingleProduct-Admin';
 import SingleProduct from './components/SingleProduct';
-import categoryView from './components/categoryView';
+import CategoryView from './components/categoryView';
 import Cart from './components/Cart';
 import createProduct from './components/admin/createProduct';
+import SideBar from './components/SideBar';
+import Stripe from './components/stripe';
+import welcomeBar from './components/welcomeBar';
 
 /**
  * COMPONENT
@@ -19,6 +31,10 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
     this.props.fetchProducts();
+    this.props.getCartInfo(this.props.user.id);
+  }
+  componentDidUpdate() {
+    this.props.fetchItems(this.props.info.id);
   }
 
   render() {
@@ -33,7 +49,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/categories" component={AllProducts} />
-        <Route path="/categories/:id" component={categoryView} />
+        <Route path="/categories/:id" component={CategoryView} />
 
         {this.props.user.isAdmin ? (
           <Route exact path="/products/:id" component={SingleProductAdmin} />
@@ -43,10 +59,10 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route path="/home" component={welcomeBar} />
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
+        <Route path="/home" component={Login} />
       </div>
     );
   }
@@ -60,7 +76,8 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
+    info: state.info
   };
 };
 
@@ -72,8 +89,17 @@ const mapDispatch = dispatch => {
     fetchProducts: () => {
       dispatch(fetchProducts());
     },
-    fetchProductsByCategory: () => {
-      dispatch(fetchProductsByCategory());
+    fetchProductsByCategory: id => {
+      dispatch(fetchProductsByCategory(id));
+    },
+    fetchCategories: () => {
+      dispatch(fetchCategories());
+    },
+    fetchItems: id => {
+      dispatch(fetchItems(id));
+    },
+    getCartInfo: id => {
+      dispatch(getCartInfo(id));
     }
   };
 };

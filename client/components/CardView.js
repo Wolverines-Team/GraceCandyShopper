@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { addItem, postItems, updateQuantity } from '../store/cart';
+import {
+  addItem,
+  postItems,
+  updateItemQuantity,
+  fetchItems
+} from '../store/cart';
 import { connect } from 'react-redux';
+import { getCartIni } from '../store';
 
 const CardView = props => {
   const addUp = id => {
@@ -15,25 +21,26 @@ const CardView = props => {
     if (value > 1) qty[0].value = value - 1;
     else qty[0].value = 1;
   };
-  const submitResult = (id, price) => {
-    const qty = document.getElementsByName(`q${id}`);
-    let value = Number(qty[0].value);
-    let cartId = 99;
-    console.log('productId =', id, 'qty=', value, 'price=', price);
-    if (props.cart.filter(stock => stock.stockId === id)[0]) {
-      props.updateQuantity({
-        stockId: id,
-        quantity:
-          props.cart.filter(stock => stock.stockId === id)[0].quantity + value,
-        cartId: cartId,
-        price: price
+  const submitResult = stockId => {
+    const qty = document.getElementsByName(`q${stockId}`);
+    const cartId = props.info.id;
+    const value = Number(qty[0].value);
+
+    if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
+      const quantity =
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity +
+        value;
+      props.updateItemQuantity({
+        stockId,
+        cartId,
+        quantity
+        // price
       });
     } else {
-      props.addItem({
-        stockId: id,
-        quantity: value,
-        cartId: cartId,
-        price: price
+      props.postItems(cartId, {
+        stockId,
+        cartId
+        // price
       });
     }
   };
@@ -105,13 +112,21 @@ const CardView = props => {
     </div>
   );
 };
-const mapStateToProps = state => ({ user: state.user, cart: state.cart });
+
+const mapStateToProps = state => ({
+  user: state.user,
+  cart: state.cart,
+  info: state.info
+});
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: newItem => dispatch(addItem(newItem)),
-    postItems: newItem => dispatch(postItems(newItem)),
-    updateQuantity: newItem => dispatch(updateQuantity(newItem))
+    postItems: (id, newItem) => dispatch(postItems(id, newItem)),
+    updateItemQuantity: newItem => dispatch(updateItemQuantity(newItem)),
+    getInfo: id => dispatch(getCartIni(id)),
+    fetchItems: id => {
+      dispatch(fetchItems(id));
+    }
   };
 };
 

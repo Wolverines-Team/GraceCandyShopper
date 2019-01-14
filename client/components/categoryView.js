@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CardView from './CardView';
-import SideBar from './SideBar';
 import { fetchProductsByCategory } from '../store';
+import SideBar from './SideBar';
 
 class CategoryView extends Component {
   constructor() {
     super();
+    this.state = { products: [] };
   }
   componentDidMount() {
     this.props.fetchProductsByCategory(this.props.match.params.id);

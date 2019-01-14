@@ -1,7 +1,7 @@
-const router = require('express').Router()
-const { requireLogin, requireAdmin } = require('./util')
-const { Stock, Rating } = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const { requireLogin, requireAdmin } = require('./util');
+const { Stock, Rating } = require('../db/models');
+module.exports = router;
 
 // Actual path: /api/stocks/
 // GET all stocks
@@ -10,22 +10,27 @@ module.exports = router
 router.post('/', async (req, res, next) => {
   try {
     // Edwin's Comment: Is the whole req.body what we want? Or is there a different form we would prefer?
-    const newCandy = await Stock.create(req.body)
-    res.status(200).json(newCandy)
+    const newReview = await Rating.create({
+      review_text: req.body.review_text,
+      stockId: req.body.stockId,
+      userId: req.body.userId,
+      rating_num: req.body.rating_num
+    });
+    res.status(200).json(newReview);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-router.delete('/:prodId', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     await Rating.destroy({
       where: {
-        stockId: req.params.prodId
+        id: req.params.id
       }
-    })
-    res.sendStatus(200)
+    });
+    res.sendStatus(200);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});

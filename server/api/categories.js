@@ -1,12 +1,13 @@
 const router = require('express').Router();
 const { Category, Stock, Images } = require('../db/models');
+
 const { requireLogin, requireAdmin } = require('./util');
 
 module.exports = router;
 
-//Actual path: /api/categories
-//GET all categories
-//Accessibility: For all users
+// Actual path: /api/categories/
+// GET all categories
+// Accessibility: For all users
 router.get('/', async (req, res, next) => {
   try {
     const categories = await Category.findAll();
@@ -38,12 +39,12 @@ router.get('/:categoryId/:mainId', async (req, res, next) => {
   }
 });
 
-//Actual path: /api/categories/
+// Actual path: /api/categories/
 // Creating a new category
 // Accessibility: For Admin only. (Need to add..)
 router.post('/', async (req, res, next) => {
   try {
-    //Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
+    // Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
     const { category_name } = req.body;
     const newCategory = await Category.create({ category_name });
     res.status(200).json(newCategory);
@@ -52,12 +53,12 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-//Actual path: /api/categories/:categoryId
+// Actual path: /api/categories/:categoryId
 // Updating an existing category
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:categoryId', async (req, res, next) => {
   try {
-    //Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
+    // Edwin's Comment: The below should work fine. Once it works, will replace with the loadash _.pick method at the end for cleaner and fancier visual.
     const currentCategory = await Category.findById(req.params.categoryId);
 
     const updatedCategory = await currentCategory.update({
@@ -70,7 +71,7 @@ router.put('/:categoryId', async (req, res, next) => {
   }
 });
 
-//Actual path: /api/categories/:categoryId
+// Actual path: /api/categories/:categoryId
 // Deleting an existing category
 // Accessibility: For Admin only. (Need to add..)
 router.delete('/:categoryId', async (req, res, next) => {

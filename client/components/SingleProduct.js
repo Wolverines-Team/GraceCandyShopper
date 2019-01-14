@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Reviews from './Reviews';
+import SideBar from './SideBar';
+import { postItems, updateItemQuantity } from '../store';
 
 const SingleProduct = props => {
   const [product] = props.products.filter(
-    product => product.id == props.match.params.id
+    product => product.id === Number(props.match.params.id)
   );
   function sortImages(images) {
     let min = 1000;
@@ -21,6 +23,27 @@ const SingleProduct = props => {
   }
   let imagesArray = sortImages(product.images);
   let firstId = imagesArray[0].id;
+
+  const submitResult = stockId => {
+    const cartId = props.info.id;
+
+    if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
+      const quantity =
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity + 1;
+      props.updateItemQuantity({
+        stockId,
+        cartId,
+        quantity
+        // price
+      });
+    } else {
+      props.postItems(cartId, {
+        stockId,
+        cartId
+        // price
+      });
+    }
+  };
 
   function currentDiv(n) {
     let slideIndex = n;
@@ -48,7 +71,16 @@ const SingleProduct = props => {
       <div className="single-outline">
         <div className="productName">
           <h1>{product.name.toUpperCase() + ' $' + product.price}</h1>
-          <button type="button">ADD TO BAG</button>
+
+          <button
+            onClick={() => {
+              submitResult(product.id, product.price);
+            }}
+            type="button"
+          >
+            {' '}
+            ADD TO BAG
+          </button>
         </div>
 
         <div className="s-outline">
@@ -88,22 +120,38 @@ const SingleProduct = props => {
 
         <div className="review">
           <hr />
-          <h4>WHY YOU WANT THIS</h4>
-          <p>{product.description}</p>
-          <Reviews product={product} />
-          <hr />
           <h4>SHIPPING INFO</h4>
           <p>
             This item typically ships within 1-2 business days. This processing
             time is in addition to time in transit via your chosen shipping
             method.
           </p>
+          <hr />
+          <h4>REVIEWS</h4>
+          <p>{product.description}</p>
+          <Reviews product={product} />
+          <hr />
         </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = state => ({ products: state.products.products });
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    products: state.products.products,
+    cart: state.cart,
+    info: state.info
+  };
+};
 
-export default connect(mapStateToProps)(SingleProduct);
+const mapDispatchToProps = dispatch => {
+  return {
+    postItems: (id, newItem) => dispatch(postItems(id, newItem)),
+
+    updateItemQuantity: newItem => dispatch(updateItemQuantity(newItem))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

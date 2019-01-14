@@ -10,6 +10,7 @@ const AllProducts = props => {
     <div className="outline">
       <div className="all-outline">
         <SideBar />
+
         <div className="card-outline">
           {products.length ? (
             products.map(product => {
@@ -29,8 +30,7 @@ const AllProducts = props => {
 };
 
 const mapStateToProps = state => ({
-  products: state.products.products,
-  cart: state.cart
+  products: state.products.products
 });
 
 const mapDispatchToProps = dispatch => {
