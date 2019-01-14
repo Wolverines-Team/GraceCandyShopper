@@ -49,6 +49,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/categories" component={AllProducts} />
+
         <Route path="/categories/:id" component={CategoryView} />
 
         {this.props.user.isAdmin ? (

@@ -581,3 +581,16 @@ button:focus {
   cursor: pointer;
   justify-content: center;
 }
+
+/*footer */
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 20%;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
