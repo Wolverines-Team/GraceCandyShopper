@@ -1,7 +1,7 @@
-const router = require('express').Router()
-const { requireLogin, requireAdmin } = require('./util')
-const { Stock, Rating, Images } = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const { requireLogin, requireAdmin } = require('./util');
+const { Stock, Rating, Images, Category } = require('../db/models');
+module.exports = router;
 
 // Actual path: /api/stocks/
 // GET all stocks
@@ -9,34 +9,34 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const stocks = await Stock.findAll({
-      include: [{ model: Rating }, { model: Images }]
-    })
-    res.json(stocks)
+      include: [{ model: Rating }, { model: Images }, { model: Category }]
+    });
+    res.json(stocks);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 router.get('/categories', async (req, res, next) => {
   try {
-    const stock = await Stock.findOne({ where: { id: req.params.id } })
-    res.json(stock)
+    const stock = await Stock.findOne({ where: { id: req.params.id } });
+    res.json(stock);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Actual path: /api/stocks/:stockId
 // GET single candy
 // Accessibility: For all users
 router.get('/:stockId', async (req, res, next) => {
   try {
-    const candy = await Stock.findById(req.params.stockId)
-    res.status(200).json(candy)
+    const candy = await Stock.findById(req.params.stockId);
+    res.status(200).json(candy);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Create a candy product(stock).
 
@@ -46,25 +46,25 @@ router.get('/:stockId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     // Edwin's Comment: Is the whole req.body what we want? Or is there a different form we would prefer?
-    const newCandy = await Stock.create(req.body)
-    res.status(200).json(newCandy)
+    const newCandy = await Stock.create(req.body);
+    res.status(200).json(newCandy);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // Actual path: /api/stocks/:stockId
 // Updating an existing candy
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:stockId', async (req, res, next) => {
   try {
-    const oldCandy = await Stock.findById(req.params.stockId)
-    const updatedCandy = await oldCandy.update(req.body)
-    res.status(200).json(updatedCandy)
+    const oldCandy = await Stock.findById(req.params.stockId);
+    const updatedCandy = await oldCandy.update(req.body);
+    res.status(200).json(updatedCandy);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 router.delete('/:stockId', async (req, res, next) => {
   try {
@@ -72,12 +72,12 @@ router.delete('/:stockId', async (req, res, next) => {
       where: {
         id: req.params.stockId
       }
-    })
-    res.sendStatus(200)
+    });
+    res.sendStatus(200);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 // ...view the full list of products (the product catalog), so that I can see everything that's available
 // ...refine product listings by category, so that I can narrow down my choices to see only the types of items I'm interested in

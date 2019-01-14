@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CardView from './CardView';
 import SideBar from './SideBar';
+import fetchProductsWithCategory from '../store/products';
 
 const AllProducts = props => {
   let products = props.products;
@@ -34,7 +35,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItem: newItem => dispatch(addItem(newItem))
+    fetchProductsWithCategory: id => {
+      dispatch(fetchProductsWithCategory(id));
+    }
   };
 };
 

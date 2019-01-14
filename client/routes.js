@@ -32,6 +32,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
+        <Route exact path="/categories" component={AllProducts} />
         <Route path="/categories/:id" component={categoryView} />
 
         {this.props.user.isAdmin ? (
@@ -71,8 +72,8 @@ const mapDispatch = dispatch => {
     fetchProducts: () => {
       dispatch(fetchProducts());
     },
-    fetchProductsByCategory: id => {
-      dispatch(fetchProductsByCategory(id));
+    fetchProductsByCategory: () => {
+      dispatch(fetchProductsByCategory());
     }
   };
 };

@@ -39,14 +39,27 @@ const CardView = props => {
   };
 
   const { product } = props;
-  // let firstId = product.images[0].id
+  function sortImages(images) {
+    let min = 1000;
+    let ans = [];
+    for (let i = 0; i < images.length; i++) {
+      if (images[i].id < min) min = images[i].id;
+    }
+    for (let j = 0; j < images.length; j++) {
+      ans.push(images.filter(im => im.id === min)[0]);
+      min += 1;
+    }
+    return ans;
+  }
 
   return (
     <div className="single-card-outline">
       <div className="card">
         <Link to={`/products/${product.id}`}>
           <div className="card-img">
-            <img src={product.images[0].imageUrl} />
+            <img
+              src={product.images && sortImages(product.images)[0].imageUrl}
+            />
           </div>
         </Link>
         <div className="productText">
