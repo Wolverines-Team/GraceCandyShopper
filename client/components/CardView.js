@@ -39,7 +39,8 @@ const CardView = props => {
     } else {
       props.postItems(cartId, {
         stockId,
-        cartId
+        cartId,
+        quantity: value
         // price
       });
     }
