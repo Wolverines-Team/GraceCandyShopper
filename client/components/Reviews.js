@@ -19,6 +19,7 @@ class Reviews extends Component {
     this.setState({ ratings: this.props.product.ratings });
   }
   render() {
+
     const ratings = this.props.product.ratings;
 
     return (
