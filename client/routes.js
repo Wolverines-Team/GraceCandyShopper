@@ -46,6 +46,12 @@ class Routes extends Component {
     return (
       <div>
         <Route path='/' component={Navbar} />
+        <Route exact path='/products' component={AllProducts} />
+        <Route exact path='/newproduct' component={createProduct} />
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={Signup} />
+        <Route path='/cart' component={Cart} />
+        <Route exact path='/categories' component={AllProducts} />
 
         <Route exact path='/products' component={AllProducts} />
         <Route exact path='/newproduct' component={createProduct} />

@@ -1,77 +1,133 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import Reviews from './Reviews'
-import SideBar from './SideBar'
-import { postItems, updateItemQuantity } from '../store'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Reviews from './Reviews';
+import SideBar from './SideBar';
+import { postItems, updateItemQuantity } from '../store';
 
 const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
-  )
-  const firstId = product.images[0].id
+  );
+
+  function sortImages(images) {
+    let min = 1000;
+    let ans = [];
+    for (let i = 0; i < images.length; i++) {
+      if (images[i].id < min) min = images[i].id;
+    }
+    for (let j = 0; j < images.length; j++) {
+      ans.push(images.filter(im => im.id === min)[0]);
+      min += 1;
+    }
+    return ans;
+  }
+  let imagesArray = sortImages(product.images);
+  let firstId = imagesArray[0].id;
+  const addUp = id => {
+    const qty = document.getElementsByName(`q${id}`);
+    let value = Number(qty[0].value);
+    qty[0].value = value + 1;
+  };
+  const cutDown = id => {
+    const qty = document.getElementsByName(`q${id}`);
+    let value = Number(qty[0].value);
+    if (value > 1) qty[0].value = value - 1;
+    else qty[0].value = 1;
+  };
+
+
   const submitResult = stockId => {
-    const cartId = props.info.id
+    const qty = document.getElementsByName(`q${stockId}`);
+    const cartId = props.info.id;
+    const value = Number(qty[0].value);
 
     if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
       const quantity =
-        props.cart.filter(stock => stock.stockId === stockId)[0].quantity + 1
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity +
+        value;
       props.updateItemQuantity({
         stockId,
         cartId,
         quantity
         // price
-      })
+      });
     } else {
       props.postItems(cartId, {
         stockId,
-        cartId
+        cartId,
+        quantity: value
         // price
-      })
+      });
     }
-  }
+  };
 
-  function currentDiv (n) {
-    let slideIndex = n
-    let x = document.getElementsByClassName('mySlides')
-    var dots = document.getElementsByClassName('demo')
+  function currentDiv(n) {
+    let slideIndex = n;
+    let x = document.getElementsByClassName('mySlides');
+    var dots = document.getElementsByClassName('demo');
     if (n > x.length) {
-      slideIndex = 1
+      slideIndex = 1;
     }
     if (n < 1) {
-      slideIndex = x.length
+      slideIndex = x.length;
     }
     for (let i = 0; i < x.length; i++) {
-      x[i].className = 'mySlides hide'
+      x[i].className = 'mySlides hide';
     }
     for (let i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace('opacity-off', '')
+      dots[i].className = dots[i].className.replace('opacity-off', '');
     }
-    x[slideIndex - 1].className = 'mySlides'
+    x[slideIndex - 1].className = 'mySlides';
     dots[slideIndex - 1].className =
-      'demo opacity opacity-off hover-opacity-off'
+      'demo opacity opacity-off hover-opacity-off';
   }
 
   return (
-    <div className='main-outline'>
-      <div className='single-outline'>
-        <div className='productName'>
+    <div className="main-outline">
+      <div className="single-outline">
+        <div className="productName">
           <h1>{product.name.toUpperCase() + ' $' + product.price}</h1>
-
+          <div className="qty-bar2">
+            <span className="qty-text2">QTY</span>
+            <input
+              type="text"
+              className="qty2"
+              name={`q${product.id}`}
+              defaultValue="1"
+            />
+            <span
+              className="qty-sign2"
+              onClick={() => {
+                cutDown(product.id);
+              }}
+            >
+              -
+            </span>
+            <span
+              className="qty-sign"
+              onClick={() => {
+                addUp(product.id);
+              }}
+            >
+              +
+            </span>
+          </div>
           <button
             onClick={() => {
-              submitResult(product.id, product.price)
+              submitResult(product.id, product.price);
             }}
-            type='button'
+            type="button"
           >
             {' '}
             ADD TO BAG
           </button>
         </div>
 
-        <div className='s-outline'>
-          {product.images[0] &&
-            product.images.map(m => {
+        <div className="s-outline">
+          {imagesArray[0] &&
+            imagesArray.map(m => {
+
               return (
                 <div key={m.id}>
                   <img
@@ -79,12 +135,13 @@ const SingleProduct = props => {
                     src={m.imageUrl}
                   />
                 </div>
-              )
+              );
             })}
 
-          <div className='s-row'>
-            {product.images[0] &&
-              product.images.map((m, i) => {
+          <div className="s-row">
+            {imagesArray[0] &&
+              imagesArray.map((m, i) => {
+
                 return (
                   <div key={m.id}>
                     <img
@@ -95,16 +152,16 @@ const SingleProduct = props => {
                       }
                       src={m.imageUrl}
                       onClick={() => {
-                        currentDiv(i + 1)
+                        currentDiv(i + 1);
                       }}
                     />
                   </div>
-                )
+                );
               })}
           </div>
         </div>
 
-        <div className='review'>
+        <div className="review">
           <hr />
           <h4>SHIPPING INFO</h4>
           <p>
@@ -120,8 +177,8 @@ const SingleProduct = props => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => {
   return {
@@ -129,18 +186,15 @@ const mapStateToProps = state => {
     products: state.products.products,
     cart: state.cart,
     info: state.info
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     postItems: (id, newItem) => dispatch(postItems(id, newItem)),
 
     updateItemQuantity: newItem => dispatch(updateItemQuantity(newItem))
-  }
-}
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SingleProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

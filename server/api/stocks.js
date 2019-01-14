@@ -1,7 +1,13 @@
 const router = require('express').Router();
 
 const { requireLogin, requireAdmin } = require('./util');
-const { Stock, Rating, Images, StockCategory } = require('../db/models');
+const {
+  Stock,
+  Rating,
+  Images,
+  StockCategory,
+  Category
+} = require('../db/models');
 
 module.exports = router;
 
@@ -11,9 +17,18 @@ module.exports = router;
 router.get('/', async (req, res, next) => {
   try {
     const stocks = await Stock.findAll({
-      include: [{ model: Rating }, { model: Images }]
+      include: [{ model: Rating }, { model: Images }, { model: Category }]
     });
     res.json(stocks);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/categories', async (req, res, next) => {
+  try {
+    const stock = await Stock.findOne({ where: { id: req.params.id } });
+    res.json(stock);
   } catch (err) {
     next(err);
   }
@@ -24,6 +39,7 @@ router.get('/', async (req, res, next) => {
 // Accessibility: For all users
 router.get('/:stockId', async (req, res, next) => {
   try {
+    console.log('==Are we hitting at singleview server==', req.params.stockId);
     const candy = await Stock.findById(req.params.stockId);
     res.status(200).json(candy);
   } catch (err) {
@@ -31,6 +47,7 @@ router.get('/:stockId', async (req, res, next) => {
   }
 });
 
+// Create a candy product(stock).
 // Actual path: /api/stocks
 // Create a new candy product(stock).
 // Accessibility: For Admin only. (Need to add..)
