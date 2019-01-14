@@ -23,6 +23,7 @@ import createProduct from './components/admin/createProduct';
 import SideBar from './components/SideBar';
 import Stripe from './components/stripe';
 import welcomeBar from './components/welcomeBar';
+import Dashboard from './components/admin/Dashboard';
 
 /**
  * COMPONENT
@@ -50,6 +51,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/categories/:id" component={CategoryView} />
+        <Route exact path="/dashboard" component={Dashboard} />
 
         {this.props.user.isAdmin ? (
           <Route exact path="/products/:id" component={SingleProductAdmin} />
