@@ -125,9 +125,14 @@ class SingleProductAdmin extends Component {
             DELETE PRODUCT
           </button>
         </form>
+<<<<<<< HEAD
+        <div className='reviews'>
+          <Reviews product={{ ratings }} />
+=======
         <div className="reviews">
           <Reviews product={ratings} />
 
+>>>>>>> 96c16e5c6a3bede9970270e881b889d75f216514
         </div>
       </div>
     );

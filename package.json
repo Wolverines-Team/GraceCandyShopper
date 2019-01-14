@@ -19,24 +19,29 @@
     "postinstall": "touch secrets.js",
     "seed": "node script/seed.js",
     "start": "node server",
-    "start-dev":
-      "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
-    "start-server":
-      "nodemon server -e html,js,scss --ignore public --ignore client",
-    "test":
-      "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
+    "start-dev": "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
+    "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
+    "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["prettier --write", "npm run lint-fix", "git add"],
-    "*.{css,scss,json,md}": ["prettier --write", "git add"]
+    "*.{js,jsx}": [
+      "prettier --write",
+      "npm run lint-fix",
+      "git add"
+    ],
+    "*.{css,scss,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.3",
+    "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^4.1.0",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
     "morgan": "^1.9.1",
@@ -57,6 +62,7 @@
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.38.0",
     "socket.io": "^2.1.1",
+    "stripe": "^6.20.0",
     "vue-stripe-elements-plus": "^0.2.9"
   },
   "devDependencies": {
