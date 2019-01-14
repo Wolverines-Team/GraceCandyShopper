@@ -126,7 +126,7 @@ class SingleProductAdmin extends Component {
           </button>
         </form>
         <div className='reviews'>
-          <Reviews ratings={ratings} />
+          <Reviews product={{ ratings }} />
         </div>
       </div>
     )

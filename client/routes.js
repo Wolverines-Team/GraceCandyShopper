@@ -21,8 +21,9 @@ import CategoryView from './components/categoryView'
 import Cart from './components/Cart'
 import createProduct from './components/admin/createProduct'
 import SideBar from './components/SideBar'
-import Stripe from './components/stripe'
+
 import welcomeBar from './components/welcomeBar'
+import Checkout from './components/checkout'
 
 /**
  * COMPONENT
@@ -34,7 +35,9 @@ class Routes extends Component {
     this.props.getCartInfo(this.props.user.id)
   }
   componentDidUpdate () {
-    this.props.fetchItems(this.props.info.id)
+    if (this.props.info.id) {
+      this.props.fetchItems(this.props.info.id)
+    }
   }
 
   render () {
@@ -50,6 +53,7 @@ class Routes extends Component {
         <Route path='/signup' component={Signup} />
         <Route path='/cart' component={Cart} />
         <Route path='/categories/:id' component={CategoryView} />
+        <Route exact path='/checkout' component={Checkout} />
 
         {this.props.user.isAdmin ? (
           <Route exact path='/products/:id' component={SingleProductAdmin} />

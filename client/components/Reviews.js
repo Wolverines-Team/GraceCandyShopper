@@ -83,7 +83,7 @@ class Reviews extends Component {
               type='text'
               onChange={evt => {
                 this.setState({
-                  name: evt.target.value
+                  review_text: evt.target.value
                 })
               }}
               value={this.state.review_text}
