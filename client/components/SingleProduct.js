@@ -9,6 +9,7 @@ const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
   );
+
   function sortImages(images) {
     let min = 1000;
     let ans = [];
@@ -34,6 +35,7 @@ const SingleProduct = props => {
     if (value > 1) qty[0].value = value - 1;
     else qty[0].value = 1;
   };
+
 
   const submitResult = stockId => {
     const qty = document.getElementsByName(`q${stockId}`);
@@ -125,6 +127,7 @@ const SingleProduct = props => {
         <div className="s-outline">
           {imagesArray[0] &&
             imagesArray.map(m => {
+
               return (
                 <div key={m.id}>
                   <img
@@ -138,6 +141,7 @@ const SingleProduct = props => {
           <div className="s-row">
             {imagesArray[0] &&
               imagesArray.map((m, i) => {
+
                 return (
                   <div key={m.id}>
                     <img

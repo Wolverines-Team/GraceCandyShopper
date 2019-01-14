@@ -994,9 +994,6 @@ async function seed() {
   //     quantity: 13,
   //     historical_price: 10
   //   })
-  // ]);
-  // console.log('===================HISTORYITEMS++++++ ', historyItems);
-
   // console.log('====MAGIC METHODS====>', Object.keys(stocks[0].__proto__))
 
   const stockCategory = await Promise.all([

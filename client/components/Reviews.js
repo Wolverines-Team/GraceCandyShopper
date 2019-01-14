@@ -19,7 +19,7 @@ class Reviews extends Component {
     this.setState({ ratings: this.props.product.ratings });
   }
   render() {
-    console.log('product in REVIEW comp ==>', this.props.product);
+
     const ratings = this.props.product.ratings;
 
     return (
