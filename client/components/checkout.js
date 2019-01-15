@@ -10,6 +10,7 @@ class Checkout extends Component {
 
   render() {
     return (
+<<<<<<< HEAD
       <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
         <div className="example">
           <Elements>
@@ -17,6 +18,19 @@ class Checkout extends Component {
           </Elements>
         </div>
       </StripeProvider>
+=======
+      <div className="outline">
+        <div className="checkout-main">
+          <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+            <div className="example">
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
+        </div>
+      </div>
+>>>>>>> categories
     );
   }
 }

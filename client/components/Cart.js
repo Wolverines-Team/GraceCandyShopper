@@ -37,11 +37,16 @@ export class Cart extends Component {
   };
 
   render() {
+<<<<<<< HEAD
     console.log('is this the props ===>', this.props);
+=======
+    let totalBag = 0;
+>>>>>>> categories
     const items = this.props.items || [];
     return (
       <div className="spacer">
         {items.length === 0 || !items ? (
+<<<<<<< HEAD
           <div className="empty_cart">
             <h2>MY SHOPPING BAG</h2>
             <p>Your bag is empty, but it doesn't have to be!</p>
@@ -84,11 +89,68 @@ export class Cart extends Component {
                         <button
                           onClick={() => {
                             this.handleChange(item);
+=======
+          <div className="outline">
+            <div className="empty_cart">
+              <h3>{this.props.user.username} BAG</h3>
+              <p>Your bag is empty, but it doesn't have to be!</p>
+              <Link to="/products">
+                <button type="button"> GO TO HOME PAGE FOR SOME SWEETS!</button>
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="outline">
+            <div className="cart_container">
+              <h3>{this.props.user.username} BAG</h3>
+              <table id="cart_table">
+                <tbody>
+                  <tr>
+                    <th> ITEM </th>
+                    <th> QUANTITY </th>
+                    <th> UNIT PRICE </th>
+                    <th> ITEM TOTAL</th>
+                  </tr>
+                  {items.map(item => {
+                    let product;
+                    if (this.props.products) {
+                      [product] = this.props.products.filter(
+                        product => product.id === item.stockId
+                      );
+                    }
+                    totalBag += item.quantity * product.price * 100 / 100;
+                    return (
+                      <tr key={item.id}>
+                        <td>{product.name}</td>
+                        <td>
+                          <input
+                            type="input"
+                            defaultValue={item.quantity}
+                            onChange={evt => {
+                              item.quantity = Number(evt.target.value);
+                            }}
+                          />
+                          <button
+                            onClick={() => {
+                              this.handleChange(item);
+                            }}
+                          >
+                            {' '}
+                            add{' '}
+                          </button>
+                        </td>
+                        <td>{product.price}</td>
+                        <td>{item.quantity * product.price * 100 / 100}</td>
+
+                        <button
+                          onClick={() => {
+                            this.props.removeItems(item.id);
+>>>>>>> categories
                           }}
                         >
-                          {' '}
-                          add{' '}
+                          remove
                         </button>
+<<<<<<< HEAD
                       </td>
                       <td>{product.price}</td>
                       <td>
@@ -116,6 +178,24 @@ export class Cart extends Component {
               {' '}
               CHECKOUT
             </button>
+=======
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <div className="checkOut">Total Bag ${totalBag}</div>
+              <button
+                type="button"
+                onClick={() => {
+                  this.handleCheckout();
+                }}
+              >
+                {' '}
+                CHECKOUT
+              </button>
+            </div>
+>>>>>>> categories
           </div>
         )}
       </div>
