@@ -1,27 +1,31 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import CheckoutForm from './checkoutForm'
-import { Elements, StripeProvider } from 'react-stripe-elements'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import CheckoutForm from './checkoutForm';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 
 class Checkout extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  render () {
+  render() {
     return (
-      <StripeProvider apiKey='pk_test_TYooMQauvdEDq54NiTphI7jx'>
-        <div className='example'>
-          <Elements>
-            <CheckoutForm />
-          </Elements>
+      <div className="outline">
+        <div className="checkout-main">
+          <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+            <div className="example">
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
         </div>
-      </StripeProvider>
-    )
+      </div>
+    );
   }
 }
 // const connectedForm = connect()(CheckoutForm)
-export default Checkout
+export default Checkout;
 
 /**
  * CONTAINER
