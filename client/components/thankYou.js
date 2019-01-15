@@ -5,7 +5,7 @@ import { fetchItems, newCart, getCartInfo } from '../store'
 const ThankYou = props => {
   //   props.newCart(props.user.id)
   //   props.getCartInfo(props.user.id)
-  //   props.getItems(props.info.id)
+
   return (
     <div className='spacer'>
       <h1>
