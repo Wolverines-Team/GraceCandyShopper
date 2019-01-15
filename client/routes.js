@@ -8,21 +8,25 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Login, Signup, Navbar } from './components';
-import { me, fetchItems, getCartInfo } from './store';
 import {
+  me,
+  fetchItems,
+  getCartInfo,
   fetchProducts,
   fetchProductsByCategory,
-  fetchCategories
-} from './store/products';
+  fetchCategories,
+  fetchUsers
+} from './store';
 import AllProducts from './components/allProducts';
 import SingleProductAdmin from './components/admin/SingleProduct-Admin';
 import SingleProduct from './components/SingleProduct';
 import CategoryView from './components/categoryView';
 import Cart from './components/Cart';
 import createProduct from './components/admin/createProduct';
-import SideBar from './components/SideBar';
-import Stripe from './components/stripe';
 import welcomeBar from './components/welcomeBar';
+import Checkout from './components/checkout';
+import ThankYou from './components/thankYou';
+import userEdit from './components/admin/userEdit';
 import Dashboard from './components/admin/Dashboard';
 import CheckedoutItems from './components/admin/CheckoutItems';
 
@@ -35,8 +39,11 @@ class Routes extends Component {
     this.props.fetchProducts();
     this.props.getCartInfo(this.props.user.id);
   }
-  componentDidUpdate() {
-    this.props.fetchItems(this.props.info.id);
+  componentDidUpdate(prevprops) {
+    console.log(prevprops);
+    if (this.props.info.id !== prevprops.info.id) {
+      this.props.fetchItems(this.props.info.id);
+    }
   }
 
   render() {
@@ -45,13 +52,14 @@ class Routes extends Component {
     return (
       <div>
         <Route path="/" component={Navbar} />
-
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/newproduct" component={createProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/categories/:id" component={CategoryView} />
+        <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/completed" component={ThankYou} />
 
         <Route exact path="/checkoutitem" component={CheckedoutItems} />
         {this.props.user.isAdmin ? (
@@ -67,11 +75,10 @@ class Routes extends Component {
 
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={welcomeBar} />
           </Switch>
         )}
-        <Route path="/home" component={Login} />
+        <Route path="/home" component={AllProducts} />
       </div>
     );
   }
@@ -84,7 +91,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: state.user.id,
     user: state.user,
     info: state.info
   };
@@ -122,5 +129,5 @@ export default withRouter(connect(mapState, mapDispatch)(Routes));
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.number.isRequired
 };

@@ -12,7 +12,7 @@ const Cart = db.define('cart', {
   }
 });
 
-//Edwin's Comment:
-//hook method needed: Accumulative calculation for total quantity evrerytime user adds cart item...
+// Edwin's Comment:
+// hook method needed: Accumulative calculation for total quantity evrerytime user adds cart item...
 
 module.exports = Cart;

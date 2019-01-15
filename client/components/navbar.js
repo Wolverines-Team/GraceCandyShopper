@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import {Link} from 'react-router-dom'
-import { logout } from '../store';
-
+import { Link } from 'react-router-dom';
+import user, { logout } from '../store/user';
 import { NavLink, withRouter } from 'react-router-dom';
+import { fetchProductsByCategory } from '../store/products';
 
 const Navbar = props => {
   function candyCount(cart) {
@@ -26,9 +26,46 @@ const Navbar = props => {
     let path = '/cart';
     props.history.push(path);
   };
+  const routeChange6 = () => {
+    let path = '/logout';
+    props.handleClick();
+    props.history.push(path);
+  };
+  const routeChange7 = () => {
+    let path = '/dashboard';
+    props.handleClick();
+    props.history.push(path);
+  };
+
+  function sortCandy(stock, type) {
+    let ans = [];
+    for (let i = 0; i < stock.length; i++) {
+      for (let j = 0; j < stock[i].categories.length; j++) {
+        if (stock[i].categories[j].id === type) {
+          stock[i].categories.map(c => {
+            if (c.id !== type) ans.push(`${c.category_name}_${c.id}`);
+          });
+        }
+      }
+    }
+    let ans2 = [];
+    for (let i = 0; i < ans.length; i++) {
+      ans2.map(a => {
+        if (a[0] === ans[i]) a.push(ans[i]);
+      });
+      if (ans2.filter(a => a[0] === ans[i])[0] === undefined) ans2.push([ans[i]]);
+    }
+    return ans2;
+  }
+
+  const fetchThisCategory = (id, main) => {
+    props.fetchProductsByCategory(id, main);
+  };
+
+  const { isLoggedIn } = props;
 
   return (
-    <div className="outline">
+    <div className="nav-outline">
       <div className="navRow">
         <div>
           <img src="./images/wLogo.png" className="wLogo" />
@@ -40,97 +77,129 @@ const Navbar = props => {
           <div className="dropdown-content1">
             <ul>
               <li />
-
             </ul>
             <div className="dropdown-list1">
               <ul>
                 <li>
-                  <a href="#">Candy</a>
+                  <Link to="/categories/1">
+                    <strong onClick={() => fetchThisCategory(1, 1)}>
+                      CANDY
+                    </strong>
+                  </Link>
                 </li>
                 <hr />
-                <li className="thin">
-                  <a href="#">New</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Sale!</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Lollipops</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Gold Collections</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Jelly Beans</a>
-                </li>
+                {props.products[0] &&
+                  sortCandy(props.products, 1).map(tag => {
+                    return (
+                      <Link
+                        key={tag[0]}
+                        to={`/categories/${tag[0].split('_')[1]}`}
+                      >
+                        <li
+                          onClick={() =>
+                            fetchThisCategory(tag[0].split('_')[1], 1)
+                          }
+                        >
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
+                        </li>
+                      </Link>
+                    );
+                  })}
               </ul>
             </div>
 
             <div className="dropdown-list1">
               <ul>
                 <li>
-                  <a href="#">Gummy</a>
+                  <Link to="/categories/2">
+                    <strong onClick={() => fetchThisCategory(2, 2)}>
+                      GUMMY
+                    </strong>
+                  </Link>
                 </li>
                 <hr />
-                <li className="thin">
-                  <a href="#">Signature Filabelles</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Sour</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Novelty</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Rainbow</a>
-                </li>
+                {props.products[0] &&
+                  sortCandy(props.products, 2).map(tag => {
+                    return (
+                      <Link
+                        key={tag[0]}
+                        to={`/categories/${tag[0].split('_')[1]}`}
+                      >
+                        <li
+                          onClick={() =>
+                            fetchThisCategory(tag[0].split('_')[1], 2)
+                          }
+                        >
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
+                        </li>
+                      </Link>
+                    );
+                  })}
               </ul>
             </div>
             <div className="dropdown-list1">
               <ul>
                 <li>
-                  <a href="#">Chocolate</a>
+                  <Link to="/categories/3">
+                    <strong onClick={() => fetchThisCategory(3, 3)}>
+                      CHOCOLATE
+                    </strong>
+                  </Link>
                 </li>
                 <hr />
-                <li className="thin">
-                  <a href="#">Chocolate Bar</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Choc-a-Lot</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Fudge</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Candy Cafe Bites</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Hand Dipped</a>
-                </li>
+                {props.products[0] &&
+                  sortCandy(props.products, 3).map(tag => {
+                    return (
+                      <Link
+                        key={tag[0]}
+                        to={`/categories/${tag[0].split('_')[1]}`}
+                      >
+                        <li
+                          onClick={() =>
+                            fetchThisCategory(tag[0].split('_')[1], 3)
+                          }
+                        >
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
+                        </li>
+                      </Link>
+                    );
+                  })}
               </ul>
             </div>
             <div className="dropdown-list1">
               <ul>
                 <li>
-                  <a href="#">Collections</a>
+                  <Link to="/categories/4">
+                    <strong onClick={() => fetchThisCategory(4, 4)}>
+                      COLLECTON
+                    </strong>
+                  </Link>
                 </li>
                 <hr />
-                <li className="thin">
-                  <a href="#">Valentine's Day</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Chrismas</a>
-                </li>
-                <li className="thin">
-                  <a href="#">City Collection</a>
-                </li>
-                <li className="thin">
-                  <a href="#">Mean Girls</a>
-                </li>
+                {props.products[0] &&
+                  sortCandy(props.products, 4).map(tag => {
+                    return (
+                      <Link
+                        key={tag[0]}
+                        to={`/categories/${tag[0].split('_')[1]}`}
+                      >
+                        <li
+                          onClick={() =>
+                            fetchThisCategory(tag[0].split('_')[1], 4)
+                          }
+                        >
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
+                        </li>
+                      </Link>
+                    );
+                  })}
               </ul>
             </div>
           </div>
-
         </div>
         <div className="dropdown2">
           <button className="dropbtn2">STORE LOCATION</button>
@@ -141,18 +210,41 @@ const Navbar = props => {
             <a href="#">Los Angeles</a>
           </div>
         </div>
-        <div className="dropdown3">
-          <button className="dropbtn3">ABOUT US</button>
-          <div className="dropdown-content3">
-            <a href="#">About Us</a>
-            <a href="#">Events</a>
-            <a href="#">Inspiration</a>
+        {props.user.isAdmin ? (
+          <div className="dropdown3">
+            <button className="dropbtn3" onClick={routeChange7}>
+              DASHBOARD
+            </button>
+            <div className="dropdown-content3">
+              <Link to="/newproduct">
+                <span>Add Product</span>
+              </Link>
+              <Link to="/home">
+                <span>Edit User</span>
+              </Link>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="dropdown3">
+            <button className="dropbtn3">ABOUT US</button>
+            <div className="dropdown-content3">
+              <a href="#">About Us</a>
+              <a href="#">Events</a>
+              <a href="#">Inspiration</a>
+            </div>
+          </div>
+        )}
+
         <div className="dropdown4">
-          <button className="dropbtn4" onClick={routeChange4}>
-            SIGN UP | LOGIN
-          </button>
+          {isLoggedIn ? (
+            <button className="dropbtn4" onClick={routeChange6}>
+              LOGOUT
+            </button>
+          ) : (
+            <button className="dropbtn4" onClick={routeChange4}>
+              SIGN UP | LOGIN
+            </button>
+          )}
         </div>
         <div className="dropdown5">
           <button className="dropbtn5" onClick={routeChange5}>
@@ -173,16 +265,19 @@ const Navbar = props => {
  */
 const mapState = state => {
   return {
-
     isLoggedIn: !!state.user.id,
-    cart: state.cart
-
+    cart: state.cart,
+    products: state.products.products,
+    user: state.user
   };
 };
 const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout());
+    },
+    fetchProductsByCategory: (id, main) => {
+      dispatch(fetchProductsByCategory(id, main));
     }
   };
 };

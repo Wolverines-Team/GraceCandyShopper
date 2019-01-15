@@ -23,10 +23,9 @@ export const fetchProducts = () => async dispatch => {
   }
 };
 
-export const fetchProductsByCategory = catId => async dispatch => {
+export const fetchProductsByCategory = (catId, main) => async dispatch => {
   try {
-    const { data } = await axios.get(`/api/categories/${catId}`);
-
+    const { data } = await axios.get(`/api/categories/${catId}/${main}`);
     dispatch(getProductsByCat(data));
   } catch (error) {
     console.error(error);
@@ -46,6 +45,14 @@ export const fetchCategories = () => async dispatch => {
 export const updateProducts = product => async dispatch => {
   try {
     const { data } = await axios.put(`/api/stocks/${product.id}`, product);
+    dispatch(getProducts(data));
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const updatePicture = image => async dispatch => {
+  try {
+    await axios.put(`/api/images/${image.id}`, image);
   } catch (error) {
     console.error(error);
   }
@@ -89,7 +96,6 @@ export default function(state = defaultProducts, action) {
       return { ...state, catted: action.products };
     case GET_CATEGORIES:
       return { ...state, categories: action.categories };
-
     default:
       return state;
   }

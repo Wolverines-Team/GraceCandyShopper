@@ -2,9 +2,11 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Address = db.define('address', {
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName: {
+    type: Sequelize.STRING
   },
   street: {
     type: Sequelize.STRING

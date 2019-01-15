@@ -9,13 +9,47 @@ const SingleProduct = props => {
   const [product] = props.products.filter(
     product => product.id === Number(props.match.params.id)
   );
-  const firstId = product.images[0].id;
+
+  function sortImages(images) {
+    let min = 1000;
+    let ans = [];
+    for (let i = 0; i < images.length; i++) {
+      if (images[i].id < min) min = images[i].id;
+    }
+    for (let j = 0; j < images.length; j++) {
+      if (images.filter(im => im.id === min)[0]) {
+        ans.push(images.filter(im => im.id === min)[0]);
+        min += 1;
+      } else {
+        min += 1;
+        j--;
+      }
+    }
+    return ans;
+  }
+  let imagesArray = sortImages(product.images);
+  let firstId = imagesArray[0].id;
+  const addUp = id => {
+    const qty = document.getElementsByName(`q${id}`);
+    let value = Number(qty[0].value);
+    qty[0].value = value + 1;
+  };
+  const cutDown = id => {
+    const qty = document.getElementsByName(`q${id}`);
+    let value = Number(qty[0].value);
+    if (value > 1) qty[0].value = value - 1;
+    else qty[0].value = 1;
+  };
+
   const submitResult = stockId => {
+    const qty = document.getElementsByName(`q${stockId}`);
     const cartId = props.info.id;
+    const value = Number(qty[0].value);
 
     if (props.cart.filter(stock => stock.stockId === stockId)[0]) {
       const quantity =
-        props.cart.filter(stock => stock.stockId === stockId)[0].quantity + 1;
+        props.cart.filter(stock => stock.stockId === stockId)[0].quantity +
+        value;
       props.updateItemQuantity({
         stockId,
         cartId,
@@ -25,7 +59,8 @@ const SingleProduct = props => {
     } else {
       props.postItems(cartId, {
         stockId,
-        cartId
+        cartId,
+        quantity: value
         // price
       });
     }
@@ -57,7 +92,31 @@ const SingleProduct = props => {
       <div className="single-outline">
         <div className="productName">
           <h1>{product.name.toUpperCase() + ' $' + product.price}</h1>
-
+          <div className="qty-bar2">
+            <span className="qty-text2">QTY</span>
+            <input
+              type="text"
+              className="qty2"
+              name={`q${product.id}`}
+              defaultValue="1"
+            />
+            <span
+              className="qty-sign2"
+              onClick={() => {
+                cutDown(product.id);
+              }}
+            >
+              -
+            </span>
+            <span
+              className="qty-sign"
+              onClick={() => {
+                addUp(product.id);
+              }}
+            >
+              +
+            </span>
+          </div>
           <button
             onClick={() => {
               submitResult(product.id, product.price);
@@ -70,8 +129,8 @@ const SingleProduct = props => {
         </div>
 
         <div className="s-outline">
-          {product.images[0] &&
-            product.images.map(m => {
+          {imagesArray[0] &&
+            imagesArray.map(m => {
               return (
                 <div key={m.id}>
                   <img
@@ -83,8 +142,8 @@ const SingleProduct = props => {
             })}
 
           <div className="s-row">
-            {product.images[0] &&
-              product.images.map((m, i) => {
+            {imagesArray[0] &&
+              imagesArray.map((m, i) => {
                 return (
                   <div key={m.id}>
                     <img
@@ -113,7 +172,7 @@ const SingleProduct = props => {
             method.
           </p>
           <hr />
-          <h4>REVIEWS</h4>
+          <h4>WHY YOU WANT THIS</h4>
           <p>{product.description}</p>
           <Reviews product={product} />
           <hr />

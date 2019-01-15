@@ -4,31 +4,20 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const WelcomeBar = props => {
-  const user = props.user;
-  console.log('User is the welcome bar is >>>>', user);
-  if (user.username && user.isAdmin === true) {
-    return (
-      <div>
-        <h1>Welcome Back Admin {props.user.username}</h1>
-        <Link to="/dashboard">
-          {' '}
-          <button type="button"> HERE IS YOUR DASHBOARD </button>
-        </Link>
+  return (
+    <div className="outline">
+      <div className="welcome">
+        {props.user.username ? (
+          <h2>
+            Welcome back {props.user.isAdmin ? 'admin' : 'user'}{' '}
+            {props.user.username}!{' '}
+          </h2>
+        ) : (
+          <h2>Welcome! </h2>
+        )}
       </div>
-    );
-  } else if (user.username && user.isAdmin === false) {
-    return (
-      <div>
-        <h1>Welcome Back {props.user.username}</h1>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <h1>Welcome New User! So nice to meet you!</h1>
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 const mapState = state => {

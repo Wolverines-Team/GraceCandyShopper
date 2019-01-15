@@ -45,14 +45,27 @@ ul hr {
   width: 154px;
 }
 
+.nav-outline {
+  background-color: white;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+}
+
 .outline {
   display: flex;
 }
 
 .navRow {
-  position: relative;
+  position: fixed;
+  background-color: white;
+  top: 0;
+  left: 50%;
+  margin-left: -730px;
+  padding-left: 200px;
   display: flex;
-  margin: auto;
+  width: 100vw;
+  z-index: 3;
 }
 
 .wLogo {
@@ -144,7 +157,7 @@ button:focus {
   margin-top: 94px;
   background-color: rgb(57, 149, 185);
   min-width: 1010px;
-  z-index: 1;
+  z-index: 4;
 }
 
 .dropdown-content1 a {
@@ -154,6 +167,12 @@ button:focus {
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  font-weight: 100;
+  font-size: 14px;
+}
+.dropdown-content1 a:hover {
+  text-decoration: underline;
+  background-color: rgb(91, 163, 192);
 }
 .dropdown1:hover .dropdown-content1 {
   display: flex;
@@ -172,7 +191,7 @@ button:focus {
   margin-top: 94px;
   background-color: rgb(57, 149, 185);
   min-width: 180px;
-  z-index: 1;
+  z-index: 4;
 }
 .dropdown-content2 a {
   color: white;
@@ -197,7 +216,7 @@ button:focus {
   margin-top: 94px;
   background-color: rgb(57, 149, 185);
   min-width: 128px;
-  z-index: 1;
+  z-index: 4;
 }
 .dropdown-content3 a {
   color: white;
@@ -223,7 +242,7 @@ button:focus {
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 4;
 }
 
 .dropdown-content a {
@@ -260,7 +279,7 @@ button:focus {
 }
 
 .bag span {
-  z-index: 2;
+  z-index: 3;
   padding-top: 32px;
   color: rgb(57, 149, 185);
   font-weight: bold;
@@ -328,6 +347,9 @@ button:focus {
 /* PART 3 SIDEBAR AND ALLCARDS*/
 
 .all-outline {
+  padding-top: 95px;
+  padding-bottom: 150px;
+  position: absolute;
   display: flex;
   margin: auto;
 }
@@ -336,6 +358,18 @@ button:focus {
   margin-left: 100px;
   margin-top: 30px;
   width: 150px;
+}
+
+.side-outline a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.side-outline a:hover {
+  color: rgb(130, 203, 231);
+  text-decoration: underline;
 }
 
 .side-outline ul {
@@ -355,7 +389,7 @@ button:focus {
   display: flex;
   flex-wrap: wrap;
   max-width: 1100px;
-  padding-top: 10px;
+  padding-top: 25px;
   padding-left: 10px;
 }
 
@@ -483,6 +517,7 @@ button:focus {
 
 .single-outline {
   margin: auto;
+  padding-top: 50px;
   display: flex;
   flex-direction: row;
   max-width: 1050px;
@@ -512,6 +547,42 @@ button:focus {
   color: rgb(223, 223, 223);
 }
 
+.qty-bar2 {
+  border: solid 1px rgb(0, 0, 0);
+  width: 165px;
+  height: 40px;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.qty-text2 {
+  color: rgb(163, 163, 163);
+  margin: 11px 10px;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.qty-sign2 {
+  color: rgb(57, 149, 185);
+  margin: 0px 10px;
+  font-size: 36px;
+  line-height: 32px;
+  font-family: Georgia;
+  cursor: pointer;
+}
+
+.productName input {
+  width: 40px;
+  height: 35px;
+  outline: none;
+  display: flex;
+  margin-left: auto;
+  border: solid 1px white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
 /* PART 5 SIGN-IN*/
 /* PART 5 SIGN-IN*/
 
@@ -523,7 +594,7 @@ button:focus {
 
 .sign-in-outline {
   margin: auto;
-  padding-top: 25px;
+  padding-top: 100px;
 }
 
 .sign-in input {
@@ -547,6 +618,10 @@ button:focus {
   justify-content: center;
 }
 
+.spacer {
+  padding-top: 100px;
+}
+
 /*footer */
 
 .footer {
@@ -554,8 +629,66 @@ button:focus {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 18%;
-  background-color: black;
+  <<<<<<<headheight: 18%;
+  =======height: 5%;
+  >>>>>>>33bc6b85998d8be98c9fd4ddd0f4da796924d770background-color: black;
   color: white;
   text-align: center;
+}
+
+.welcome {
+  position: absolute;
+  padding-top: 70px;
+  left: 50%;
+  margin-left: -150px;
+  font-weight: 100;
+}
+
+/* PART 6 ADMIN*/
+/* PART 6 ADMIN*/
+
+.singleView {
+  padding-top: 100px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.singleView div {
+  margin: 5px;
+}
+
+.singleView h4 {
+  margin: 10px 0;
+}
+
+.singleView input {
+  height: 25px;
+  width: 250px;
+  font-size: 16px;
+}
+
+.description textarea {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+}
+
+.singleView button {
+  height: 30px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.editImage {
+  border: solid 1px rgb(211, 211, 211);
+  width: 50%;
+}
+
+.edit-outline {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-outline input {
+  width: 65%;
 }

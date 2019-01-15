@@ -34,12 +34,16 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.3",
+    "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^4.1.0",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "express-session": "^1.15.1",
+    "fs": "0.0.1-security",
     "history": "^4.6.3",
     "morgan": "^1.9.1",
+    "node-mail": "^1.0.7",
+    "node-mailer": "^0.1.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "pg": "^6.1.2",
@@ -57,6 +61,7 @@
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.38.0",
     "socket.io": "^2.1.1",
+    "stripe": "^6.20.0",
     "vue-stripe-elements-plus": "^0.2.9"
   },
   "devDependencies": {

@@ -48,7 +48,7 @@ class Reviews extends Component {
             );
           })
         ) : (
-          <h1>No Reviews Yet</h1>
+          <h4>No Reviews Yet</h4>
         )}
         {!this.props.user.isAdmin && this.props.user.id ? (
           <form
@@ -83,7 +83,7 @@ class Reviews extends Component {
               type="text"
               onChange={evt => {
                 this.setState({
-                  name: evt.target.value
+                  review_text: evt.target.value
                 });
               }}
               value={this.state.review_text}

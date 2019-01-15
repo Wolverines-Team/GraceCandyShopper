@@ -16,17 +16,21 @@ const Order = require('./order');
  */
 
 Images.belongsTo(Stock);
-Cart.hasMany(CartItems);
 Stock.hasMany(Images);
 Cart.belongsTo(User);
 User.hasMany(Cart);
 Rating.belongsTo(User);
 Rating.belongsTo(Stock);
 Address.belongsTo(User);
+User.hasMany(Address);
+Cart.belongsTo(Address);
 CartItems.belongsTo(Cart);
 CartItems.belongsTo(Stock);
 Stock.belongsToMany(Category, { through: 'StockCategory' });
 Category.belongsToMany(Stock, { through: 'StockCategory' });
+Order.belongsTo(Cart);
+
+Cart.hasMany(CartItems);
 Cart.hasOne(Order);
 
 /* Edwin's Comment: Might end up deleting.. */
@@ -51,6 +55,6 @@ module.exports = {
   CartItems,
   Images,
   Cart,
-  Order
-  // Category
+  Order,
+  Category
 };
