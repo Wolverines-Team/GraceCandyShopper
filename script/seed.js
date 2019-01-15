@@ -8,7 +8,7 @@ const {
   Images,
   Cart,
   CartItems,
-
+  Order,
   Rating
 } = require('../server/db/models');
 const Category = require('../server/db/models/categories');
@@ -334,7 +334,8 @@ async function seed() {
     Cart.create({
       stockId: 9,
       userId: 1,
-      total_quantity: 12
+      total_quantity: 12,
+      isPurchased: true
     }),
     Cart.create({
       stockId: 3,
@@ -352,6 +353,10 @@ async function seed() {
       total_quantity: 20
     })
   ]);
+
+  const order = await Order.create({
+    cartId: 1
+  });
 
   const cartItems = await Promise.all([
     CartItems.create({
