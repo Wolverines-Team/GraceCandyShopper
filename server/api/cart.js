@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { CartItems, Cart, Stock, Address } = require('../db/models')
 
-const { requireLogin } = require('./util')
+const { requireAdmin } = require('./util')
 module.exports = router
 
 // Actual path: /api/cart/:cartId

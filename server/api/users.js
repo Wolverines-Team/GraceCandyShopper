@@ -4,7 +4,7 @@ const { requireLogin, requireAdmin } = require('./util')
 module.exports = router
 
 // All users. (Edwin's Comment: for Admin's view??)
-router.get('/', async (req, res, next) => {
+router.get('/', requireAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -47,7 +47,7 @@ router.get('/:userId', async (req, res, next) => {
 // })
 
 // Update user (Edwin's Comment: Authentication?)
-router.put('/:userId', async (req, res, next) => {
+router.put('/:userId', requireLogin, async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.params.userId)
     // Edwin's Comment: Do we want the entre req.body form?
@@ -58,7 +58,7 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
-router.post('/address/:userId', async (req, res, next) => {
+router.post('/address/:userId', requireLogin, async (req, res, next) => {
   try {
     // Edwin's Comment: Do we want to use the entire req.body form?
     const { street, firstName, lastName, city, state, zip } = req.body
@@ -80,7 +80,7 @@ router.post('/address/:userId', async (req, res, next) => {
 })
 
 // Remove user (Edwin's comment: authentication? Admin?)
-router.delete('/:userId', async (req, res, next) => {
+router.delete('/:userId', requireAdmin, async (req, res, next) => {
   try {
     await User.destroy({
       where: {
