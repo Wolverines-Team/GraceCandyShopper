@@ -1,32 +1,32 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchUsers, makeAdmin, takeAdmin } from '../../store/info'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchUsers, makeAdmin, takeAdmin } from "../../store/info";
 
 class UserEdit extends Component {
-  constructor () {
-    super()
+  constructor() {
+    super();
   }
   onChange = evt => {
-    console.log(evt.target.value)
+    console.log(evt.target.value);
     if (evt.target.value) {
-      this.props.takeAdmin(evt.target.id)
+      this.props.takeAdmin(evt.target.id);
     } else {
-      this.props.makeAdmin(evt.target.id)
+      this.props.makeAdmin(evt.target.id);
     }
-    this.props.fetchUsers()
-  }
-  componentDidMount () {
-    this.props.fetchUsers()
+    this.props.fetchUsers();
+  };
+  componentDidMount() {
+    this.props.fetchUsers();
   }
 
-  render () {
-    let users
+  render() {
+    let users;
     if (this.props.users) {
-      users = this.props.users
+      users = this.props.users;
     }
 
     return (
-      <div className='spacer'>
+      <div className="spacer">
         {users.map(user => (
           <div key={user.id}>
             <h4>{user.name}</h4>
@@ -35,7 +35,7 @@ class UserEdit extends Component {
               <div>
                 <p>Make Admin</p>
                 <input
-                  type='checkbox'
+                  type="checkbox"
                   checked
                   value={user.isAdmin}
                   id={user.id}
@@ -46,7 +46,7 @@ class UserEdit extends Component {
               <div>
                 <p>Make Admin</p>
                 <input
-                  type='checkbox'
+                  type="checkbox"
                   value={user.isAdmin}
                   id={user.id}
                   onChange={this.onChange}
@@ -56,27 +56,24 @@ class UserEdit extends Component {
           </div>
         ))}
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({ users: state.info.users })
+const mapStateToProps = state => ({ users: state.info.users });
 
 const mapDispatchToProps = dispatch => {
   return {
     makeAdmin: id => {
-      dispatch(makeAdmin(id))
+      dispatch(makeAdmin(id));
     },
     takeAdmin: id => {
-      dispatch(takeAdmin(id))
+      dispatch(takeAdmin(id));
     },
     fetchUsers: () => {
-      dispatch(fetchUsers())
+      dispatch(fetchUsers());
     }
-  }
-}
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserEdit)
+export default connect(mapStateToProps, mapDispatchToProps)(UserEdit);
