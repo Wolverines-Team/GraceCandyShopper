@@ -1,16 +1,16 @@
-const router = require("express").Router();
-const { User, Cart, Address } = require("../db/models");
-const { requireLogin, requireAdmin } = require("./util");
+const router = require('express').Router();
+const { User, Cart, Address } = require('../db/models');
+const { requireLogin, requireAdmin } = require('./util');
 module.exports = router;
 
 // All users. (Edwin's Comment: for Admin's view??)
-router.get("/", requireAdmin, async (req, res, next) => {
+router.get('/', requireAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ["id", "email"]
+      attributes: ['id', 'email']
     });
     res.json(users);
   } catch (err) {
@@ -19,7 +19,7 @@ router.get("/", requireAdmin, async (req, res, next) => {
 });
 
 // Single user (Edwin's comment: For signed in user view? If so, need to do something with authentication?)
-router.get("/:userId", async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: { id: req.params.userId },
@@ -47,7 +47,7 @@ router.get("/:userId", async (req, res, next) => {
 // })
 
 // Update user (Edwin's Comment: Authentication?)
-router.put("/:userId", requireLogin, async (req, res, next) => {
+router.put('/:userId', requireLogin, async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.params.userId);
     // Edwin's Comment: Do we want the entre req.body form?
@@ -58,7 +58,7 @@ router.put("/:userId", requireLogin, async (req, res, next) => {
   }
 });
 
-router.post("/address/:userId", requireLogin, async (req, res, next) => {
+router.post('/address/:userId', requireLogin, async (req, res, next) => {
   try {
     // Edwin's Comment: Do we want to use the entire req.body form?
     const { street, firstName, lastName, city, state, zip } = req.body;
@@ -80,7 +80,7 @@ router.post("/address/:userId", requireLogin, async (req, res, next) => {
 });
 
 // Remove user (Edwin's comment: authentication? Admin?)
-router.delete("/:userId", requireAdmin, async (req, res, next) => {
+router.delete('/:userId', requireAdmin, async (req, res, next) => {
   try {
     await User.destroy({
       where: {

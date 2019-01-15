@@ -6,8 +6,6 @@ import user, { logout } from '../store/user';
 import { NavLink, withRouter } from 'react-router-dom';
 import { fetchProductsByCategory } from '../store/products';
 
-
-
 const Navbar = props => {
   function candyCount(cart) {
     let count = 0;
@@ -30,12 +28,12 @@ const Navbar = props => {
   };
   const routeChange6 = () => {
     let path = '/logout';
-    props.handleClick()
+    props.handleClick();
     props.history.push(path);
   };
   const routeChange7 = () => {
     let path = '/dashboard';
-    props.handleClick()
+    props.handleClick();
     props.history.push(path);
   };
 
@@ -64,7 +62,7 @@ const Navbar = props => {
     props.fetchProductsByCategory(id, main);
   };
 
-  const { isLoggedIn } = props
+  const { isLoggedIn } = props;
 
   return (
     <div className="nav-outline">
@@ -212,33 +210,41 @@ const Navbar = props => {
             <a href="#">Los Angeles</a>
           </div>
         </div>
-        { props.user.isAdmin ? <div className="dropdown3"><button className="dropbtn3" onClick={routeChange7}>
-            DASHBOARD
-          </button>
-          <div className="dropdown-content3">
-            <Link to="/newproduct">
-            <span>Add Product</span>
-            </Link>
-            <Link to="/home">
-            <span>Edit User</span>
-            </Link>
-          </div></div>:
+        {props.user.isAdmin ? (
           <div className="dropdown3">
-          <button className="dropbtn3">ABOUT US</button>
-          <div className="dropdown-content3">
-            <a href="#">About Us</a>
-            <a href="#">Events</a>
-            <a href="#">Inspiration</a>
+            <button className="dropbtn3" onClick={routeChange7}>
+              DASHBOARD
+            </button>
+            <div className="dropdown-content3">
+              <Link to="/newproduct">
+                <span>Add Product</span>
+              </Link>
+              <Link to="/home">
+                <span>Edit User</span>
+              </Link>
+            </div>
           </div>
-          </div>}
-        
+        ) : (
+          <div className="dropdown3">
+            <button className="dropbtn3">ABOUT US</button>
+            <div className="dropdown-content3">
+              <a href="#">About Us</a>
+              <a href="#">Events</a>
+              <a href="#">Inspiration</a>
+            </div>
+          </div>
+        )}
+
         <div className="dropdown4">
-          { isLoggedIn ?           <button className="dropbtn4" onClick={routeChange6}>
-            LOGOUT
-          </button>:
-          <button className="dropbtn4" onClick={routeChange4}>
-            SIGN UP | LOGIN
-          </button>}
+          {isLoggedIn ? (
+            <button className="dropbtn4" onClick={routeChange6}>
+              LOGOUT
+            </button>
+          ) : (
+            <button className="dropbtn4" onClick={routeChange4}>
+              SIGN UP | LOGIN
+            </button>
+          )}
         </div>
         <div className="dropdown5">
           <button className="dropbtn5" onClick={routeChange5}>
