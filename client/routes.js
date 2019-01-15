@@ -1,65 +1,66 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Login, Signup, Navbar } from "./components";
 import {
-  withRouter,
-  Route,
-  Switch,
-  BrowserRouter as Router
-} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { Login, Signup, Navbar } from './components'
-import { me, fetchItems, getCartInfo } from './store'
-import {
+  me,
+  fetchItems,
+  getCartInfo,
   fetchProducts,
   fetchProductsByCategory,
-  fetchCategories
-} from './store/products'
-import AllProducts from './components/allProducts'
-import SingleProductAdmin from './components/admin/SingleProduct-Admin'
-import SingleProduct from './components/SingleProduct'
-import CategoryView from './components/categoryView'
-import Cart from './components/Cart'
-import createProduct from './components/admin/createProduct'
-
-import welcomeBar from './components/welcomeBar'
-import Checkout from './components/checkout'
-import ThankYou from './components/thankYou'
+  fetchCategories,
+  fetchUsers
+} from "./store";
+import AllProducts from "./components/allProducts";
+import SingleProductAdmin from "./components/admin/SingleProduct-Admin";
+import SingleProduct from "./components/SingleProduct";
+import CategoryView from "./components/categoryView";
+import Cart from "./components/Cart";
+import createProduct from "./components/admin/createProduct";
+import welcomeBar from "./components/welcomeBar";
+import Checkout from "./components/checkout";
+import ThankYou from "./components/thankYou";
+import userEdit from "./components/admin/userEdit";
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
-    this.props.loadInitialData()
-    this.props.fetchProducts()
-    this.props.getCartInfo(this.props.user.id)
+  componentDidMount() {
+    this.props.fetchUsers();
+    this.props.loadInitialData();
+    this.props.fetchProducts();
+    this.props.getCartInfo(this.props.user.id);
   }
-  componentDidUpdate (prevprops) {
-    console.log(prevprops)
+  componentDidUpdate(prevprops) {
     if (this.props.info.id !== prevprops.info.id) {
-      this.props.fetchItems(this.props.info.id)
+      this.props.fetchItems(this.props.info.id);
     }
   }
 
-  render () {
-    const { isLoggedIn } = this.props
+  render() {
+    const { isLoggedIn } = this.props;
 
     return (
       <div>
-        <Route path='/' component={Navbar} />
-        <Route exact path='/products' component={AllProducts} />
-        <Route exact path='/newproduct' component={createProduct} />
-        <Route path='/login' component={Login} />
-        <Route path='/signup' component={Signup} />
-        <Route path='/cart' component={Cart} />
-        <Route path='/categories/:id' component={CategoryView} />
-        <Route exact path='/checkout' component={Checkout} />
-        <Route exact path='/completed' component={ThankYou} />
+        <Route path="/" component={Navbar} />
+        <Route exact path="/products" component={AllProducts} />
+        <Route exact path="/newproduct" component={createProduct} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/categories/:id" component={CategoryView} />
+        <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/completed" component={ThankYou} />
 
         {this.props.user.isAdmin ? (
-          <Route exact path='/products/:id' component={SingleProductAdmin} />
+          <div>
+            <Route exact path="/products/:id" component={SingleProductAdmin} />
+            <Route exact path="/users/" component={userEdit} />
+          </div>
         ) : (
-          <Route exact path='/products/:id' component={SingleProduct} />
+          <Route exact path="/products/:id" component={SingleProduct} />
         )}
         {isLoggedIn && (
           <Switch>
@@ -68,7 +69,7 @@ class Routes extends Component {
         )}
         <Route path="/home" component={AllProducts} />
       </div>
-    )
+    );
   }
 }
 
@@ -82,40 +83,38 @@ const mapState = state => {
     isLoggedIn: state.user.id,
     user: state.user,
     info: state.info
-  }
-}
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData () {
-      dispatch(me())
+    loadInitialData() {
+      dispatch(me());
     },
     fetchProducts: () => {
-      dispatch(fetchProducts())
+      dispatch(fetchProducts());
     },
     fetchProductsByCategory: id => {
-      dispatch(fetchProductsByCategory(id))
+      dispatch(fetchProductsByCategory(id));
     },
     fetchCategories: () => {
-      dispatch(fetchCategories())
+      dispatch(fetchCategories());
     },
     fetchItems: id => {
-      dispatch(fetchItems(id))
+      dispatch(fetchItems(id));
     },
     getCartInfo: id => {
-      dispatch(getCartInfo(id))
+      dispatch(getCartInfo(id));
+    },
+    fetchUsers: () => {
+      dispatch(fetchUsers());
     }
-  }
-}
+  };
+};
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(Routes)
-)
+export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 /**
  * PROP TYPES
