@@ -94,4 +94,18 @@ router.get('/cartinfo/:userId', async (req, res, next) => {
 });
 
 //Admin access to purchased carts
-//coming here..
+//Actual path:
+//api/cart/coitems/admin
+
+router.get('/coitems/admin', async (req, res, next) => {
+  try {
+    const checkedOut = await Cart.findAll({
+      where: {
+        isPurchased: true
+      }
+    });
+    res.status(200).json(checkedOut);
+  } catch (err) {
+    next(err);
+  }
+});
