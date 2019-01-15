@@ -24,18 +24,26 @@ export class CheckoutItems extends Component {
         <table>
           <tbody>
             <tr>
-              <th> Cart No: </th>
-              <th> Total Quantity: </th>
-              <th> User Id: </th>
+              <th> Cart Id: </th>
+              <th> Item Name: </th>
+              <th> Quantity: </th>
+              <th> Price: </th>
               <th> Shipping Status: </th>
             </tr>
             {adminCart.map(cart => {
               return (
                 <tr key={cart.id}>
-                  <td>{cart.id}</td>
-                  <td>{cart.total_quantity}</td>
-                  <td>{cart.userId}</td>
-                  {/* <I will put some kind of button over here/> */}
+                  <td>{cart.cartId}</td>
+                  <td>{cart.stock.name}</td>
+                  <td>{cart.quantity}</td>
+                  <td>{cart.stock.price}</td>
+                  <td>
+                    <select>
+                      <option value="packaging">Packaging</option>
+                      <option value="shipping">Shipping</option>
+                      <option value="complete">Complete</option>
+                    </select>
+                  </td>
                 </tr>
               );
             })}

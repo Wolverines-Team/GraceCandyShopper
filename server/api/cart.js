@@ -99,11 +99,10 @@ router.get('/cartinfo/:userId', async (req, res, next) => {
 
 router.get('/coitems/admin', async (req, res, next) => {
   try {
-    const checkedOut = await Cart.findAll({
-      where: {
-        isPurchased: true
-      }
+    const checkedOut = await CartItems.findAll({
+      include: [{ model: Cart, where: { isPurchased: true } }, { model: Stock }]
     });
+    console.log('checkedOut', checkedOut);
     res.status(200).json(checkedOut);
   } catch (err) {
     next(err);
