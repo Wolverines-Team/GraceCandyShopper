@@ -9,7 +9,6 @@ module.exports = router;
 // Accessibility: For all users
 router.get('/:cartId', async (req, res, next) => {
   try {
-    console.log('===cartId=== ', req.params.cartId);
     const singleCartView = await CartItems.findAll({
       where: { cartId: req.params.cartId }
     });
@@ -40,15 +39,12 @@ router.post('/:cartId', async (req, res, next) => {
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:cartItemId', async (req, res, next) => {
   try {
-    console.log('******* cartItems: >> ', req.params.cartItemId);
-    console.log('==req.body from CardView click==', req.body);
     const currentCartItem = await CartItems.findOne({
       where: {
         stockId: req.body.stockId,
         cartId: req.body.cartId
       }
     });
-    console.log(req.body);
     const updatedCartItem = await currentCartItem.update({
       quantity: req.body.quantity
     });

@@ -49,7 +49,7 @@ class Reviews extends Component {
             );
           })
         ) : (
-          <h1>No Reviews Yet</h1>
+          <h4>No Reviews Yet</h4>
         )}
         {!this.props.user.isAdmin && this.props.user.id ? (
           <form

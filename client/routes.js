@@ -39,7 +39,6 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-
     return (
       <div>
         <Route path="/" component={Navbar} />
@@ -48,8 +47,6 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
-        <Route exact path="/categories" component={AllProducts} />
-
         <Route path="/categories/:id" component={CategoryView} />
 
         {this.props.user.isAdmin ? (
@@ -59,11 +56,10 @@ class Routes extends Component {
         )}
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={welcomeBar} />
           </Switch>
         )}
-        <Route path="/home" component={Login} />
+        <Route path="/home" component={AllProducts} />
       </div>
     );
   }
@@ -76,7 +72,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: state.user.id,
     user: state.user,
     info: state.info
   };
@@ -114,5 +110,5 @@ export default withRouter(connect(mapState, mapDispatch)(Routes));
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.number.isRequired
 };

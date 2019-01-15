@@ -34,7 +34,6 @@ export const updateQuantity = item => ({
 export const fetchItems = cartId => async dispatch => {
   try {
     const { data } = await axios.get(`/api/cart/${cartId}`);
-    // console.log('cart is looking like ===>', data);
 
     dispatch(getItem(data));
   } catch (error) {

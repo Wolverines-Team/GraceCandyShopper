@@ -27,12 +27,10 @@ export class Cart extends Component {
   }
 
   handleChange = item => {
-    console.log('insisde handleChange==== item:?>>> ', item);
     this.props.updateQuantity(item);
   };
 
   render() {
-    console.log('is this the props ===>', this.props);
     const items = this.props.items || [];
     if (items.length === 0 || !items) {
       return (
@@ -58,7 +56,6 @@ export class Cart extends Component {
               <th> ITEM TOTAL</th>
             </tr>
             {items.map(item => {
-              console.log(item.id);
               let product;
               if (this.props.products) {
                 product = this.props.products.filter(
@@ -125,4 +122,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
-// export default Cart;

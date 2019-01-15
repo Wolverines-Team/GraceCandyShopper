@@ -13,14 +13,23 @@ class CreateProduct extends Component {
       quantity: 0,
       category: 0,
       brand: '',
+      images: [],
       ratings: []
     };
   }
 
   render() {
-    const { name, description, price, quantity, category, brand } = this.state;
+    const { name, description, price, quantity, category, images } = this.state;
+
+    function editImage(imagesArray, index, url) {
+      let ans = imagesArray
+      ans[index].imageUrl = url
+      return ans
+    }
+
     return (
-      <div className="singleview">
+      <div className="outline">
+      <div className="singleView">
         <form
           onSubmit={evt => {
             evt.preventDefault();
@@ -28,13 +37,16 @@ class CreateProduct extends Component {
               name,
               price,
               description,
-              quantity
+              quantity,
+              images
             });
 
             this.props.history.push('/products');
           }}
         >
-          <h1>Name:{name}</h1>
+          <div>
+          <h4>Name:</h4>
+          <p>{name}</p>
           <input
             className="input"
             type="text"
@@ -45,11 +57,10 @@ class CreateProduct extends Component {
             }}
             value={name}
           />
-          {/* <img src={product.imageUrl[1]} /> */}
-          {/* <Images images={product.images} */}
+          </div>
           <div className="producttext">
-            <h4>
-              description:{description}
+            <h4>description:</h4>
+            <p>{description}</p>
               <input
                 className="input"
                 type="text"
@@ -60,10 +71,27 @@ class CreateProduct extends Component {
                 }}
                 value={description}
               />
-            </h4>
           </div>
 
-          <h3>Price(in cents): ${price}</h3>
+            {/* <div className="edit-outline">
+              <div className="outline">
+                <h4>image1</h4>
+                <input className="input" type="text"
+                onChange={evt => {
+                this.setState({
+                images: editImage(images, 0, evt.target.value )
+                });
+                }}
+                value={images[0] && images[0].imageUrl}
+                />
+              </div>
+              <div>
+                <img src={images[0] && images[0].imageUrl} className="editImage"/>
+              <button>EDIT IMAGE</button>
+              </div>
+            </div> */}
+
+          <h4>Price(in cents): ${price/100}</h4>
           <input
             className="input"
             onChange={evt => {
@@ -82,17 +110,6 @@ class CreateProduct extends Component {
             }}
             value={quantity}
           />
-          <h4>Brand:</h4>
-          <input
-            className="input"
-            type="text"
-            onChange={evt => {
-              this.setState({
-                brand: evt.target.value
-              });
-            }}
-            value={brand}
-          />
           <h4>categoryId:</h4>
           <input
             className="input"
@@ -106,6 +123,7 @@ class CreateProduct extends Component {
           />
           <button type="submit">Create</button>
         </form>
+      </div>
       </div>
     );
   }

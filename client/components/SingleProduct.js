@@ -17,8 +17,13 @@ const SingleProduct = props => {
       if (images[i].id < min) min = images[i].id;
     }
     for (let j = 0; j < images.length; j++) {
-      ans.push(images.filter(im => im.id === min)[0]);
-      min += 1;
+      if (images.filter(im => im.id === min)[0]){
+      ans.push(images.filter(im => im.id === min)[0])
+      min += 1
+      } else {
+        min += 1;
+        j--
+      }
     }
     return ans;
   }
@@ -170,7 +175,7 @@ const SingleProduct = props => {
             method.
           </p>
           <hr />
-          <h4>REVIEWS</h4>
+          <h4>WHY YOU WANT THIS</h4>
           <p>{product.description}</p>
           <Reviews product={product} />
           <hr />

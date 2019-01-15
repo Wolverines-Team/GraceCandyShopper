@@ -55,8 +55,13 @@ const CardView = props => {
       if (images[i].id < min) min = images[i].id;
     }
     for (let j = 0; j < images.length; j++) {
-      ans.push(images.filter(im => im.id === min)[0]);
-      min += 1;
+      if (images.filter(im => im.id === min)[0]){
+      ans.push(images.filter(im => im.id === min)[0])
+      min += 1
+      } else {
+        min += 1;
+        j--
+      }
     }
     return ans;
   }
@@ -65,16 +70,16 @@ const CardView = props => {
   return (
     <div className="single-card-outline">
       <div className="card">
-        <Link to={`/products/${product.id}`}>
           <div className="card-img">
+          <Link to={`/products/${product.id}`}>
 
             <img
               src={product.images && sortImages(product.images)[0].imageUrl}
             />
 
 
+          </Link>
           </div>
-        </Link>
         <div className="productText">
           <p>{product.name}</p>
           <p>${product.price}</p>
