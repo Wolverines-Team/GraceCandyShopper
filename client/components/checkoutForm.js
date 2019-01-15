@@ -4,18 +4,15 @@ import { connect } from 'react-redux'
 import { makeOrder } from '../store/info'
 import stateSelector from './stateSelector'
 import { Link } from 'react-router-dom'
+import AddressForm from './addressForm'
 
 class CheckoutForm extends Component {
   constructor () {
     super()
     this.state = {
-      street: '',
-      firstName: '',
-      lastName: '',
-      city: '',
-      state: '',
-      zip: 0,
-      isComplete: false
+      address: {},
+      isComplete: false,
+      failed: false
     }
   }
 
@@ -23,12 +20,12 @@ class CheckoutForm extends Component {
     console.log(this.props)
     evt.preventDefault()
     const { token } = await this.props.stripe.createToken({ name: 'purchase' })
-    console.log('==TOKEN===> ', token)
     let response = await fetch('/charge', {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
       body: token.id
     })
+
     if (response.ok) {
       const {
         street,
@@ -36,57 +33,28 @@ class CheckoutForm extends Component {
         lastName,
         city,
         state,
-        zip,
-        isComplete
-      } = this.state
-      if (
-        street !== '' ||
-        firstName !== '' ||
-        lastName !== '' ||
-        city !== '' ||
-        state !== '' ||
-        zip !== 0
-      ) {
-        this.setState({ isComplete: true })
-      }
+        zip
+      } = this.props.info.address
+      console.log(street, firstName, lastName, city, state, zip)
 
-      if (isComplete) {
-        this.props.makeOrder({
+      if ((street, firstName, lastName, city, state, zip)) {
+        this.props.makeOrder(this.props.info.id, {
           street,
           firstName,
           lastName,
           city,
           state,
           zip,
-          token
+          userId: this.props.user.id
         })
+      } else {
+        this.setState({ isComplete: 'failed' })
       }
-    } else {
-      this.setState({ isComplete: 'failed' })
-    }
-  }
-  handleChange = evt => {
-    if (evt.target.name) {
-      this.setState({
-        [evt.target.name]: [evt.target.value]
-      })
-    } else {
-      this.setState({
-        state: [evt.target.value]
-      })
     }
   }
 
   render () {
-    const {
-      street,
-      firstName,
-      lastName,
-      city,
-      state,
-      zip,
-      isComplete
-    } = this.state
+    const { isComplete } = this.state
 
     if (isComplete === 'failed') {
       return (
@@ -96,88 +64,55 @@ class CheckoutForm extends Component {
         </div>
       )
     }
+    const addresses = this.props.addresses
     return (
-      <div className='checkout'>
-        <form className='checkout-form'>
-          <div>
-            <label htmlFor='First Name'>
-              <small>First Name</small>
-            </label>
-            <input
-              name='firstName'
-              type='text'
-              value={firstName}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor='Last Name'>
-              <small>Last Name</small>
-            </label>
-            <input
-              name='lastName'
-              type='text'
-              value={lastName}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor='street'>Address</label>
-            <input
-              name='street'
-              type='text'
-              value={street}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <input type='checkbox' name='saveAddress' value='true' /> Save Address
-          <br />
-          <div>
-            <label htmlFor='city'>City</label>
-            <input
-              name='city'
-              type='text'
-              value={city}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <div>{stateSelector(this.handleChange)}</div>
-          <div>
-            <label htmlFor='zip'>Zip</label>
-            <input
-              name='zip'
-              type='number'
-              value={zip}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <div />
-          <button onClick={evt => this.handleSubmit(evt)}>Send</button>
-        </form>
-        <div className='checkout'>
+      <div className='spacer'>
+        <div>
           <CardElement style={{ base: { fontSize: '18px' } }} />
         </div>
+        <form className='checkout-form'>
+          {addresses ? (
+            <div>
+              {addresses.map(address => {
+                return (
+                  <input
+                    key={address.id}
+                    type='radio'
+                    name='address'
+                    value={address}
+                  >
+                    {address.street}
+                  </input>
+                )
+              })}
+            </div>
+          ) : (
+            <div />
+          )}
+          <AddressForm handleSubmit />
+          <button onClick={evt => this.handleSubmit(evt)}>Send</button>
+        </form>
 
         {isComplete ? <div /> : <h1>Must Fill All Fields </h1>}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  info: state.info,
+  user: state.user
+})
 const mapDispatch = dispatch => {
   return {
-    makeOrder: order => {
-      dispatch(makeOrder(order))
+    makeOrder: (id, address) => {
+      dispatch(makeOrder(id, address))
     }
   }
 }
 
 const stripeInjected = connect(
-  null,
+  mapStateToProps,
   mapDispatch
 )(CheckoutForm)
 

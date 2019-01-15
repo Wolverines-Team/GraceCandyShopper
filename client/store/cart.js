@@ -42,6 +42,7 @@ export const fetchItems = cartId => async dispatch => {
   }
 };
 
+
 // OZLEM`S COMMENT
 //! !! IMPORTANT NOTE: WE WILL GOING TO ADD NEW ITEMS/PRODUCTS TO THE CART
 // I AM NOT SURE ABOUT THE NAME , IN DB NAME IS STOCK ID, HOWEVER I AM USING IN HERE 'item.id'

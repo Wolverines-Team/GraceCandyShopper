@@ -5,6 +5,7 @@ import fetchItems from './cart'
 
 const GET_CART_INFO = 'GET_CART_INFO'
 const GET_ORDER = 'GET_ORDER'
+const SET_ADDRESS = 'SET_ADDRESS'
 
 export const getCartIni = cartId => ({
   type: GET_CART_INFO,
@@ -13,6 +14,11 @@ export const getCartIni = cartId => ({
 export const getOrder = status => ({
   type: GET_ORDER,
   status
+})
+
+export const setAddress = address => ({
+  type: SET_ADDRESS,
+  address
 })
 
 export const getCartInfo = userId => async dispatch => {
@@ -24,10 +30,18 @@ export const getCartInfo = userId => async dispatch => {
     console.error(error)
   }
 }
-export const makeOrder = order => async dispatch => {
+export const makeOrder = (cartId, address) => async dispatch => {
   try {
-    const { data } = await axios.post(`/api/charge/`, order)
-
+    console.log(address)
+    const { data } = await axios.post(`/api/cart/checkout/${cartId}`, address)
+    dispatch(getOrder(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+export const addAddress = (userId, address) => async dispatch => {
+  try {
+    const { data } = await axios.post(`/api/users/address/${userId}`, address)
     dispatch(getOrder(data))
   } catch (error) {
     console.error(error)
@@ -43,7 +57,8 @@ export default function (state = defaultState, action) {
       return { ...state, id: action.cartId }
     case GET_ORDER:
       return { ...state, status: action.status }
-
+    case SET_ADDRESS:
+      return { ...state, address: action.address }
     default:
       return state
   }
