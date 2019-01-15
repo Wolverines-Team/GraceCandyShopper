@@ -11,8 +11,8 @@ import {
 } from '../../store';
 
 class SingleProductAdmin extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       name: '',
       id: 0,
@@ -23,15 +23,15 @@ class SingleProductAdmin extends Component {
       brand: '',
       images: [],
       ratings: []
-    };
+    }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const [
       { description, id, name, price, quantity, ratings, images }
     ] = this.props.products.filter(
       product => product.id == this.props.match.params.id
-    );
+    )
     this.setState({
       id,
       name,
@@ -40,7 +40,7 @@ class SingleProductAdmin extends Component {
       quantity,
       ratings,
       images
-    });
+    })
   }
   render() {
     const { name, description, price, quantity, ratings, id, images } = this.state;
@@ -55,7 +55,7 @@ class SingleProductAdmin extends Component {
       <div className="singleView">
         <form
           onSubmit={async evt => {
-            evt.preventDefault();
+            evt.preventDefault()
             this.props.updateProducts({
               id,
               name,
@@ -74,12 +74,12 @@ class SingleProductAdmin extends Component {
           <h4>Name:</h4>
           <p>{name}</p>
           <input
-            className="input"
-            type="text"
+            className='input'
+            type='text'
             onChange={evt => {
               this.setState({
                 name: evt.target.value
-              });
+              })
             }}
             value={name}
           />
@@ -88,10 +88,10 @@ class SingleProductAdmin extends Component {
           <h4>Price:</h4>
           <p>${price}</p>
           <input
-            className="input"
-            type="number"
+            className='input'
+            type='number'
             onChange={evt => {
-              this.setState({ price: evt.target.value });
+              this.setState({ price: evt.target.value })
             }}
             value={price}
           />
@@ -100,12 +100,12 @@ class SingleProductAdmin extends Component {
           <h4>Stock:</h4>
           <p>{quantity}</p>
           <input
-            className="input"
-            type="number"
+            className='input'
+            type='number'
             onChange={evt => {
               this.setState({
                 quantity: evt.target.value
-              });
+              })
             }}
             value={quantity}
           />
@@ -128,10 +128,10 @@ class SingleProductAdmin extends Component {
           <button type="submit">SAVE CHANGED PRODUCT</button>
           <button
             onClick={evt => {
-              evt.preventDefault();
-              this.props.deleteProduct(id);
-              this.props.fetchProducts();
-              this.props.history.push('/products');
+              evt.preventDefault()
+              this.props.deleteProduct(id)
+              this.props.fetchProducts()
+              this.props.history.push('/products')
             }}
           >
             DELETE
@@ -164,19 +164,19 @@ class SingleProductAdmin extends Component {
             )
             })}
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = state => ({ products: state.products.products });
+const mapStateToProps = state => ({ products: state.products.products })
 
 const mapDispatchToProps = dispatch => {
   return {
     updateProducts: product => {
-      dispatch(updateProducts(product));
+      dispatch(updateProducts(product))
     },
     fetchProducts: () => {
-      dispatch(fetchProducts());
+      dispatch(fetchProducts())
     },
     fetchProductsByCategory: id => {
       dispatch(fetchProductsByCategory(id));
@@ -187,7 +187,10 @@ const mapDispatchToProps = dispatch => {
     updatePicture: id => {
       dispatch(updatePicture(id));
     }
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProductAdmin);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SingleProductAdmin)

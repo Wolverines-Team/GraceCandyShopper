@@ -1,89 +1,116 @@
-import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import React, { Component } from 'react'
+import { CardElement, injectStripe } from 'react-stripe-elements'
+import { connect } from 'react-redux'
+import { makeOrder, fetchAddresses } from '../store/info'
+import { Link } from 'react-router-dom'
+import AddressForm from './addressForm'
+import history from '../history'
 
 class CheckoutForm extends Component {
-  constructor(props) {
-    super(props);
-    this.submit = this.submit.bind(this);
+  constructor () {
+    super()
+    this.state = {
+      address: {},
+      isComplete: false,
+      failed: false
+    }
+  }
+  componentDidMount () {
+    this.props.fetchAddresses(this.props.user.id)
   }
 
-  async submit(ev) {
-    let { token } = await this.props.stripe.createToken({ name: 'Name' });
+  async handleSubmit (evt) {
+    evt.preventDefault()
+    const { token } = await this.props.stripe.createToken({ name: 'purchase' })
     let response = await fetch('/charge', {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
       body: token.id
-    });
+    })
 
-    if (response.ok) console.log('Purchase Complete!');
+    if (response.ok) {
+      const {
+        street,
+        firstName,
+        lastName,
+        city,
+        state,
+        zip
+      } = this.props.info.address
+
+      if (
+        street !== '' &&
+        firstName !== '' &&
+        lastName !== '' &&
+        city !== '' &&
+        state !== '' &&
+        zip !== ''
+      ) {
+        this.setState({ isComplete: true })
+      } else {
+        this.setState({ isComplete: false })
+      }
+      if (this.state.isComplete) {
+        this.props.makeOrder(this.props.info.id, {
+          street,
+          firstName,
+          lastName,
+          city,
+          state,
+          zip,
+          userId: this.props.user.id
+        })
+
+        this.props.history.push('/completed')
+      } else {
+        this.setState({ isComplete: false })
+      }
+    }
   }
 
-  render() {
+  render () {
+    const { isComplete } = this.state
+
+    if (isComplete === 'failed') {
+      return (
+        <div>
+          <h1>Purchase Failed</h1>
+          <Link to='cart'>Back To Cart</Link>
+        </div>
+      )
+    }
+
     return (
-      <div className="checkout">
-        <form className="sign-in" onSubmit={handleSubmit} name={name}>
-          <div>
-            <label htmlFor="address">Email</label>
-            <input name="address" type="text" />
-          </div>
-          <div>
-            <label htmlFor="First Name">
-              <small>First Name</small>
-            </label>
-            <input name="First Name" type="text" />
-          </div>
-
-          <div>
-            <label htmlFor="Last Name">
-              <small>Last Name</small>
-            </label>
-            <input name="Last Name" type="text" />
-          </div>
-          <CardElement />
-          <div>
-            <button type="submit">Checkout </button>
-          </div>
+      <div className='spacer'>
+        <div>
+          <CardElement style={{ base: { fontSize: '18px' } }} />
+        </div>
+        <form className='checkout-form'>
+          <AddressForm />
+          <button onClick={evt => this.handleSubmit(evt)}>Send</button>
         </form>
-
-        <button onClick={this.submit}>Send</button>
       </div>
-    );
+    )
   }
 }
 
-export default injectStripe(CheckoutForm);
-
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
-const mapLogin = state => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.user.error
-  };
-};
-
-const mapSignup = state => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.user.error
-  };
-};
-
+const mapStateToProps = state => ({
+  info: state.info,
+  user: state.user,
+  history: history
+})
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault();
-      const address = evt.target.address.value;
-      const firstName = evt.target.firstName.value;
-      const firstName = evt.target.firstName.value;
-      dispatch(checkout(address, password, formName));
-    }
-  };
-};
+    makeOrder: (id, address) => {
+      dispatch(makeOrder(id, address))
+    },
+    fetchAddresses: userId => dispatch(fetchAddresses(userId))
+  }
+}
+
+const injected = injectStripe(CheckoutForm)
+
+export default connect(
+  mapStateToProps,
+  mapDispatch
+)(injected)
