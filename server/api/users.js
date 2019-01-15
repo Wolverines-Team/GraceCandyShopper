@@ -4,13 +4,13 @@ const { requireLogin, requireAdmin } = require("./util");
 module.exports = router;
 
 // All users. (Edwin's Comment: for Admin's view??)
-router.get("/", requireAdmin, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ["id", "email"]
+      attributes: ["id", "email", "isAdmin"]
     });
     res.json(users);
   } catch (err) {
@@ -26,6 +26,16 @@ router.get("/:userId", async (req, res, next) => {
       include: [{ model: Address }]
     });
     res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+router.put("/makeAdmin/:userId", async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    console.log(user.id);
+    const updatedUser = await user.update(req.body);
+    res.status(200).json(updatedUser);
   } catch (err) {
     next(err);
   }
