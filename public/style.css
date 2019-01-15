@@ -389,7 +389,7 @@ button:focus {
   display: flex;
   flex-wrap: wrap;
   max-width: 1100px;
-  padding-top: 10px;
+  padding-top: 25px;
   padding-left: 10px;
 }
 
@@ -633,4 +633,61 @@ button:focus {
   background-color: black;
   color: white;
   text-align: center;
+}
+
+.welcome {
+  position: absolute;
+  padding-top: 70px;
+  left: 50%;
+  margin-left: -150px;
+  font-weight: 100;
+}
+
+/* PART 6 ADMIN*/
+/* PART 6 ADMIN*/
+
+.singleView {
+  padding-top: 100px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.singleView div {
+  margin: 5px;
+}
+
+.singleView h4 {
+  margin: 10px 0;
+}
+
+.singleView input {
+  height: 25px;
+  width: 250px;
+  font-size: 16px;
+}
+
+.description textarea {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+}
+
+.singleView button {
+  height: 30px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.editImage {
+  border: solid 1px rgb(211, 211, 211);
+  width: 50%;
+}
+
+.edit-outline {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-outline input{
+  width: 65%;
 }

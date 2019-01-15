@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 
 const WelcomeBar = props => {
   return (
-    <div>
-      {props.user.username ? (
-        <h1>Welcome back {props.user.username}! </h1>
-      ) : (
-        <h1>Welcome! </h1>
-      )}
+    <div className="outline">
+      <div className="welcome">
+        {props.user.username ? (
+          <h2>Welcome back {props.user.isAdmin ? 'admin' : 'user'} {props.user.username}!   </h2>
+        ) : (
+          <h2>Welcome! </h2>
+        )}
+      </div>
     </div>
   );
 };

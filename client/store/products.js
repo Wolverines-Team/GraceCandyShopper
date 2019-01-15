@@ -50,6 +50,13 @@ export const updateProducts = product => async dispatch => {
     console.error(error)
   }
 }
+export const updatePicture = image => async dispatch => {
+  try {
+    await axios.put(`/api/images/${image.id}`, image);
+  } catch (error) {
+    console.error(error);
+  }
+};
 export const createReview = review => async () => {
   try {
     await axios.post(`/api/reviews/`, review)
@@ -88,8 +95,7 @@ export default function (state = defaultProducts, action) {
     case GET_PRODUCTS_BY_CAT:
       return { ...state, catted: action.products }
     case GET_CATEGORIES:
-      return { ...state, categories: action.categories }
-
+      return { ...state, categories: action.categories };
     default:
       return state
   }

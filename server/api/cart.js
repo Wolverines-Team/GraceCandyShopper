@@ -47,7 +47,6 @@ router.put("/:cartItemId", async (req, res, next) => {
         cartId: req.body.cartId
       }
     });
-    console.log(req.body);
     const updatedCartItem = await currentCartItem.update({
       quantity: req.body.quantity
     });
