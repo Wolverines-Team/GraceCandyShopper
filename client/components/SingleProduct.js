@@ -17,12 +17,12 @@ const SingleProduct = props => {
       if (images[i].id < min) min = images[i].id;
     }
     for (let j = 0; j < images.length; j++) {
-      if (images.filter(im => im.id === min)[0]){
-      ans.push(images.filter(im => im.id === min)[0])
-      min += 1
+      if (images.filter(im => im.id === min)[0]) {
+        ans.push(images.filter(im => im.id === min)[0]);
+        min += 1;
       } else {
         min += 1;
-        j--
+        j--;
       }
     }
     return ans;
@@ -40,7 +40,6 @@ const SingleProduct = props => {
     if (value > 1) qty[0].value = value - 1;
     else qty[0].value = 1;
   };
-
 
   const submitResult = stockId => {
     const qty = document.getElementsByName(`q${stockId}`);
@@ -132,7 +131,6 @@ const SingleProduct = props => {
         <div className="s-outline">
           {imagesArray[0] &&
             imagesArray.map(m => {
-
               return (
                 <div key={m.id}>
                   <img
@@ -146,7 +144,6 @@ const SingleProduct = props => {
           <div className="s-row">
             {imagesArray[0] &&
               imagesArray.map((m, i) => {
-
                 return (
                   <div key={m.id}>
                     <img

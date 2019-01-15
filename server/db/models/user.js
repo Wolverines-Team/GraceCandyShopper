@@ -83,5 +83,12 @@ const setSaltAndPassword = user => {
   }
 };
 
+//making username for new users:
+
+User.beforeCreate(function(User) {
+  let index = User.email.indexOf('@');
+  User.username = User.email.slice(0, index);
+});
+
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);

@@ -68,6 +68,46 @@ class AddressForm extends Component {
     }
     const { street, firstName, lastName, city, zip, save } = this.state;
     return (
+<<<<<<< HEAD
+      <div>
+        {addresses ? (
+          <select onChange={this.handleSelectChange}>
+            <option>Saved Addresses</option>
+            {addresses.map(address => {
+              return (
+                <option value={address.id} key={address.id}>
+                  {address.street}
+                </option>
+              );
+            })}
+          </select>
+        ) : (
+          <div />
+        )}
+        <div>
+          <label htmlFor="First Name">
+            <small>First Name</small>
+          </label>
+          <input
+            name="firstName"
+            type="text"
+            value={firstName}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="Last Name">
+            <small>Last Name</small>
+          </label>
+          <input
+            name="lastName"
+            type="text"
+            value={lastName}
+            onChange={this.handleChange}
+            required
+          />
+=======
       <div className="card-info">
         <div className="card-row">
           <div>
@@ -94,9 +134,20 @@ class AddressForm extends Component {
               required
             />
           </div>
+>>>>>>> categories
         </div>
 
         <div>
+<<<<<<< HEAD
+          <label htmlFor="street">Street</label>
+          <input
+            name="street"
+            type="text"
+            value={street}
+            onChange={this.handleChange}
+            required
+          />
+=======
           {addresses ? (
             <select onChange={this.handleSelectChange}>
               <option>Saved Addresses</option>
@@ -111,6 +162,7 @@ class AddressForm extends Component {
           ) : (
             <div />
           )}
+>>>>>>> categories
         </div>
 
         <div className="card-row">
@@ -132,6 +184,17 @@ class AddressForm extends Component {
         />
         Save Address
         <br /> */}
+<<<<<<< HEAD
+        <div>
+          <label htmlFor="city">City</label>
+          <input
+            name="city"
+            type="text"
+            value={city}
+            onChange={this.handleChange}
+            required
+          />
+=======
           <div>
             <label htmlFor="city">City</label>
             <input
@@ -156,10 +219,22 @@ class AddressForm extends Component {
               required
             />
           </div>
+>>>>>>> categories
         </div>
 
         <div>
+<<<<<<< HEAD
+          <label htmlFor="zip">Zip</label>
+          <input
+            name="zip"
+            type="number"
+            value={zip}
+            onChange={this.handleChange}
+            required
+          />
+=======
           <button onClick={this.handleSubmit}>Check Address</button>
+>>>>>>> categories
         </div>
       </div>
     );

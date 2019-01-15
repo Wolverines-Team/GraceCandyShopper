@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const Address = db.define('address', {
   firstName: {
@@ -20,6 +20,6 @@ const Address = db.define('address', {
   zip: {
     type: Sequelize.STRING
   }
-})
+});
 
-module.exports = Address
+module.exports = Address;

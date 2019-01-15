@@ -1,7 +1,14 @@
+<<<<<<< HEAD
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Reviews from '../Reviews';
+import Images from '../images';
+=======
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Reviews from "../Reviews";
 // import Images from '../images'
+>>>>>>> categories
 import {
   updateProducts,
   fetchProducts,
@@ -139,7 +146,11 @@ class SingleProductAdmin extends Component {
               evt.preventDefault();
               this.props.deleteProduct(id);
               this.props.fetchProducts();
+<<<<<<< HEAD
+              this.props.history.push('/products');
+=======
               this.props.history.push("/products");
+>>>>>>> categories
             }}
           >
             DELETE

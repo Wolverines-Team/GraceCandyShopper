@@ -8,7 +8,10 @@ const WelcomeBar = props => {
     <div className="outline">
       <div className="welcome">
         {props.user.username ? (
-          <h2>Welcome back {props.user.isAdmin ? 'admin' : 'user'} {props.user.username}!   </h2>
+          <h2>
+            Welcome back {props.user.isAdmin ? 'admin' : 'user'}{' '}
+            {props.user.username}!{' '}
+          </h2>
         ) : (
           <h2>Welcome! </h2>
         )}
