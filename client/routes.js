@@ -1,41 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  withRouter,
-  Route,
-  Switch,
-  BrowserRouter as Router
-} from 'react-router-dom'
+import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Login, Signup, Navbar } from './components'
-import { me, fetchItems, getCartInfo } from './store'
 import {
+  me,
+  fetchItems,
+  getCartInfo,
   fetchProducts,
   fetchProductsByCategory,
-  fetchCategories
-} from './store/products'
+  fetchCategories,
+  fetchUsers
+} from './store'
 import AllProducts from './components/allProducts'
 import SingleProductAdmin from './components/admin/SingleProduct-Admin'
 import SingleProduct from './components/SingleProduct'
 import CategoryView from './components/categoryView'
 import Cart from './components/Cart'
 import createProduct from './components/admin/createProduct'
-
 import welcomeBar from './components/welcomeBar'
 import Checkout from './components/checkout'
 import ThankYou from './components/thankYou'
+import userEdit from './components/admin/userEdit'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount () {
+    this.props.fetchUsers()
     this.props.loadInitialData()
     this.props.fetchProducts()
     this.props.getCartInfo(this.props.user.id)
   }
   componentDidUpdate (prevprops) {
-    console.log(prevprops)
     if (this.props.info.id !== prevprops.info.id) {
       this.props.fetchItems(this.props.info.id)
     }
@@ -57,16 +55,19 @@ class Routes extends Component {
         <Route exact path='/completed' component={ThankYou} />
 
         {this.props.user.isAdmin ? (
-          <Route exact path='/products/:id' component={SingleProductAdmin} />
+          <div>
+            <Route exact path='/products/:id' component={SingleProductAdmin} />
+            <Route exact path='/users/' component={userEdit} />
+          </div>
         ) : (
           <Route exact path='/products/:id' component={SingleProduct} />
         )}
         {isLoggedIn && (
           <Switch>
-            <Route path="/home" component={welcomeBar} />
+            <Route path='/home' component={welcomeBar} />
           </Switch>
         )}
-        <Route path="/home" component={AllProducts} />
+        <Route path='/home' component={AllProducts} />
       </div>
     )
   }
@@ -104,6 +105,9 @@ const mapDispatch = dispatch => {
     },
     getCartInfo: id => {
       dispatch(getCartInfo(id))
+    },
+    fetchUsers: () => {
+      dispatch(fetchUsers())
     }
   }
 }
@@ -123,4 +127,4 @@ export default withRouter(
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.number.isRequired
-};
+}

@@ -34,8 +34,8 @@ const Navbar = props => {
     props.history.push(path);
   };
   const routeChange7 = () => {
-    let path = '/dashboard';
-    props.handleClick()
+    let path = '/users';
+    // props.handleClick()
     props.history.push(path);
   };
 
@@ -219,7 +219,7 @@ const Navbar = props => {
             <Link to="/newproduct">
             <span>Add Product</span>
             </Link>
-            <Link to="/home">
+            <Link to="/users">
             <span>Edit User</span>
             </Link>
           </div></div>:

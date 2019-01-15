@@ -7,6 +7,7 @@ const GET_CART_INFO = 'GET_CART_INFO'
 const GET_ORDER = 'GET_ORDER'
 const SET_ADDRESS = 'SET_ADDRESS'
 const GET_ADDRESSES = 'GET_ADDRESSES'
+const GET_USERS = 'GET_USERS'
 
 export const getCartIni = cartId => ({
   type: GET_CART_INFO,
@@ -25,6 +26,10 @@ export const getAddresses = addresses => ({
   type: GET_ADDRESSES,
   addresses
 })
+export const getUsers = users => ({
+  type: GET_USERS,
+  users
+})
 
 export const getCartInfo = userId => async dispatch => {
   try {
@@ -41,6 +46,15 @@ export const fetchAddresses = userId => async dispatch => {
     const { data } = await axios.get(`/api/users/${userId}`)
 
     dispatch(getAddresses(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+export const fetchUsers = () => async dispatch => {
+  try {
+    const { data } = await axios.get(`/api/users`)
+
+    dispatch(getUsers(data))
   } catch (error) {
     console.error(error)
   }
@@ -72,6 +86,13 @@ export const newCart = userId => async dispatch => {
     console.error(error)
   }
 }
+export const makeAdmin = userId => async () => {
+  try {
+    await axios.put(`/api/users/makeAdmin/${userId}`, { isAdmin: true })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 // Reducer
 const defaultState = {}
@@ -86,6 +107,8 @@ export default function (state = defaultState, action) {
       return { ...state, address: action.address }
     case GET_ADDRESSES:
       return { ...state, addresses: action.addresses }
+    case GET_USERS:
+      return { ...state, users: action.users }
     default:
       return state
   }

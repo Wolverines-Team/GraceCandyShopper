@@ -1289,8 +1289,6 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _Reviews = _interopRequireDefault(__webpack_require__(/*! ../Reviews */ "./client/components/Reviews.js"));
 
-var _images = _interopRequireDefault(__webpack_require__(/*! ../images */ "./client/components/images.js"));
-
 var _store = __webpack_require__(/*! ../../store */ "./client/store/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1763,6 +1761,124 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(CreateProduct);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./client/components/admin/userEdit.js":
+/*!*********************************************!*\
+  !*** ./client/components/admin/userEdit.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _info = __webpack_require__(/*! ../../store/info */ "./client/store/info.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var UserEdit =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(UserEdit, _Component);
+
+  function UserEdit() {
+    var _this;
+
+    _classCallCheck(this, UserEdit);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(UserEdit).call(this));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChange", function (evt) {
+      _this.props.makeAdmin(evt.target.value);
+    });
+
+    return _this;
+  }
+
+  _createClass(UserEdit, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchUsers();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var users;
+
+      if (this.props.users) {
+        users = this.props.users;
+      }
+
+      return _react.default.createElement("div", {
+        className: "spacer"
+      }, users.map(function (user) {
+        return _react.default.createElement("div", {
+          key: user.id
+        }, _react.default.createElement("h4", null, user.name), _react.default.createElement("p", null, user.email), user.isAdmin ? _react.default.createElement("p", null, "Is Admin") : _react.default.createElement("input", {
+          type: "checkbox",
+          value: user.id,
+          onChange: _this2.onChange
+        }));
+      }));
+    }
+  }]);
+
+  return UserEdit;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    users: state.info.users
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    makeAdmin: function makeAdmin(id) {
+      dispatch((0, _info.makeAdmin)(id));
+    },
+    fetchUsers: function fetchUsers() {
+      dispatch((0, _info.fetchUsers)());
+    }
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UserEdit);
 
 exports.default = _default;
 
@@ -2468,17 +2584,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./client/components/images.js":
-/*!*************************************!*\
-  !*** ./client/components/images.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/juneidea/Documents/Senior/GraceCandyShopper/client/components/images.js'");
-
-/***/ }),
-
 /***/ "./client/components/index.js":
 /*!************************************!*\
   !*** ./client/components/index.js ***!
@@ -2589,8 +2694,8 @@ var Navbar = function Navbar(props) {
   };
 
   var routeChange7 = function routeChange7() {
-    var path = '/dashboard';
-    props.handleClick();
+    var path = '/users'; // props.handleClick()
+
     props.history.push(path);
   };
 
@@ -2736,7 +2841,7 @@ var Navbar = function Navbar(props) {
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/newproduct"
   }, _react.default.createElement("span", null, "Add Product")), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/home"
+    to: "/users"
   }, _react.default.createElement("span", null, "Edit User")))) : _react.default.createElement("div", {
     className: "dropdown3"
   }, _react.default.createElement("button", {
@@ -3230,8 +3335,6 @@ var _components = __webpack_require__(/*! ./components */ "./client/components/i
 
 var _store = __webpack_require__(/*! ./store */ "./client/store/index.js");
 
-var _products = __webpack_require__(/*! ./store/products */ "./client/store/products.js");
-
 var _allProducts = _interopRequireDefault(__webpack_require__(/*! ./components/allProducts */ "./client/components/allProducts.js"));
 
 var _SingleProductAdmin = _interopRequireDefault(__webpack_require__(/*! ./components/admin/SingleProduct-Admin */ "./client/components/admin/SingleProduct-Admin.js"));
@@ -3249,6 +3352,8 @@ var _welcomeBar = _interopRequireDefault(__webpack_require__(/*! ./components/we
 var _checkout = _interopRequireDefault(__webpack_require__(/*! ./components/checkout */ "./client/components/checkout.js"));
 
 var _thankYou = _interopRequireDefault(__webpack_require__(/*! ./components/thankYou */ "./client/components/thankYou.js"));
+
+var _userEdit = _interopRequireDefault(__webpack_require__(/*! ./components/admin/userEdit */ "./client/components/admin/userEdit.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3289,6 +3394,7 @@ function (_Component) {
   _createClass(Routes, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.props.fetchUsers();
       this.props.loadInitialData();
       this.props.fetchProducts();
       this.props.getCartInfo(this.props.user.id);
@@ -3296,8 +3402,6 @@ function (_Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevprops) {
-      console.log(prevprops);
-
       if (this.props.info.id !== prevprops.info.id) {
         this.props.fetchItems(this.props.info.id);
       }
@@ -3337,11 +3441,15 @@ function (_Component) {
         exact: true,
         path: "/completed",
         component: _thankYou.default
-      }), this.props.user.isAdmin ? _react.default.createElement(_reactRouterDom.Route, {
+      }), this.props.user.isAdmin ? _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/products/:id",
         component: _SingleProductAdmin.default
-      }) : _react.default.createElement(_reactRouterDom.Route, {
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/users/",
+        component: _userEdit.default
+      })) : _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/products/:id",
         component: _SingleProduct.default
@@ -3378,19 +3486,22 @@ var mapDispatch = function mapDispatch(dispatch) {
       dispatch((0, _store.me)());
     },
     fetchProducts: function fetchProducts() {
-      dispatch((0, _products.fetchProducts)());
+      dispatch((0, _store.fetchProducts)());
     },
     fetchProductsByCategory: function fetchProductsByCategory(id) {
-      dispatch((0, _products.fetchProductsByCategory)(id));
+      dispatch((0, _store.fetchProductsByCategory)(id));
     },
     fetchCategories: function fetchCategories() {
-      dispatch((0, _products.fetchCategories)());
+      dispatch((0, _store.fetchCategories)());
     },
     fetchItems: function fetchItems(id) {
       dispatch((0, _store.fetchItems)(id));
     },
     getCartInfo: function getCartInfo(id) {
       dispatch((0, _store.getCartInfo)(id));
+    },
+    fetchUsers: function fetchUsers() {
+      dispatch((0, _store.fetchUsers)());
     }
   };
 }; // The `withRouter` wrapper makes sure that updates are not blocked
@@ -3843,7 +3954,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _default;
-exports.newCart = exports.addAddress = exports.makeOrder = exports.fetchAddresses = exports.getCartInfo = exports.getAddresses = exports.setAddress = exports.getOrder = exports.getCartIni = void 0;
+exports.makeAdmin = exports.newCart = exports.addAddress = exports.makeOrder = exports.fetchUsers = exports.fetchAddresses = exports.getCartInfo = exports.getUsers = exports.getAddresses = exports.setAddress = exports.getOrder = exports.getCartIni = void 0;
 
 var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 
@@ -3865,6 +3976,7 @@ var GET_CART_INFO = 'GET_CART_INFO';
 var GET_ORDER = 'GET_ORDER';
 var SET_ADDRESS = 'SET_ADDRESS';
 var GET_ADDRESSES = 'GET_ADDRESSES';
+var GET_USERS = 'GET_USERS';
 
 var getCartIni = function getCartIni(cartId) {
   return {
@@ -3901,6 +4013,15 @@ var getAddresses = function getAddresses(addresses) {
 };
 
 exports.getAddresses = getAddresses;
+
+var getUsers = function getUsers(users) {
+  return {
+    type: GET_USERS,
+    users: users
+  };
+};
+
+exports.getUsers = getUsers;
 
 var getCartInfo = function getCartInfo(userId) {
   return (
@@ -3994,7 +4115,7 @@ var fetchAddresses = function fetchAddresses(userId) {
 
 exports.fetchAddresses = fetchAddresses;
 
-var makeOrder = function makeOrder(cartId, address) {
+var fetchUsers = function fetchUsers() {
   return (
     /*#__PURE__*/
     function () {
@@ -4008,28 +4129,27 @@ var makeOrder = function makeOrder(cartId, address) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                console.log(address);
-                _context3.next = 4;
-                return _axios.default.post("/api/cart/checkout/".concat(cartId), address);
+                _context3.next = 3;
+                return _axios.default.get("/api/users");
 
-              case 4:
+              case 3:
                 _ref6 = _context3.sent;
                 data = _ref6.data;
-                dispatch(getOrder(data));
-                _context3.next = 12;
+                dispatch(getUsers(data));
+                _context3.next = 11;
                 break;
 
-              case 9:
-                _context3.prev = 9;
+              case 8:
+                _context3.prev = 8;
                 _context3.t0 = _context3["catch"](0);
                 console.error(_context3.t0);
 
-              case 12:
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[0, 9]]);
+        }, _callee3, this, [[0, 8]]);
       }));
 
       return function (_x3) {
@@ -4039,9 +4159,9 @@ var makeOrder = function makeOrder(cartId, address) {
   );
 };
 
-exports.makeOrder = makeOrder;
+exports.fetchUsers = fetchUsers;
 
-var addAddress = function addAddress(userId, address) {
+var makeOrder = function makeOrder(cartId, address) {
   return (
     /*#__PURE__*/
     function () {
@@ -4055,27 +4175,28 @@ var addAddress = function addAddress(userId, address) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
-                _context4.next = 3;
-                return _axios.default.post("/api/users/address/".concat(userId), address);
+                console.log(address);
+                _context4.next = 4;
+                return _axios.default.post("/api/cart/checkout/".concat(cartId), address);
 
-              case 3:
+              case 4:
                 _ref8 = _context4.sent;
                 data = _ref8.data;
                 dispatch(getOrder(data));
-                _context4.next = 11;
+                _context4.next = 12;
                 break;
 
-              case 8:
-                _context4.prev = 8;
+              case 9:
+                _context4.prev = 9;
                 _context4.t0 = _context4["catch"](0);
                 console.error(_context4.t0);
 
-              case 11:
+              case 12:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[0, 8]]);
+        }, _callee4, this, [[0, 9]]);
       }));
 
       return function (_x4) {
@@ -4085,9 +4206,9 @@ var addAddress = function addAddress(userId, address) {
   );
 };
 
-exports.addAddress = addAddress;
+exports.makeOrder = makeOrder;
 
-var newCart = function newCart(userId) {
+var addAddress = function addAddress(userId, address) {
   return (
     /*#__PURE__*/
     function () {
@@ -4102,12 +4223,12 @@ var newCart = function newCart(userId) {
               case 0:
                 _context5.prev = 0;
                 _context5.next = 3;
-                return _axios.default.get("/api/cart/cartinfo/".concat(userId), userId);
+                return _axios.default.post("/api/users/address/".concat(userId), address);
 
               case 3:
                 _ref10 = _context5.sent;
                 data = _ref10.data;
-                dispatch(getCartIni(data));
+                dispatch(getOrder(data));
                 _context5.next = 11;
                 break;
 
@@ -4129,10 +4250,93 @@ var newCart = function newCart(userId) {
       };
     }()
   );
+};
+
+exports.addAddress = addAddress;
+
+var newCart = function newCart(userId) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref11 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee6(dispatch) {
+        var _ref12, data;
+
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.prev = 0;
+                _context6.next = 3;
+                return _axios.default.get("/api/cart/cartinfo/".concat(userId), userId);
+
+              case 3:
+                _ref12 = _context6.sent;
+                data = _ref12.data;
+                dispatch(getCartIni(data));
+                _context6.next = 11;
+                break;
+
+              case 8:
+                _context6.prev = 8;
+                _context6.t0 = _context6["catch"](0);
+                console.error(_context6.t0);
+
+              case 11:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this, [[0, 8]]);
+      }));
+
+      return function (_x6) {
+        return _ref11.apply(this, arguments);
+      };
+    }()
+  );
+};
+
+exports.newCart = newCart;
+
+var makeAdmin = function makeAdmin(userId) {
+  return (
+    /*#__PURE__*/
+    _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee7() {
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              _context7.next = 3;
+              return _axios.default.put("/api/users/makeAdmin/".concat(userId), {
+                isAdmin: true
+              });
+
+            case 3:
+              _context7.next = 8;
+              break;
+
+            case 5:
+              _context7.prev = 5;
+              _context7.t0 = _context7["catch"](0);
+              console.error(_context7.t0);
+
+            case 8:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, this, [[0, 5]]);
+    }))
+  );
 }; // Reducer
 
 
-exports.newCart = newCart;
+exports.makeAdmin = makeAdmin;
 var defaultState = {};
 
 function _default() {
@@ -4158,6 +4362,11 @@ function _default() {
     case GET_ADDRESSES:
       return _objectSpread({}, state, {
         addresses: action.addresses
+      });
+
+    case GET_USERS:
+      return _objectSpread({}, state, {
+        users: action.users
       });
 
     default:
