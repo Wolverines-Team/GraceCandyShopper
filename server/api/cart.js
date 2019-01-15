@@ -9,7 +9,6 @@ module.exports = router
 // Accessibility: For all users
 router.get('/:cartId', async (req, res, next) => {
   try {
-    console.log('===cartId=== ', req.params.cartId)
     const singleCartView = await CartItems.findAll({
       where: { cartId: req.params.cartId }
     })
@@ -27,7 +26,7 @@ router.post('/:cartId', async (req, res, next) => {
     const newItem = await CartItems.create({
       cartId: req.params.cartId,
       stockId: req.body.stockId,
-      quantity: req.body.quantity
+      quantity: Number(req.body.quantity)
     })
     res.status(200).json(newItem)
   } catch (err) {

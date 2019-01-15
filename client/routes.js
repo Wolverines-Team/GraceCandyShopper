@@ -20,10 +20,10 @@ import SingleProduct from './components/SingleProduct'
 import CategoryView from './components/categoryView'
 import Cart from './components/Cart'
 import createProduct from './components/admin/createProduct'
-import SideBar from './components/SideBar'
 
 import welcomeBar from './components/welcomeBar'
 import Checkout from './components/checkout'
+import ThankYou from './components/thankYou'
 
 /**
  * COMPONENT
@@ -32,11 +32,11 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
     this.props.fetchProducts()
-
     this.props.getCartInfo(this.props.user.id)
   }
-  componentDidUpdate () {
-    if (this.props.info.id) {
+  componentDidUpdate (prevprops) {
+    console.log(prevprops)
+    if (this.props.info.id !== prevprops.info.id) {
       this.props.fetchItems(this.props.info.id)
     }
   }
@@ -54,6 +54,7 @@ class Routes extends Component {
         <Route path='/cart' component={Cart} />
         <Route path='/categories/:id' component={CategoryView} />
         <Route exact path='/checkout' component={Checkout} />
+        <Route exact path='/completed' component={ThankYou} />
 
         {this.props.user.isAdmin ? (
           <Route exact path='/products/:id' component={SingleProductAdmin} />

@@ -62,16 +62,18 @@ router.post('/address/:userId', async (req, res, next) => {
   try {
     // Edwin's Comment: Do we want to use the entire req.body form?
     const { street, firstName, lastName, city, state, zip } = req.body
-    const newAddress = await Address.create({
-      street,
-      firstName,
-      lastName,
-      city,
-      state,
-      zip,
-      userId: req.params.userId
+    const newAddress = await Address.findOrCreate({
+      where: {
+        street,
+        firstName,
+        lastName,
+        city,
+        state,
+        zip,
+        userId: req.params.userId
+      }
     })
-    res.status(200).json(newAddress)
+    res.status(200).json([newAddress])
   } catch (err) {
     next(err)
   }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { CardElement, injectStripe } from 'react-stripe-elements'
 import { connect } from 'react-redux'
-import { makeOrder } from '../store/info'
-import stateSelector from './stateSelector'
+import { makeOrder, fetchAddresses } from '../store/info'
 import { Link } from 'react-router-dom'
 import AddressForm from './addressForm'
+import history from '../history'
 
 class CheckoutForm extends Component {
   constructor () {
@@ -15,9 +15,11 @@ class CheckoutForm extends Component {
       failed: false
     }
   }
+  componentDidMount () {
+    this.props.fetchAddresses(this.props.user.id)
+  }
 
   async handleSubmit (evt) {
-    console.log(this.props)
     evt.preventDefault()
     const { token } = await this.props.stripe.createToken({ name: 'purchase' })
     let response = await fetch('/charge', {
@@ -35,9 +37,20 @@ class CheckoutForm extends Component {
         state,
         zip
       } = this.props.info.address
-      console.log(street, firstName, lastName, city, state, zip)
 
-      if ((street, firstName, lastName, city, state, zip)) {
+      if (
+        street !== '' &&
+        firstName !== '' &&
+        lastName !== '' &&
+        city !== '' &&
+        state !== '' &&
+        zip !== ''
+      ) {
+        this.setState({ isComplete: true })
+      } else {
+        this.setState({ isComplete: false })
+      }
+      if (this.state.isComplete) {
         this.props.makeOrder(this.props.info.id, {
           street,
           firstName,
@@ -47,8 +60,10 @@ class CheckoutForm extends Component {
           zip,
           userId: this.props.user.id
         })
+
+        this.props.history.push('/completed')
       } else {
-        this.setState({ isComplete: 'failed' })
+        this.setState({ isComplete: false })
       }
     }
   }
@@ -64,36 +79,16 @@ class CheckoutForm extends Component {
         </div>
       )
     }
-    const addresses = this.props.addresses
+
     return (
       <div className='spacer'>
         <div>
           <CardElement style={{ base: { fontSize: '18px' } }} />
         </div>
         <form className='checkout-form'>
-          {addresses ? (
-            <div>
-              {addresses.map(address => {
-                return (
-                  <input
-                    key={address.id}
-                    type='radio'
-                    name='address'
-                    value={address}
-                  >
-                    {address.street}
-                  </input>
-                )
-              })}
-            </div>
-          ) : (
-            <div />
-          )}
-          <AddressForm handleSubmit />
+          <AddressForm />
           <button onClick={evt => this.handleSubmit(evt)}>Send</button>
         </form>
-
-        {isComplete ? <div /> : <h1>Must Fill All Fields </h1>}
       </div>
     )
   }
@@ -101,19 +96,21 @@ class CheckoutForm extends Component {
 
 const mapStateToProps = state => ({
   info: state.info,
-  user: state.user
+  user: state.user,
+  history: history
 })
 const mapDispatch = dispatch => {
   return {
     makeOrder: (id, address) => {
       dispatch(makeOrder(id, address))
-    }
+    },
+    fetchAddresses: userId => dispatch(fetchAddresses(userId))
   }
 }
 
-const stripeInjected = connect(
+const injected = injectStripe(CheckoutForm)
+
+export default connect(
   mapStateToProps,
   mapDispatch
-)(CheckoutForm)
-
-export default injectStripe(stripeInjected)
+)(injected)

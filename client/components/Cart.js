@@ -4,7 +4,8 @@ import {
   fetchItems,
   postItems,
   deleteItems,
-  updateItemQuantity
+  updateItemQuantity,
+  fetchAddresses
 } from '../store'
 import { Link } from 'react-router-dom'
 import SingleProduct from './SingleProduct'
@@ -20,6 +21,7 @@ export class Cart extends Component {
 
   componentDidMount () {
     this.props.getItems(this.props.info.id)
+
     // so important make this cart id alive!!!
     // this.props.addItems(1, {stockId: 9, quantity: 12});
     // this.props.removeItems(5);
