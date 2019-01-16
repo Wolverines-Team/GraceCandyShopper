@@ -68,56 +68,63 @@ class AddressForm extends Component {
     }
     const { street, firstName, lastName, city, zip, save } = this.state
     return (
-      <div>
-        {addresses ? (
-          <select onChange={this.handleSelectChange}>
-            <option>Saved Addresses</option>
-            {addresses.map(address => {
-              return (
-                <option value={address.id} key={address.id}>
-                  {address.street}
-                </option>
-              )
-            })}
-          </select>
-        ) : (
-          <div />
-        )}
-        <div>
-          <label htmlFor='First Name'>
-            <small>First Name</small>
-          </label>
-          <input
-            name='firstName'
-            type='text'
-            value={firstName}
-            onChange={this.handleChange}
-            required
-          />
+      <div className='card-info'>
+        <div className='card-row'>
+          <div>
+            <label htmlFor='First Name'>
+              <small>First Name</small>
+            </label>
+            <input
+              name='firstName'
+              type='text'
+              value={firstName}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor='Last Name'>
+              <small>Last Name</small>
+            </label>
+            <input
+              name='lastName'
+              type='text'
+              value={lastName}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
         </div>
+
         <div>
-          <label htmlFor='Last Name'>
-            <small>Last Name</small>
-          </label>
-          <input
-            name='lastName'
-            type='text'
-            value={lastName}
-            onChange={this.handleChange}
-            required
-          />
+          {addresses ? (
+            <select onChange={this.handleSelectChange}>
+              <option>Saved Addresses</option>
+              {addresses.map(address => {
+                return (
+                  <option value={address.id} key={address.id}>
+                    {address.street}
+                  </option>
+                )
+              })}
+            </select>
+          ) : (
+            <div />
+          )}
         </div>
-        <div>
-          <label htmlFor='street'>Street</label>
-          <input
-            name='street'
-            type='text'
-            value={street}
-            onChange={this.handleChange}
-            required
-          />
-        </div>
-        {/* <input
+
+        <div className='card-row'>
+          <div>
+            <label htmlFor='street'>Street</label>
+            <input
+              name='street'
+              type='text'
+              value={street}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
+          {/* <input
           type='checkbox'
           name='save'
           value={save}
@@ -125,28 +132,35 @@ class AddressForm extends Component {
         />
         Save Address
         <br /> */}
-        <div>
-          <label htmlFor='city'>City</label>
-          <input
-            name='city'
-            type='text'
-            value={city}
-            onChange={this.handleChange}
-            required
-          />
+          <div>
+            <label htmlFor='city'>City</label>
+            <input
+              name='city'
+              type='text'
+              value={city}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
         </div>
-        <div>{stateSelector(this.handleChange)}</div>
-        <div>
-          <label htmlFor='zip'>Zip</label>
-          <input
-            name='zip'
-            type='number'
-            value={zip}
-            onChange={this.handleChange}
-            required
-          />
+
+        <div className='card-row'>
+          <div>{stateSelector(this.handleChange)}</div>
+          <div>
+            <label htmlFor='zip'>Zip</label>
+            <input
+              name='zip'
+              type='number'
+              value={zip}
+              onChange={this.handleChange}
+              required
+            />
+          </div>
         </div>
-        <button onClick={this.handleSubmit}>Check Address</button>
+
+        <div>
+          <button onClick={this.handleSubmit}>Check Address</button>
+        </div>
       </div>
     )
   }

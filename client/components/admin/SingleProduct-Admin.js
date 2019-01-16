@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Reviews from "../Reviews";
-
+// import Images from '../images'
 import {
   updateProducts,
   fetchProducts,
