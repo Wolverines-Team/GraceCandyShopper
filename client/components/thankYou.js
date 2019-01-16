@@ -5,7 +5,7 @@ import { fetchItems, newCart, getCartInfo, sendEmail } from '../store'
 const ThankYou = props => {
   //   props.newCart(props.user.id)
   //   props.getCartInfo(props.user.id)
-  props.sendEmail(props.user.email)
+  // props.sendEmail(props.user.email)
   return (
     <div className='outline'>
       <div className='thankYou'>

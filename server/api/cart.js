@@ -1,25 +1,16 @@
-<<<<<<< HEAD
 const router = require('express').Router()
-const { CartItems, Cart, Stock, Address } = require('../db/models')
+const { CartItems, Cart, Stock, Address, Order } = require('../db/models')
 const nodemailer = require('nodemailer')
 const { requireAdmin } = require('./util')
 module.exports = router
-=======
-const router = require('express').Router();
-const { CartItems, Cart, Stock, Order, Address } = require('../db/models');
-
-const { requireAdmin } = require('./util');
-module.exports = router;
->>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614
 
 // Actual path: /api/cart/:cartId
 // Show all cart items
 // Accessibility: For all users
 router.get('/:cartId', async (req, res, next) => {
-<<<<<<< HEAD
   try {
     const singleCartView = await CartItems.findAll({
-      where: { userId: req.params.userId }
+      where: { cartId: req.params.cartId }
     })
     res.json(singleCartView)
   } catch (err) {
@@ -28,8 +19,6 @@ router.get('/:cartId', async (req, res, next) => {
 })
 
 router.get('/history/:cartId', async (req, res, next) => {
-=======
->>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614
   try {
     const singleCartView = await CartItems.findAll({
       where: { cartId: req.params.cartId }
@@ -61,11 +50,6 @@ router.post('/:cartId', async (req, res, next) => {
 // Accessibility: For Admin only. (Need to add..)
 router.put('/:cartItemId', async (req, res, next) => {
   try {
-<<<<<<< HEAD
-=======
-    console.log('******* cartItems: >> ', req.params.cartItemId);
-    console.log('==req.body from CardView click==', req.body);
->>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614
     const currentCartItem = await CartItems.findOne({
       where: {
         stockId: req.body.stockId,
@@ -90,11 +74,15 @@ router.post('/checkout/:cartId', async (req, res, next) => {
     const address = await Address.find({
       where: { street, zip, firstName, lastName, state, city }
     })
-    console.log(address.id)
     const completeCart = await orderCart.update({
       isPurchased: true,
       addressId: address.id
     })
+
+    await Order.create({
+      cartId: req.params.cartId
+    })
+
     res.status(200).json(completeCart)
   } catch (err) {
     next(err)
@@ -165,14 +153,11 @@ router.post('/sendemail', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-<<<<<<< HEAD
 })
-=======
-});
 
-//Admin access to purchased carts
-//Actual path:
-//api/cart/coitems/admin
+// Admin access to purchased carts
+// Actual path:
+// api/cart/coitems/admin
 
 router.get('/coitems/admin', async (req, res, next) => {
   try {
@@ -185,15 +170,15 @@ router.get('/coitems/admin', async (req, res, next) => {
         },
         { model: Stock }
       ]
-    });
-    console.log('checkedOut', checkedOut);
-    res.status(200).json(checkedOut);
+    })
+    // console.log('checkedOut', checkedOut)
+    res.status(200).json(checkedOut)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-//Ozlem`s Note:
+// Ozlem`s Note:
 // Don`t delete following route, in the future, we can make the dashboard better as follow...
 
 // router.get('/coitems/admin', async (req, res, next) => {
@@ -208,4 +193,3 @@ router.get('/coitems/admin', async (req, res, next) => {
 //     next(err);
 //   }
 // });
->>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614

@@ -629,7 +629,9 @@ button:focus {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: black;
+  <<<<<<<headheight: 18%;
+  =======height: 5%;
+  >>>>>>>33bc6b85998d8be98c9fd4ddd0f4da796924d770background-color: black;
   color: white;
   text-align: center;
 }
@@ -690,51 +692,8 @@ button:focus {
 .edit-outline input {
   width: 65%;
 }
-
-.dashboard {
-  padding-top: 100px;
-  margin: auto;
-}
-
-.admin_cart th {
-  border: solid 1px rgb(211, 211, 211);
-  padding: 12px;
-}
-
-.admin_cart td {
-  padding: 8px 14px;
-}
-
-.admin_cart tr:nth-child(even) {
-  background: rgb(235, 235, 235);
-}
-
-.admin_cart select {
-  height: 25px;
-  text-align: center;
-  font-size: 16px;
-}
-
-.table-end {
-  border-top: solid 1px rgb(211, 211, 211);
-}
-
-.edit-user {
-  padding-top: 100px;
-  margin: auto;
-  display: flex;
-}
-
-.edit-user-box {
-  border: solid 1px rgb(211, 211, 211);
-  padding: 8px;
-  margin: 2px;
-}
-
-.next-step {
-  padding-top: 15px;
-  display: block;
-}
+<<<<<<< HEAD
+=======
 
 /* PART 7 CART*/
 /* PART 7 CART*/
@@ -834,17 +793,4 @@ button:focus {
   margin-left: 30px;
   margin-top: 0;
 }
-
-.thankYou {
-  padding-top: 150px;
-  margin: auto;
-}
-
-.thankYou img {
-  max-width: 1000px;
-  margin-left: -70px;
-}
-
-.thankYou h1 {
-  padding-left: 100px;
-}
+>>>>>>> categories
