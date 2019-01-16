@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import axios from 'axios'
 import fetchItems from './cart'
 // "OZLEM`S NOTE"
@@ -9,6 +10,18 @@ const SET_ADDRESS = 'SET_ADDRESS'
 const GET_ADDRESSES = 'GET_ADDRESSES'
 const GET_USERS = 'GET_USERS'
 const GET_HISTORY = 'GET_HISTORY'
+=======
+import axios from 'axios';
+import fetchItems from './cart';
+// "OZLEM`S NOTE"
+// GET_ITEM means products in the cart
+
+const GET_CART_INFO = 'GET_CART_INFO';
+const GET_ORDER = 'GET_ORDER';
+const SET_ADDRESS = 'SET_ADDRESS';
+const GET_ADDRESSES = 'GET_ADDRESSES';
+const GET_USERS = 'GET_USERS';
+>>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614
 
 export const getCartIni = cartId => ({
   type: GET_CART_INFO,

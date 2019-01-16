@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import user, { logout } from "../store/user";
-import { NavLink, withRouter } from "react-router-dom";
-import { fetchProductsByCategory } from "../store/products";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import user, { logout } from '../store/user';
+import { withRouter } from 'react-router-dom';
+import { fetchProductsByCategory } from '../store/products';
 
 const Navbar = props => {
   function candyCount(cart) {
@@ -15,25 +15,25 @@ const Navbar = props => {
     return count;
   }
   const routeChange1 = () => {
-    let path = "/products";
+    let path = '/products';
     props.history.push(path);
   };
   const routeChange4 = () => {
-    let path = "/login";
+    let path = '/login';
     props.history.push(path);
   };
   const routeChange5 = () => {
-    let path = "/cart";
+    let path = '/cart';
     props.history.push(path);
   };
   const routeChange6 = () => {
-    let path = "/logout";
+    let path = '/logout';
     props.handleClick();
     props.history.push(path);
   };
   const routeChange7 = () => {
-    let path = "/users";
-    // props.handleClick()
+    let path = '/dashboard';
+    // props.handleClick();
     props.history.push(path);
   };
 
@@ -53,8 +53,7 @@ const Navbar = props => {
       ans2.map(a => {
         if (a[0] === ans[i]) a.push(ans[i]);
       });
-      if (ans2.filter(a => a[0] === ans[i])[0] === undefined)
-        ans2.push([ans[i]]);
+      if (ans2.filter(a => a[0] === ans[i])[0] === undefined) ans2.push([ans[i]]);
     }
     return ans2;
   }
@@ -94,15 +93,15 @@ const Navbar = props => {
                     return (
                       <Link
                         key={tag[0]}
-                        to={`/categories/${tag[0].split("_")[1]}`}
+                        to={`/categories/${tag[0].split('_')[1]}`}
                       >
                         <li
                           onClick={() =>
-                            fetchThisCategory(tag[0].split("_")[1], 1)
+                            fetchThisCategory(tag[0].split('_')[1], 1)
                           }
                         >
-                          {tag[0].split("_")[0].toUpperCase()}
-                          {tag.length > 1 ? ` (${tag.length})` : ""}
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
                         </li>
                       </Link>
                     );
@@ -125,15 +124,15 @@ const Navbar = props => {
                     return (
                       <Link
                         key={tag[0]}
-                        to={`/categories/${tag[0].split("_")[1]}`}
+                        to={`/categories/${tag[0].split('_')[1]}`}
                       >
                         <li
                           onClick={() =>
-                            fetchThisCategory(tag[0].split("_")[1], 2)
+                            fetchThisCategory(tag[0].split('_')[1], 2)
                           }
                         >
-                          {tag[0].split("_")[0].toUpperCase()}
-                          {tag.length > 1 ? ` (${tag.length})` : ""}
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
                         </li>
                       </Link>
                     );
@@ -155,15 +154,15 @@ const Navbar = props => {
                     return (
                       <Link
                         key={tag[0]}
-                        to={`/categories/${tag[0].split("_")[1]}`}
+                        to={`/categories/${tag[0].split('_')[1]}`}
                       >
                         <li
                           onClick={() =>
-                            fetchThisCategory(tag[0].split("_")[1], 3)
+                            fetchThisCategory(tag[0].split('_')[1], 3)
                           }
                         >
-                          {tag[0].split("_")[0].toUpperCase()}
-                          {tag.length > 1 ? ` (${tag.length})` : ""}
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
                         </li>
                       </Link>
                     );
@@ -185,15 +184,15 @@ const Navbar = props => {
                     return (
                       <Link
                         key={tag[0]}
-                        to={`/categories/${tag[0].split("_")[1]}`}
+                        to={`/categories/${tag[0].split('_')[1]}`}
                       >
                         <li
                           onClick={() =>
-                            fetchThisCategory(tag[0].split("_")[1], 4)
+                            fetchThisCategory(tag[0].split('_')[1], 4)
                           }
                         >
-                          {tag[0].split("_")[0].toUpperCase()}
-                          {tag.length > 1 ? ` (${tag.length})` : ""}
+                          {tag[0].split('_')[0].toUpperCase()}
+                          {tag.length > 1 ? ` (${tag.length})` : ''}
                         </li>
                       </Link>
                     );

@@ -87,7 +87,7 @@ class CheckoutForm extends Component {
         </div>
         <form className="checkout-form">
           <AddressForm />
-          <div className="checkout-send">
+          <div className="checkout-send hide">
             <button onClick={evt => this.handleSubmit(evt)}>Send</button>
           </div>
         </form>

@@ -4,7 +4,6 @@ import CardView from './CardView';
 import SideBar from './SideBar';
 import fetchProductsWithCategory from '../store/products';
 
-
 const AllProducts = props => {
   let products = props.products;
   return (

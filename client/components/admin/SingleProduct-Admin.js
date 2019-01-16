@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Reviews from "../Reviews";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Reviews from '../Reviews';
 // import Images from '../images'
 import {
   updateProducts,
@@ -8,19 +8,19 @@ import {
   deleteProduct,
   fetchProductsByCategory,
   updatePicture
-} from "../../store";
+} from '../../store';
 
 class SingleProductAdmin extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
+      name: '',
       id: 0,
-      price: "0.00",
-      description: "",
+      price: '0.00',
+      description: '',
       quantity: 0,
-      category: "",
-      brand: "",
+      category: '',
+      brand: '',
       images: [],
       ratings: []
     };
@@ -139,7 +139,7 @@ class SingleProductAdmin extends Component {
               evt.preventDefault();
               this.props.deleteProduct(id);
               this.props.fetchProducts();
-              this.props.history.push("/products");
+              this.props.history.push('/products');
             }}
           >
             DELETE

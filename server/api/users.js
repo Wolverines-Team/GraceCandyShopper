@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 const router = require('express').Router()
 const { User, Cart, Address } = require('../db/models')
 const { requireLogin, requireAdmin } = require('./util')
 module.exports = router
+=======
+const router = require('express').Router();
+const { User, Cart, Address } = require('../db/models');
+const { requireLogin, requireAdmin } = require('./util');
+module.exports = router;
+>>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614
 
 // All users. (Edwin's Comment: for Admin's view??)
 router.get('/', async (req, res, next) => {
@@ -11,8 +18,13 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'email', 'isAdmin']
+<<<<<<< HEAD
     })
     res.json(users)
+=======
+    });
+    res.json(users);
+>>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614
   } catch (err) {
     next(err)
   }
@@ -29,7 +41,11 @@ router.get('/:userId', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> 0b1bace5a617768ec69b73fef8bbb7ee5fe6e614
 router.put('/makeAdmin/:userId', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.userId)

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchUsers, makeAdmin, takeAdmin } from "../../store/info";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchUsers, makeAdmin, takeAdmin } from '../../store/info';
 
 class UserEdit extends Component {
   constructor() {
@@ -26,35 +26,37 @@ class UserEdit extends Component {
     }
 
     return (
-      <div className="spacer">
-        {users.map(user => (
-          <div key={user.id}>
-            <h4>{user.name}</h4>
-            <p>{user.email}</p>
-            {user.isAdmin ? (
-              <div>
-                <p>Make Admin</p>
-                <input
-                  type="checkbox"
-                  checked
-                  value={user.isAdmin}
-                  id={user.id}
-                  onChange={this.onChange}
-                />
-              </div>
-            ) : (
-              <div>
-                <p>Make Admin</p>
-                <input
-                  type="checkbox"
-                  value={user.isAdmin}
-                  id={user.id}
-                  onChange={this.onChange}
-                />
-              </div>
-            )}
-          </div>
-        ))}
+      <div className="outline">
+        <div className="edit-user">
+          {users.map(user => (
+            <div key={user.id} className="edit-user-box">
+              <h4>{user.name}</h4>
+              <p>{user.email}</p>
+              {user.isAdmin ? (
+                <div>
+                  <p>Make Admin</p>
+                  <input
+                    type="checkbox"
+                    checked
+                    value={user.isAdmin}
+                    id={user.id}
+                    onChange={this.onChange}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <p>Make Admin</p>
+                  <input
+                    type="checkbox"
+                    value={user.isAdmin}
+                    id={user.id}
+                    onChange={this.onChange}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
