@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { CartItems, Cart, Stock, Address } = require('../db/models');
+const { CartItems, Cart, Stock, Order, Address } = require('../db/models');
 
 const { requireAdmin } = require('./util');
 module.exports = router;
@@ -115,3 +115,42 @@ router.get('/cartinfo/:userId', async (req, res, next) => {
     next(err);
   }
 });
+
+//Admin access to purchased carts
+//Actual path:
+//api/cart/coitems/admin
+
+router.get('/coitems/admin', async (req, res, next) => {
+  try {
+    const checkedOut = await CartItems.findAll({
+      include: [
+        {
+          model: Cart,
+          where: { isPurchased: true },
+          include: [{ model: Order }]
+        },
+        { model: Stock }
+      ]
+    });
+    console.log('checkedOut', checkedOut);
+    res.status(200).json(checkedOut);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//Ozlem`s Note:
+// Don`t delete following route, in the future, we can make the dashboard better as follow...
+
+// router.get('/coitems/admin', async (req, res, next) => {
+//   try {
+//     const checkedOut = await Cart.findAll({
+//       where: {isPurchased: true},
+//       include: [{model: CartItems}]
+//     });
+//     console.log('checkedOut', checkedOut);
+//     res.status(200).json(checkedOut);
+//   } catch (err) {
+//     next(err);
+//   }
+// });

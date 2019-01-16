@@ -7,11 +7,14 @@ const ThankYou = props => {
   //   props.getCartInfo(props.user.id)
 
   return (
-    <div className="spacer">
-      <h1>
-        Thank you for your order{' '}
-        {props.info.address ? props.info.address.firstName : ''}!
-      </h1>
+    <div className="outline">
+      <div className="thankYou">
+        <img src="https://raw.githubusercontent.com/juneidea/Candy/master/ThankYou.png" />
+        <h1>
+          Thank you for your order{' '}
+          {props.info.address ? props.info.address.firstName : ''}!
+        </h1>
+      </div>
     </div>
   );
 };

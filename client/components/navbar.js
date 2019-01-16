@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import user, { logout } from '../store/user';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { fetchProductsByCategory } from '../store/products';
 
 const Navbar = props => {
@@ -33,7 +33,7 @@ const Navbar = props => {
   };
   const routeChange7 = () => {
     let path = '/dashboard';
-    props.handleClick();
+    // props.handleClick();
     props.history.push(path);
   };
 
@@ -219,7 +219,7 @@ const Navbar = props => {
               <Link to="/newproduct">
                 <span>Add Product</span>
               </Link>
-              <Link to="/home">
+              <Link to="/users">
                 <span>Edit User</span>
               </Link>
             </div>

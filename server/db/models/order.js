@@ -3,7 +3,8 @@ const db = require('../db');
 
 const Order = db.define('order', {
   order_status: {
-    type: Seqeulize.ENUM('received', 'shippiing')
+    type: Seqeulize.ENUM('packaging', 'shipping', 'complete'),
+    defaultValue: 'packaging'
   }
 });
 
