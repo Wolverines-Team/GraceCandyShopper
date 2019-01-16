@@ -229,7 +229,7 @@ const Navbar = props => {
           <div className="dropdown3">
             <button className="dropbtn3">ABOUT US</button>
             <div className="dropdown-content3">
-              <a href="#">About Us</a>
+            <Link to='/history'>History</Link>
               <a href="#">Events</a>
               <a href="#">Inspiration</a>
             </div>
