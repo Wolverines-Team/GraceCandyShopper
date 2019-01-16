@@ -7,15 +7,16 @@ const Dashboard = props => {
   const user = props.user;
   const adminCart = props.adminCart;
   return (
-    <div className="dashboard">
-      <h1>Welcome your dashboard {user.username}!</h1>
-      <h3> Info Bar </h3>
-      <ul list-style="stat info">
-        <li>Total Visits: {user.visits} </li>
-        <li>Email: {user.email}</li>
-        <li>Member Since: {user.createdAt}</li>
-      </ul>
-      <CheckoutItems adminCart={adminCart} />
+    <div className="outline">
+      <div className="dashboard">
+        <h1>Welcome your dashboard {user.username}!</h1>
+        <ul list-style="stat info">
+          <li>Total Visits: {user.visits} </li>
+          <li>Email: {user.email}</li>
+          <li>Member Since: {user.createdAt}</li>
+        </ul>
+        <CheckoutItems adminCart={adminCart} />
+      </div>
     </div>
   );
 };

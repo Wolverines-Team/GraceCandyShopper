@@ -10,7 +10,8 @@ import {
   fetchProducts,
   fetchProductsByCategory,
   fetchCategories,
-  fetchUsers
+  fetchUsers,
+  fetchHistory
 } from './store'
 import AllProducts from './components/allProducts'
 import SingleProductAdmin from './components/admin/SingleProduct-Admin'
@@ -23,7 +24,8 @@ import Checkout from './components/checkout'
 import ThankYou from './components/thankYou'
 import userEdit from './components/admin/userEdit'
 import Dashboard from './components/admin/Dashboard'
-import CheckedoutItems from './components/admin/CheckoutItems'
+import AddImages from './components/admin/AddImages'
+import History from './components/history'
 
 /**
  * COMPONENT
@@ -38,6 +40,7 @@ class Routes extends Component {
   componentDidUpdate (prevprops) {
     if (this.props.info.id !== prevprops.info.id) {
       this.props.fetchItems(this.props.info.id)
+      this.props.fetchHistory(this.props.info.id)
     }
   }
 
@@ -55,8 +58,9 @@ class Routes extends Component {
         <Route path='/categories/:id' component={CategoryView} />
         <Route exact path='/checkout' component={Checkout} />
         <Route exact path='/completed' component={ThankYou} />
+        <Route exact path='/history' component={History} />
 
-        <Route exact path='/checkoutitem' component={CheckedoutItems} />
+        <Route exact path='/dashboard' component={Dashboard} />
         {this.props.user.isAdmin ? (
           <Route exact path='/products/:id' component={SingleProductAdmin} />
         ) : (
@@ -64,8 +68,8 @@ class Routes extends Component {
         )}
         {this.props.user.isAdmin ? (
           <div>
-            <Route exact path='/products/:id' component={SingleProductAdmin} />
             <Route exact path='/users/' component={userEdit} />
+            <Route exact path='/addimages/:stockId' component={AddImages} />
           </div>
         ) : (
           <Route path='/home' component={welcomeBar} />
@@ -117,7 +121,8 @@ const mapDispatch = dispatch => {
     },
     fetchUsers: () => {
       dispatch(fetchUsers())
-    }
+    },
+    fetchHistory: id => dispatch(fetchHistory(id))
   }
 }
 

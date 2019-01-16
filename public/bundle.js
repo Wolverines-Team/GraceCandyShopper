@@ -439,7 +439,7 @@ function (_Component) {
           onClick: function onClick() {
             _this2.handleChange(item);
           }
-        }, ' ', "add", ' ')), _react.default.createElement("td", null, product.price), _react.default.createElement("td", null, item.quantity * product.price * 100 / 100), _react.default.createElement("button", {
+        }, ' ', "edit", ' ')), _react.default.createElement("td", null, product.price), _react.default.createElement("td", null, item.quantity * product.price * 100 / 100), _react.default.createElement("button", {
           onClick: function onClick() {
             _this2.props.removeItems(item.id);
           }
@@ -1160,6 +1160,11 @@ function (_Component) {
         _this.props.addAddress(_this.props.user.id, _this.state);
 
         _this.props.setAddress(_this.state);
+
+        var send = document.getElementsByClassName('checkout-send');
+        var check = document.getElementsByClassName('check-address');
+        send[0].className = 'checkout-send';
+        check[0].className = 'check-address hide';
       }
     });
 
@@ -1238,7 +1243,9 @@ function (_Component) {
         required: true
       }))), _react.default.createElement("div", {
         className: "card-row"
-      }, _react.default.createElement("div", null, (0, _stateSelector.default)(this.handleChange)), _react.default.createElement("div", null, _react.default.createElement("label", {
+      }, _react.default.createElement("div", null, _react.default.createElement("label", {
+        htmlFor: "state"
+      }, "State"), (0, _stateSelector.default)(this.handleChange)), _react.default.createElement("div", null, _react.default.createElement("label", {
         htmlFor: "zip"
       }, "Zip"), _react.default.createElement("input", {
         name: "zip",
@@ -1247,7 +1254,8 @@ function (_Component) {
         onChange: this.handleChange,
         required: true
       }))), _react.default.createElement("div", null, _react.default.createElement("button", {
-        onClick: this.handleSubmit
+        onClick: this.handleSubmit,
+        className: "check-address"
       }, "Check Address")));
     }
   }]);
@@ -1274,6 +1282,138 @@ var mapDispatch = function mapDispatch(dispatch) {
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatch)(AddressForm);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./client/components/admin/AddImages.js":
+/*!**********************************************!*\
+  !*** ./client/components/admin/AddImages.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _store = __webpack_require__(/*! ../../store */ "./client/store/index.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var CreateProduct =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(CreateProduct, _Component);
+
+  function CreateProduct() {
+    var _this;
+
+    _classCallCheck(this, CreateProduct);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateProduct).call(this));
+    _this.state = {
+      stockId: _this.props.match.params.stockId,
+      images: []
+    };
+    return _this;
+  }
+
+  _createClass(CreateProduct, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$state = this.state,
+          stockId = _this$state.stockId,
+          images = _this$state.images;
+
+      function editImage(imagesArray, index, url) {
+        var ans = imagesArray;
+        ans[index].imageUrl = url;
+        return ans;
+      }
+
+      return _react.default.createElement("div", {
+        className: "outline"
+      }, _react.default.createElement("div", {
+        className: "singleView"
+      }, _react.default.createElement("h2", null, "ADD NEW IMAGES"), _react.default.createElement("form", {
+        onSubmit: function onSubmit(evt) {
+          evt.preventDefault();
+
+          _this2.props.createProduct({
+            stockId: stockId,
+            images: images
+          });
+
+          _this2.props.history.push('/addimages');
+        }
+      }, _react.default.createElement("div", null, _react.default.createElement("h4", null, "Stock Id: ", stockId), _react.default.createElement("input", {
+        className: "input",
+        type: "text",
+        onChange: function onChange(evt) {
+          _this2.setState({
+            stockId: evt.target.value
+          });
+        },
+        value: stockId
+      })), _react.default.createElement("div", {
+        className: "next-step"
+      }, _react.default.createElement("button", {
+        type: "submit"
+      }, "Add Images")))));
+    }
+  }]);
+
+  return CreateProduct;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    products: state.products.products
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createProduct: function createProduct(product) {
+      dispatch((0, _store.createProduct)(product));
+    },
+    fetchProducts: function fetchProducts() {
+      dispatch((0, _store.fetchProducts)());
+    }
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateProduct);
 
 exports.default = _default;
 
@@ -1386,7 +1526,7 @@ function (_Component) {
       }, _react.default.createElement("h1", null, "All Purchased Items"), _react.default.createElement("table", null, _react.default.createElement("tbody", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, " Cart Id: "), _react.default.createElement("th", null, " Item Name: "), _react.default.createElement("th", null, " Quantity: "), _react.default.createElement("th", null, " Price: "), _react.default.createElement("th", null, " Current Shipping Status: "), _react.default.createElement("th", null)), adminCart.map(function (cart) {
         return _react.default.createElement("tr", {
           key: cart.id
-        }, _react.default.createElement("td", null, cart.cartId), _react.default.createElement("td", null, cart.stock.name), _react.default.createElement("td", null, cart.quantity), _react.default.createElement("td", null, cart.stock.price), _react.default.createElement("td", null, cart.cart.order.order_status), _react.default.createElement("td", null, _react.default.createElement("select", {
+        }, _react.default.createElement("td", null, cart.cartId), _react.default.createElement("td", null, cart.stock.name), _react.default.createElement("td", null, cart.quantity), _react.default.createElement("td", null, cart.stock.price), _react.default.createElement("td", null, _react.default.createElement("select", {
           onChange: function onChange(evt) {
             _this2.handleChange(evt, cart.cart.order.cartId);
           }
@@ -1397,7 +1537,9 @@ function (_Component) {
         }, "Shipping"), _react.default.createElement("option", {
           value: "complete"
         }, "Complete"))));
-      }))));
+      }))), _react.default.createElement("div", {
+        className: "table-end"
+      }));
     }
   }]);
 
@@ -1461,12 +1603,14 @@ var Dashboard = function Dashboard(props) {
   var user = props.user;
   var adminCart = props.adminCart;
   return _react.default.createElement("div", {
+    className: "outline"
+  }, _react.default.createElement("div", {
     className: "dashboard"
-  }, _react.default.createElement("h1", null, "Welcome your dashboard ", user.username, "!"), _react.default.createElement("h3", null, " Info Bar "), _react.default.createElement("ul", {
+  }, _react.default.createElement("h1", null, "Welcome your dashboard ", user.username, "!"), _react.default.createElement("ul", {
     "list-style": "stat info"
   }, _react.default.createElement("li", null, "Total Visits: ", user.visits, " "), _react.default.createElement("li", null, "Email: ", user.email), _react.default.createElement("li", null, "Member Since: ", user.createdAt)), _react.default.createElement(_CheckoutItems.default, {
     adminCart: adminCart
-  }));
+  })));
 };
 
 var mapState = function mapState(state) {
@@ -1817,6 +1961,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1852,7 +2000,7 @@ function (_Component) {
       quantity: 0,
       category: 0,
       brand: '',
-      images: [],
+      images: 1,
       ratings: []
     };
     return _this;
@@ -1870,31 +2018,58 @@ function (_Component) {
           quantity = _this$state.quantity,
           category = _this$state.category,
           images = _this$state.images;
-
-      function editImage(imagesArray, index, url) {
-        var ans = imagesArray;
-        ans[index].imageUrl = url;
-        return ans;
-      }
-
       return _react.default.createElement("div", {
         className: "outline"
       }, _react.default.createElement("div", {
         className: "singleView"
-      }, _react.default.createElement("form", {
-        onSubmit: function onSubmit(evt) {
-          evt.preventDefault();
+      }, _react.default.createElement("h2", null, "ADD NEW PRODUCT"), _react.default.createElement("form", {
+        onSubmit:
+        /*#__PURE__*/
+        function () {
+          var _ref = _asyncToGenerator(
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee(evt) {
+            var max;
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    evt.preventDefault();
+                    _context.next = 3;
+                    return _this2.props.createProduct({
+                      name: name,
+                      price: price,
+                      description: description,
+                      quantity: quantity
+                    });
 
-          _this2.props.createProduct({
-            name: name,
-            price: price,
-            description: description,
-            quantity: quantity,
-            images: images
-          });
+                  case 3:
+                    _context.next = 5;
+                    return _this2.props.fetchProducts();
 
-          _this2.props.history.push('/products');
-        }
+                  case 5:
+                    max = 0;
+
+                    _this2.props.products.map(function (a) {
+                      if (a.id > max) max = a.id;
+                    });
+
+                    console.log('max id', max);
+
+                    _this2.props.history.push('/products');
+
+                  case 9:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this);
+          }));
+
+          return function (_x) {
+            return _ref.apply(this, arguments);
+          };
+        }()
       }, _react.default.createElement("div", null, _react.default.createElement("h4", null, "Name:"), _react.default.createElement("p", null, name), _react.default.createElement("input", {
         className: "input",
         type: "text",
@@ -1941,14 +2116,22 @@ function (_Component) {
           });
         },
         value: category
-      }), _react.default.createElement("button", {
+      }), _react.default.createElement("div", {
+        className: "next-step"
+      }, _react.default.createElement("button", {
         type: "submit"
-      }, "Create"))));
+      }, "Add Product")))));
     }
   }]);
 
   return CreateProduct;
 }(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    products: state.products.products
+  };
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
@@ -1959,7 +2142,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       dispatch((0, _store.fetchProducts)());
     },
     fetchProductsByCategory: function (_fetchProductsByCategory) {
-      function fetchProductsByCategory(_x) {
+      function fetchProductsByCategory(_x2) {
         return _fetchProductsByCategory.apply(this, arguments);
       }
 
@@ -1974,7 +2157,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(CreateProduct);
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateProduct);
 
 exports.default = _default;
 
@@ -2067,10 +2250,13 @@ function (_Component) {
       }
 
       return _react.default.createElement("div", {
-        className: "spacer"
+        className: "outline"
+      }, _react.default.createElement("div", {
+        className: "edit-user"
       }, users.map(function (user) {
         return _react.default.createElement("div", {
-          key: user.id
+          key: user.id,
+          className: "edit-user-box"
         }, _react.default.createElement("h4", null, user.name), _react.default.createElement("p", null, user.email), user.isAdmin ? _react.default.createElement("div", null, _react.default.createElement("p", null, "Make Admin"), _react.default.createElement("input", {
           type: "checkbox",
           checked: true,
@@ -2083,7 +2269,7 @@ function (_Component) {
           id: user.id,
           onChange: _this2.onChange
         })));
-      }));
+      })));
     }
   }]);
 
@@ -2702,7 +2888,7 @@ function (_Component) {
       })), _react.default.createElement("form", {
         className: "checkout-form"
       }, _react.default.createElement(_addressForm.default, null), _react.default.createElement("div", {
-        className: "checkout-send"
+        className: "checkout-send hide"
       }, _react.default.createElement("button", {
         onClick: function onClick(evt) {
           return _this2.handleSubmit(evt);
@@ -2822,6 +3008,103 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./client/components/history.js":
+/*!**************************************!*\
+  !*** ./client/components/history.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _store = __webpack_require__(/*! ../store */ "./client/store/index.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var History =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(History, _Component);
+
+  function History() {
+    _classCallCheck(this, History);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(History).call(this));
+  }
+
+  _createClass(History, [{
+    key: "render",
+    value: function render() {
+      var history;
+
+      if (this.props.history) {
+        history = this.props.history;
+      }
+
+      return _react.default.createElement("div", {
+        className: "spacer"
+      }, _react.default.createElement("div", {
+        className: "spacer"
+      }, history.map(function (item) {
+        return _react.default.createElement("div", {
+          key: "item.id"
+        }, _react.default.createElement("h3", null, item.name));
+      })));
+    }
+  }]);
+
+  return History;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    history: state.info.history,
+    user: state.user.id
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchHistory: function fetchHistory(id) {
+      dispatch((0, _store.fetchHistory)(id));
+    }
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(History);
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./client/components/index.js":
 /*!************************************!*\
   !*** ./client/components/index.js ***!
@@ -2911,22 +3194,22 @@ var Navbar = function Navbar(props) {
   }
 
   var routeChange1 = function routeChange1() {
-    var path = "/products";
+    var path = '/products';
     props.history.push(path);
   };
 
   var routeChange4 = function routeChange4() {
-    var path = "/login";
+    var path = '/login';
     props.history.push(path);
   };
 
   var routeChange5 = function routeChange5() {
-    var path = "/cart";
+    var path = '/cart';
     props.history.push(path);
   };
 
   var routeChange6 = function routeChange6() {
-    var path = "/logout";
+    var path = '/logout';
     props.handleClick();
     props.history.push(path);
   };
@@ -2998,12 +3281,12 @@ var Navbar = function Navbar(props) {
   }, "CANDY"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 1).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 1);
+        return fetchThisCategory(tag[0].split('_')[1], 1);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))), _react.default.createElement("div", {
     className: "dropdown-list1"
   }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
@@ -3015,12 +3298,12 @@ var Navbar = function Navbar(props) {
   }, "GUMMY"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 2).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 2);
+        return fetchThisCategory(tag[0].split('_')[1], 2);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))), _react.default.createElement("div", {
     className: "dropdown-list1"
   }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
@@ -3032,12 +3315,12 @@ var Navbar = function Navbar(props) {
   }, "CHOCOLATE"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 3).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 3);
+        return fetchThisCategory(tag[0].split('_')[1], 3);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))), _react.default.createElement("div", {
     className: "dropdown-list1"
   }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
@@ -3049,12 +3332,12 @@ var Navbar = function Navbar(props) {
   }, "COLLECTON"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 4).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 4);
+        return fetchThisCategory(tag[0].split('_')[1], 4);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))))), _react.default.createElement("div", {
     className: "dropdown2"
   }, _react.default.createElement("button", {
@@ -3079,16 +3362,16 @@ var Navbar = function Navbar(props) {
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/newproduct"
   }, _react.default.createElement("span", null, "Add Product")), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/home"
+    to: "/users"
   }, _react.default.createElement("span", null, "Edit User")))) : _react.default.createElement("div", {
     className: "dropdown3"
   }, _react.default.createElement("button", {
     className: "dropbtn3"
   }, "ABOUT US"), _react.default.createElement("div", {
     className: "dropdown-content3"
-  }, _react.default.createElement("a", {
-    href: "#"
-  }, "About Us"), _react.default.createElement("a", {
+  }, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/history"
+  }, "History"), _react.default.createElement("a", {
     href: "#"
   }, "Events"), _react.default.createElement("a", {
     href: "#"
@@ -3349,9 +3632,14 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var ThankYou = function ThankYou(props) {
   //   props.newCart(props.user.id)
   //   props.getCartInfo(props.user.id)
+  // props.sendEmail(props.user.email)
   return _react.default.createElement("div", {
-    className: "spacer"
-  }, _react.default.createElement("h1", null, "Thank you for your order", ' ', props.info.address ? props.info.address.firstName : '', "!"));
+    className: "outline"
+  }, _react.default.createElement("div", {
+    className: "thankYou"
+  }, _react.default.createElement("img", {
+    src: "https://raw.githubusercontent.com/juneidea/Candy/master/ThankYou.png"
+  }), _react.default.createElement("h1", null, "Thank you for your order", ' ', props.info.address ? props.info.address.firstName : '', "!")));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -3373,11 +3661,47 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     getCartInfo: function getCartInfo(id) {
       return dispatch((0, _store.getCartInfo)(id));
+    },
+    sendEmail: function sendEmail(email) {
+      return dispatch((0, _store.sendEmail)(email));
     }
   };
 };
 
-var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ThankYou);
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ThankYou); // const nodemailer = require('nodemailer')
+// // async..await is not allowed in global scope, must use a wrapper
+// async function main () {
+//   // Generate test SMTP service account from ethereal.email
+//   // Only needed if you don't have a real mail account for testing
+//   let account = await nodemailer.createTestAccount()
+//   // create reusable transporter object using the default SMTP transport
+//   let transporter = nodemailer.createTransport({
+//     host: 'smtp.ethereal.email',
+//     port: 587,
+//     secure: false, // true for 465, false for other ports
+//     auth: {
+//       user: account.user, // generated ethereal user
+//       pass: account.pass // generated ethereal password
+//     }
+//   })
+//   // setup email data with unicode symbols
+//   let mailOptions = {
+//     from: '"Fred Foo 👻" <foo@example.com>', // sender address
+//     to: 'bar@example.com, baz@example.com', // list of receivers
+//     subject: 'Hello ✔', // Subject line
+//     text: 'Hello world?', // plain text body
+//     html: '<b>Hello world?</b>' // html body
+//   }
+//   // send mail with defined transport object
+//   let info = await transporter.sendMail(mailOptions)
+//   console.log('Message sent: %s', info.messageId)
+//   // Preview only available when sending through an Ethereal account
+//   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+//   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+//   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+// }
+// main().catch(console.error)
+
 
 exports.default = _default;
 
@@ -3595,7 +3919,9 @@ var _userEdit = _interopRequireDefault(__webpack_require__(/*! ./components/admi
 
 var _Dashboard = _interopRequireDefault(__webpack_require__(/*! ./components/admin/Dashboard */ "./client/components/admin/Dashboard.js"));
 
-var _CheckoutItems = _interopRequireDefault(__webpack_require__(/*! ./components/admin/CheckoutItems */ "./client/components/admin/CheckoutItems.js"));
+var _AddImages = _interopRequireDefault(__webpack_require__(/*! ./components/admin/AddImages */ "./client/components/admin/AddImages.js"));
+
+var _history = _interopRequireDefault(__webpack_require__(/*! ./components/history */ "./client/components/history.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3646,6 +3972,7 @@ function (_Component) {
     value: function componentDidUpdate(prevprops) {
       if (this.props.info.id !== prevprops.info.id) {
         this.props.fetchItems(this.props.info.id);
+        this.props.fetchHistory(this.props.info.id);
       }
     }
   }, {
@@ -3685,8 +4012,12 @@ function (_Component) {
         component: _thankYou.default
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
-        path: "/checkoutitem",
-        component: _CheckoutItems.default
+        path: "/history",
+        component: _history.default
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/dashboard",
+        component: _Dashboard.default
       }), this.props.user.isAdmin ? _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/products/:id",
@@ -3697,12 +4028,12 @@ function (_Component) {
         component: _SingleProduct.default
       }), this.props.user.isAdmin ? _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
-        path: "/products/:id",
-        component: _SingleProductAdmin.default
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
         path: "/users/",
         component: _userEdit.default
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/addimages/:stockId",
+        component: _AddImages.default
       })) : _react.default.createElement(_reactRouterDom.Route, {
         path: "/home",
         component: _welcomeBar.default
@@ -3755,6 +4086,9 @@ var mapDispatch = function mapDispatch(dispatch) {
     },
     fetchUsers: function fetchUsers() {
       dispatch((0, _store.fetchUsers)());
+    },
+    fetchHistory: function fetchHistory(id) {
+      return dispatch((0, _store.fetchHistory)(id));
     }
   };
 }; // The `withRouter` wrapper makes sure that updates are not blocked
@@ -4331,7 +4665,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _default;
-exports.takeAdmin = exports.makeAdmin = exports.newCart = exports.addAddress = exports.makeOrder = exports.fetchUsers = exports.fetchAddresses = exports.getCartInfo = exports.getUsers = exports.getAddresses = exports.setAddress = exports.getOrder = exports.getCartIni = void 0;
+exports.fetchHistory = exports.sendEmail = exports.takeAdmin = exports.makeAdmin = exports.newCart = exports.addAddress = exports.makeOrder = exports.fetchUsers = exports.fetchAddresses = exports.getCartInfo = exports.getHistory = exports.getUsers = exports.getAddresses = exports.setAddress = exports.getOrder = exports.getCartIni = void 0;
 
 var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 
@@ -4354,6 +4688,7 @@ var GET_ORDER = 'GET_ORDER';
 var SET_ADDRESS = 'SET_ADDRESS';
 var GET_ADDRESSES = 'GET_ADDRESSES';
 var GET_USERS = 'GET_USERS';
+var GET_HISTORY = 'GET_HISTORY';
 
 var getCartIni = function getCartIni(cartId) {
   return {
@@ -4399,6 +4734,15 @@ var getUsers = function getUsers(users) {
 };
 
 exports.getUsers = getUsers;
+
+var getHistory = function getHistory(history) {
+  return {
+    type: GET_HISTORY,
+    history: history
+  };
+};
+
+exports.getHistory = getHistory;
 
 var getCartInfo = function getCartInfo(userId) {
   return (
@@ -4747,10 +5091,94 @@ var takeAdmin = function takeAdmin(userId) {
       }, _callee8, this, [[0, 5]]);
     }))
   );
+};
+
+exports.takeAdmin = takeAdmin;
+
+var sendEmail = function sendEmail(email) {
+  return (
+    /*#__PURE__*/
+    _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee9() {
+      return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.prev = 0;
+              _context9.next = 3;
+              return _axios.default.post("/api/cart/sendemail", {
+                email: email
+              });
+
+            case 3:
+              console.log(email);
+              _context9.next = 9;
+              break;
+
+            case 6:
+              _context9.prev = 6;
+              _context9.t0 = _context9["catch"](0);
+              console.error(_context9.t0);
+
+            case 9:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9, this, [[0, 6]]);
+    }))
+  );
+};
+
+exports.sendEmail = sendEmail;
+
+var fetchHistory = function fetchHistory(userId) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref16 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee10(dispatch) {
+        var _ref17, data;
+
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                _context10.prev = 0;
+                _context10.next = 3;
+                return _axios.default.get("/api/cart/history/".concat(userId));
+
+              case 3:
+                _ref17 = _context10.sent;
+                data = _ref17.data;
+                dispatch(getHistory(data));
+                _context10.next = 11;
+                break;
+
+              case 8:
+                _context10.prev = 8;
+                _context10.t0 = _context10["catch"](0);
+                console.error(_context10.t0);
+
+              case 11:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, _callee10, this, [[0, 8]]);
+      }));
+
+      return function (_x7) {
+        return _ref16.apply(this, arguments);
+      };
+    }()
+  );
 }; // Reducer
 
 
-exports.takeAdmin = takeAdmin;
+exports.fetchHistory = fetchHistory;
 var defaultState = {};
 
 function _default() {
@@ -4781,6 +5209,11 @@ function _default() {
     case GET_USERS:
       return _objectSpread({}, state, {
         users: action.users
+      });
+
+    case GET_HISTORY:
+      return _objectSpread({}, state, {
+        history: action.history
       });
 
     default:

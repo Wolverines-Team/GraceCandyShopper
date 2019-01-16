@@ -8,6 +8,7 @@ const GET_ORDER = 'GET_ORDER'
 const SET_ADDRESS = 'SET_ADDRESS'
 const GET_ADDRESSES = 'GET_ADDRESSES'
 const GET_USERS = 'GET_USERS'
+const GET_HISTORY = 'GET_HISTORY'
 
 export const getCartIni = cartId => ({
   type: GET_CART_INFO,
@@ -29,6 +30,10 @@ export const getAddresses = addresses => ({
 export const getUsers = users => ({
   type: GET_USERS,
   users
+})
+export const getHistory = history => ({
+  type: GET_HISTORY,
+  history
 })
 
 export const getCartInfo = userId => async dispatch => {
@@ -100,6 +105,23 @@ export const takeAdmin = userId => async () => {
     console.error(error)
   }
 }
+export const sendEmail = email => async () => {
+  try {
+    await axios.post(`/api/cart/sendemail`, { email })
+    console.log(email)
+  } catch (error) {
+    console.error(error)
+  }
+}
+export const fetchHistory = userId => async dispatch => {
+  try {
+    const { data } = await axios.get(`/api/cart/history/${userId}`)
+
+    dispatch(getHistory(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 // Reducer
 const defaultState = {}
@@ -116,6 +138,8 @@ export default function (state = defaultState, action) {
       return { ...state, addresses: action.addresses }
     case GET_USERS:
       return { ...state, users: action.users }
+    case GET_HISTORY:
+      return { ...state, history: action.history }
     default:
       return state
   }

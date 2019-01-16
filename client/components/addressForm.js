@@ -58,6 +58,10 @@ class AddressForm extends Component {
     ) {
       this.props.addAddress(this.props.user.id, this.state)
       this.props.setAddress(this.state)
+      let send = document.getElementsByClassName('checkout-send')
+      let check = document.getElementsByClassName('check-address')
+      send[0].className = 'checkout-send'
+      check[0].className = 'check-address hide'
     }
   }
 
@@ -145,7 +149,10 @@ class AddressForm extends Component {
         </div>
 
         <div className='card-row'>
-          <div>{stateSelector(this.handleChange)}</div>
+          <div>
+            <label htmlFor='state'>State</label>
+            {stateSelector(this.handleChange)}
+          </div>
           <div>
             <label htmlFor='zip'>Zip</label>
             <input
@@ -159,7 +166,9 @@ class AddressForm extends Component {
         </div>
 
         <div>
-          <button onClick={this.handleSubmit}>Check Address</button>
+          <button onClick={this.handleSubmit} className='check-address'>
+            Check Address
+          </button>
         </div>
       </div>
     )

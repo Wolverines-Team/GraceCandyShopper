@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
-import { connect } from 'react-redux';
-import { makeOrder, fetchAddresses } from '../store/info';
-import { Link } from 'react-router-dom';
-import AddressForm from './addressForm';
-import history from '../history';
+import React, { Component } from 'react'
+import { CardElement, injectStripe } from 'react-stripe-elements'
+import { connect } from 'react-redux'
+import { makeOrder, fetchAddresses } from '../store/info'
+import { Link } from 'react-router-dom'
+import AddressForm from './addressForm'
+import history from '../history'
 
 class CheckoutForm extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       address: {},
       isComplete: false,
       failed: false
-    };
+    }
   }
-  componentDidMount() {
-    this.props.fetchAddresses(this.props.user.id);
+  componentDidMount () {
+    this.props.fetchAddresses(this.props.user.id)
   }
 
-  async handleSubmit(evt) {
-    evt.preventDefault();
-    const { token } = await this.props.stripe.createToken({ name: 'purchase' });
+  async handleSubmit (evt) {
+    evt.preventDefault()
+    const { token } = await this.props.stripe.createToken({ name: 'purchase' })
     let response = await fetch('/charge', {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
       body: token.id
-    });
+    })
 
     if (response.ok) {
       const {
@@ -36,7 +36,7 @@ class CheckoutForm extends Component {
         city,
         state,
         zip
-      } = this.props.info.address;
+      } = this.props.info.address
 
       if (
         street !== '' &&
@@ -46,9 +46,9 @@ class CheckoutForm extends Component {
         state !== '' &&
         zip !== ''
       ) {
-        this.setState({ isComplete: true });
+        this.setState({ isComplete: true })
       } else {
-        this.setState({ isComplete: false });
+        this.setState({ isComplete: false })
       }
       if (this.state.isComplete) {
         this.props.makeOrder(this.props.info.id, {
@@ -59,40 +59,40 @@ class CheckoutForm extends Component {
           state,
           zip,
           userId: this.props.user.id
-        });
+        })
 
-        this.props.history.push('/completed');
+        this.props.history.push('/completed')
       } else {
-        this.setState({ isComplete: false });
+        this.setState({ isComplete: false })
       }
     }
   }
 
-  render() {
-    const { isComplete } = this.state;
+  render () {
+    const { isComplete } = this.state
 
     if (isComplete === 'failed') {
       return (
         <div>
           <h1>Purchase Failed</h1>
-          <Link to="cart">Back To Cart</Link>
+          <Link to='cart'>Back To Cart</Link>
         </div>
-      );
+      )
     }
 
     return (
-      <div className="spacer">
+      <div className='spacer'>
         <div>
           <CardElement style={{ base: { fontSize: '18px' } }} />
         </div>
-        <form className="checkout-form">
+        <form className='checkout-form'>
           <AddressForm />
-          <div className="checkout-send">
+          <div className='checkout-send hide'>
             <button onClick={evt => this.handleSubmit(evt)}>Send</button>
           </div>
         </form>
       </div>
-    );
+    )
   }
 }
 
@@ -100,16 +100,19 @@ const mapStateToProps = state => ({
   info: state.info,
   user: state.user,
   history: history
-});
+})
 const mapDispatch = dispatch => {
   return {
     makeOrder: (id, address) => {
-      dispatch(makeOrder(id, address));
+      dispatch(makeOrder(id, address))
     },
     fetchAddresses: userId => dispatch(fetchAddresses(userId))
-  };
-};
+  }
+}
 
-const injected = injectStripe(CheckoutForm);
+const injected = injectStripe(CheckoutForm)
 
-export default connect(mapStateToProps, mapDispatch)(injected);
+export default connect(
+  mapStateToProps,
+  mapDispatch
+)(injected)

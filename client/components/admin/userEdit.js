@@ -1,79 +1,84 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchUsers, makeAdmin, takeAdmin } from "../../store/info";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchUsers, makeAdmin, takeAdmin } from '../../store/info'
 
 class UserEdit extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
   }
   onChange = evt => {
-    console.log(evt.target.value);
+    console.log(evt.target.value)
     if (evt.target.value) {
-      this.props.takeAdmin(evt.target.id);
+      this.props.takeAdmin(evt.target.id)
     } else {
-      this.props.makeAdmin(evt.target.id);
+      this.props.makeAdmin(evt.target.id)
     }
-    this.props.fetchUsers();
-  };
-  componentDidMount() {
-    this.props.fetchUsers();
+    this.props.fetchUsers()
+  }
+  componentDidMount () {
+    this.props.fetchUsers()
   }
 
-  render() {
-    let users;
+  render () {
+    let users
     if (this.props.users) {
-      users = this.props.users;
+      users = this.props.users
     }
 
     return (
-      <div className="spacer">
-        {users.map(user => (
-          <div key={user.id}>
-            <h4>{user.name}</h4>
-            <p>{user.email}</p>
-            {user.isAdmin ? (
-              <div>
-                <p>Make Admin</p>
-                <input
-                  type="checkbox"
-                  checked
-                  value={user.isAdmin}
-                  id={user.id}
-                  onChange={this.onChange}
-                />
-              </div>
-            ) : (
-              <div>
-                <p>Make Admin</p>
-                <input
-                  type="checkbox"
-                  value={user.isAdmin}
-                  id={user.id}
-                  onChange={this.onChange}
-                />
-              </div>
-            )}
-          </div>
-        ))}
+      <div className='outline'>
+        <div className='edit-user'>
+          {users.map(user => (
+            <div key={user.id} className='edit-user-box'>
+              <h4>{user.name}</h4>
+              <p>{user.email}</p>
+              {user.isAdmin ? (
+                <div>
+                  <p>Make Admin</p>
+                  <input
+                    type='checkbox'
+                    checked
+                    value={user.isAdmin}
+                    id={user.id}
+                    onChange={this.onChange}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <p>Make Admin</p>
+                  <input
+                    type='checkbox'
+                    value={user.isAdmin}
+                    id={user.id}
+                    onChange={this.onChange}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = state => ({ users: state.info.users });
+const mapStateToProps = state => ({ users: state.info.users })
 
 const mapDispatchToProps = dispatch => {
   return {
     makeAdmin: id => {
-      dispatch(makeAdmin(id));
+      dispatch(makeAdmin(id))
     },
     takeAdmin: id => {
-      dispatch(takeAdmin(id));
+      dispatch(takeAdmin(id))
     },
     fetchUsers: () => {
-      dispatch(fetchUsers());
+      dispatch(fetchUsers())
     }
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserEdit);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserEdit)

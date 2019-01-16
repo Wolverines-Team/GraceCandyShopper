@@ -57,7 +57,7 @@ router.put('/makeAdmin/:userId', async (req, res, next) => {
 // })
 
 // Update user (Edwin's Comment: Authentication?)
-router.put('/:userId', requireLogin, async (req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.params.userId)
     // Edwin's Comment: Do we want the entre req.body form?
@@ -68,7 +68,7 @@ router.put('/:userId', requireLogin, async (req, res, next) => {
   }
 })
 
-router.post('/address/:userId', requireLogin, async (req, res, next) => {
+router.post('/address/:userId', async (req, res, next) => {
   try {
     // Edwin's Comment: Do we want to use the entire req.body form?
     const { street, firstName, lastName, city, state, zip } = req.body

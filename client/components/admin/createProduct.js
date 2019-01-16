@@ -13,7 +13,7 @@ class CreateProduct extends Component {
       quantity: 0,
       category: 0,
       brand: '',
-      images: [],
+      images: 1,
       ratings: []
     };
   }
@@ -21,26 +21,25 @@ class CreateProduct extends Component {
   render() {
     const { name, description, price, quantity, category, images } = this.state;
 
-    function editImage(imagesArray, index, url) {
-      let ans = imagesArray;
-      ans[index].imageUrl = url;
-      return ans;
-    }
-
     return (
       <div className="outline">
         <div className="singleView">
+          <h2>ADD NEW PRODUCT</h2>
           <form
-            onSubmit={evt => {
+            onSubmit={async evt => {
               evt.preventDefault();
-              this.props.createProduct({
+              await this.props.createProduct({
                 name,
                 price,
                 description,
-                quantity,
-                images
+                quantity
               });
-
+              await this.props.fetchProducts();
+              let max = 0;
+              this.props.products.map(a => {
+                if (a.id > max) max = a.id;
+              });
+              console.log('max id', max);
               this.props.history.push('/products');
             }}
           >
@@ -73,24 +72,6 @@ class CreateProduct extends Component {
               />
             </div>
 
-            {/* <div className="edit-outline">
-              <div className="outline">
-                <h4>image1</h4>
-                <input className="input" type="text"
-                onChange={evt => {
-                this.setState({
-                images: editImage(images, 0, evt.target.value )
-                });
-                }}
-                value={images[0] && images[0].imageUrl}
-                />
-              </div>
-              <div>
-                <img src={images[0] && images[0].imageUrl} className="editImage"/>
-              <button>EDIT IMAGE</button>
-              </div>
-            </div> */}
-
             <h4>Price(in cents): ${price / 100}</h4>
             <input
               className="input"
@@ -121,13 +102,20 @@ class CreateProduct extends Component {
               }}
               value={category}
             />
-            <button type="submit">Create</button>
+            <div className="next-step">
+              {/* <span>Next Step >>></span> */}
+              <button type="submit">Add Product</button>
+            </div>
           </form>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  products: state.products.products
+});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -143,4 +131,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(CreateProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProduct);

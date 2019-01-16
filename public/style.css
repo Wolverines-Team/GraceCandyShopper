@@ -692,11 +692,40 @@ button:focus {
 .edit-outline input {
   width: 65%;
 }
-<<<<<<< HEAD
-=======
+
+.dashboard {
+  padding-top: 100px;
+  margin: auto;
+}
+
+.thankYou {
+  padding-top: 100px;
+  margin: auto;
+}
+
+.thankYou img {
+  max-width: 900px;
+}
+
+.edit-user {
+  padding-top: 100px;
+  margin: auto;
+  display: flex;
+}
+
+.edit-user-box {
+  border: solid 1px rgb(211, 211, 211);
+  margin: 4px;
+  padding: 5px;
+}
 
 /* PART 7 CART*/
 /* PART 7 CART*/
+
+.cart-outline {
+  padding-top: 100px;
+  display: flex;
+}
 
 .cart_container {
   margin: auto;
@@ -793,4 +822,3 @@ button:focus {
   margin-left: 30px;
   margin-top: 0;
 }
->>>>>>> categories

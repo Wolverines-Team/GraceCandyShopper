@@ -88,7 +88,7 @@ export class Cart extends Component {
                             }}
                           >
                             {' '}
-                            add{' '}
+                            edit{' '}
                           </button>
                         </td>
                         <td>{product.price}</td>
