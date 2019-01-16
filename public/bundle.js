@@ -415,6 +415,8 @@ function (_Component) {
         var product;
 
         if (_this2.props.products) {
+          ;
+
           var _this2$props$products = _this2.props.products.filter(function (product) {
             return product.id === item.stockId;
           });
@@ -1163,7 +1165,6 @@ function (_Component) {
         var check = document.getElementsByClassName('check-address');
         send[0].className = 'checkout-send';
         check[0].className = 'check-address hide';
-        console.log(send);
       }
     });
 

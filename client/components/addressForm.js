@@ -62,7 +62,6 @@ class AddressForm extends Component {
       let check = document.getElementsByClassName('check-address')
       send[0].className = 'checkout-send'
       check[0].className = 'check-address hide'
-      console.log(send)
     }
   }
 
