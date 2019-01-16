@@ -364,13 +364,13 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Cart)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleChange", function (item) {
-      console.log("insisde handleChange==== item:?>>> ", item);
+      console.log('insisde handleChange==== item:?>>> ', item);
 
       _this.props.updateQuantity(item);
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleCheckout", function () {
-      _this.props.history.push("/checkout");
+      _this.props.history.push('/checkout');
     });
 
     return _this;
@@ -437,7 +437,7 @@ function (_Component) {
           onClick: function onClick() {
             _this2.handleChange(item);
           }
-        }, " ", "edit", " ")), _react.default.createElement("td", null, product.price), _react.default.createElement("td", null, item.quantity * product.price * 100 / 100), _react.default.createElement("button", {
+        }, ' ', "edit", ' ')), _react.default.createElement("td", null, product.price), _react.default.createElement("td", null, item.quantity * product.price * 100 / 100), _react.default.createElement("button", {
           onClick: function onClick() {
             _this2.props.removeItems(item.id);
           }
@@ -449,7 +449,7 @@ function (_Component) {
         onClick: function onClick() {
           _this2.handleCheckout();
         }
-      }, " ", "CHECKOUT"))));
+      }, ' ', "CHECKOUT"))));
     }
   }]);
 
@@ -922,8 +922,8 @@ var SingleProduct = function SingleProduct(props) {
 
   function currentDiv(n) {
     var slideIndex = n;
-    var x = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("demo");
+    var x = document.getElementsByClassName('mySlides');
+    var dots = document.getElementsByClassName('demo');
 
     if (n > x.length) {
       slideIndex = 1;
@@ -934,15 +934,15 @@ var SingleProduct = function SingleProduct(props) {
     }
 
     for (var i = 0; i < x.length; i++) {
-      x[i].className = "mySlides hide";
+      x[i].className = 'mySlides hide';
     }
 
     for (var _i2 = 0; _i2 < dots.length; _i2++) {
-      dots[_i2].className = dots[_i2].className.replace("opacity-off", "");
+      dots[_i2].className = dots[_i2].className.replace('opacity-off', '');
     }
 
-    x[slideIndex - 1].className = "mySlides";
-    dots[slideIndex - 1].className = "demo opacity opacity-off hover-opacity-off";
+    x[slideIndex - 1].className = 'mySlides';
+    dots[slideIndex - 1].className = 'demo opacity opacity-off hover-opacity-off';
   }
 
   return _react.default.createElement("div", {
@@ -951,7 +951,7 @@ var SingleProduct = function SingleProduct(props) {
     className: "single-outline"
   }, _react.default.createElement("div", {
     className: "productName"
-  }, _react.default.createElement("h1", null, product.name.toUpperCase() + " $" + product.price), _react.default.createElement("div", {
+  }, _react.default.createElement("h1", null, product.name.toUpperCase() + ' $' + product.price), _react.default.createElement("div", {
     className: "qty-bar2"
   }, _react.default.createElement("span", {
     className: "qty-text2"
@@ -975,13 +975,13 @@ var SingleProduct = function SingleProduct(props) {
       submitResult(product.id, product.price);
     },
     type: "button"
-  }, " ", "ADD TO BAG")), _react.default.createElement("div", {
+  }, ' ', "ADD TO BAG")), _react.default.createElement("div", {
     className: "s-outline"
   }, imagesArray[0] && imagesArray.map(function (m) {
     return _react.default.createElement("div", {
       key: m.id
     }, _react.default.createElement("img", {
-      className: m.id === firstId ? "mySlides" : "mySlides hide",
+      className: m.id === firstId ? 'mySlides' : 'mySlides hide',
       src: m.imageUrl
     }));
   }), _react.default.createElement("div", {
@@ -990,7 +990,7 @@ var SingleProduct = function SingleProduct(props) {
     return _react.default.createElement("div", {
       key: m.id
     }, _react.default.createElement("img", {
-      className: i === 0 ? "demo opacity opacity-off hover-opacity-off" : "demo opacity hover-opacity-off",
+      className: i === 0 ? 'demo opacity opacity-off hover-opacity-off' : 'demo opacity hover-opacity-off',
       src: m.imageUrl,
       onClick: function onClick() {
         currentDiv(i + 1);
@@ -1154,26 +1154,26 @@ function (_Component) {
           state = _this$state.state,
           zip = _this$state.zip;
 
-      if (street !== "" && firstName !== "" && lastName !== "" && city !== "" && state !== "" && zip !== "") {
+      if (street !== '' && firstName !== '' && lastName !== '' && city !== '' && state !== '' && zip !== '') {
         _this.props.addAddress(_this.props.user.id, _this.state);
 
         _this.props.setAddress(_this.state);
 
-        var send = document.getElementsByClassName("checkout-send");
-        var check = document.getElementsByClassName("check-address");
-        send[0].className = "checkout-send";
-        check[0].className = "check-address hide";
+        var send = document.getElementsByClassName('checkout-send');
+        var check = document.getElementsByClassName('check-address');
+        send[0].className = 'checkout-send';
+        check[0].className = 'check-address hide';
         console.log(send);
       }
     });
 
     _this.state = {
-      street: "",
-      firstName: "",
-      lastName: "",
-      city: "",
-      state: "Al",
-      zip: "",
+      street: '',
+      firstName: '',
+      lastName: '',
+      city: '',
+      state: 'Al',
+      zip: '',
       save: false
     };
     return _this;
@@ -1373,7 +1373,7 @@ function (_Component) {
             images: images
           });
 
-          _this2.props.history.push("/addimages");
+          _this2.props.history.push('/addimages');
         }
       }, _react.default.createElement("div", null, _react.default.createElement("h4", null, "Stock Id: ", stockId), _react.default.createElement("input", {
         className: "input",
@@ -1688,13 +1688,13 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SingleProductAdmin).call(this));
     _this.state = {
-      name: "",
+      name: '',
       id: 0,
-      price: "0.00",
-      description: "",
+      price: '0.00',
+      description: '',
       quantity: 0,
-      category: "",
-      brand: "",
+      category: '',
+      brand: '',
       images: [],
       ratings: []
     };
@@ -1839,7 +1839,7 @@ function (_Component) {
 
           _this3.props.fetchProducts();
 
-          _this3.props.history.push("/products");
+          _this3.props.history.push('/products');
         }
       }, "DELETE")), _react.default.createElement(_Reviews.default, {
         product: ratings
@@ -1986,13 +1986,13 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateProduct).call(this));
     _this.state = {
-      name: "",
+      name: '',
       id: 0,
-      price: "000",
-      description: "",
+      price: '000',
+      description: '',
       quantity: 0,
       category: 0,
-      brand: "",
+      brand: '',
       images: 1,
       ratings: []
     };
@@ -2047,9 +2047,9 @@ function (_Component) {
                       if (a.id > max) max = a.id;
                     });
 
-                    console.log("max id", max);
+                    console.log('max id', max);
 
-                    _this2.props.history.push("/products");
+                    _this2.props.history.push('/products');
 
                   case 9:
                   case "end":
@@ -2796,17 +2796,17 @@ function (_Component) {
                 evt.preventDefault();
                 _context.next = 3;
                 return this.props.stripe.createToken({
-                  name: "purchase"
+                  name: 'purchase'
                 });
 
               case 3:
                 _ref = _context.sent;
                 token = _ref.token;
                 _context.next = 7;
-                return fetch("/charge", {
-                  method: "POST",
+                return fetch('/charge', {
+                  method: 'POST',
                   headers: {
-                    "Content-Type": "text/plain"
+                    'Content-Type': 'text/plain'
                   },
                   body: token.id
                 });
@@ -2817,7 +2817,7 @@ function (_Component) {
                 if (response.ok) {
                   _this$props$info$addr = this.props.info.address, street = _this$props$info$addr.street, firstName = _this$props$info$addr.firstName, lastName = _this$props$info$addr.lastName, city = _this$props$info$addr.city, state = _this$props$info$addr.state, zip = _this$props$info$addr.zip;
 
-                  if (street !== "" && firstName !== "" && lastName !== "" && city !== "" && state !== "" && zip !== "") {
+                  if (street !== '' && firstName !== '' && lastName !== '' && city !== '' && state !== '' && zip !== '') {
                     this.setState({
                       isComplete: true
                     });
@@ -2837,7 +2837,7 @@ function (_Component) {
                       zip: zip,
                       userId: this.props.user.id
                     });
-                    this.props.history.push("/completed");
+                    this.props.history.push('/completed');
                   } else {
                     this.setState({
                       isComplete: false
@@ -2864,7 +2864,7 @@ function (_Component) {
 
       var isComplete = this.state.isComplete;
 
-      if (isComplete === "failed") {
+      if (isComplete === 'failed') {
         return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Purchase Failed"), _react.default.createElement(_reactRouterDom.Link, {
           to: "cart"
         }, "Back To Cart"));
@@ -2875,7 +2875,7 @@ function (_Component) {
       }, _react.default.createElement("div", null, _react.default.createElement(_reactStripeElements.CardElement, {
         style: {
           base: {
-            fontSize: "18px"
+            fontSize: '18px'
           }
         }
       })), _react.default.createElement("form", {
@@ -3090,28 +3090,28 @@ var Navbar = function Navbar(props) {
   }
 
   var routeChange1 = function routeChange1() {
-    var path = "/products";
+    var path = '/products';
     props.history.push(path);
   };
 
   var routeChange4 = function routeChange4() {
-    var path = "/login";
+    var path = '/login';
     props.history.push(path);
   };
 
   var routeChange5 = function routeChange5() {
-    var path = "/cart";
+    var path = '/cart';
     props.history.push(path);
   };
 
   var routeChange6 = function routeChange6() {
-    var path = "/logout";
+    var path = '/logout';
     props.handleClick();
     props.history.push(path);
   };
 
   var routeChange7 = function routeChange7() {
-    var path = "/dashboard"; // props.handleClick();
+    var path = '/dashboard'; // props.handleClick();
 
     props.history.push(path);
   };
@@ -3177,12 +3177,12 @@ var Navbar = function Navbar(props) {
   }, "CANDY"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 1).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 1);
+        return fetchThisCategory(tag[0].split('_')[1], 1);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))), _react.default.createElement("div", {
     className: "dropdown-list1"
   }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
@@ -3194,12 +3194,12 @@ var Navbar = function Navbar(props) {
   }, "GUMMY"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 2).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 2);
+        return fetchThisCategory(tag[0].split('_')[1], 2);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))), _react.default.createElement("div", {
     className: "dropdown-list1"
   }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
@@ -3211,12 +3211,12 @@ var Navbar = function Navbar(props) {
   }, "CHOCOLATE"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 3).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 3);
+        return fetchThisCategory(tag[0].split('_')[1], 3);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))), _react.default.createElement("div", {
     className: "dropdown-list1"
   }, _react.default.createElement("ul", null, _react.default.createElement("li", null, _react.default.createElement(_reactRouterDom.Link, {
@@ -3228,12 +3228,12 @@ var Navbar = function Navbar(props) {
   }, "COLLECTON"))), _react.default.createElement("hr", null), props.products[0] && sortCandy(props.products, 4).map(function (tag) {
     return _react.default.createElement(_reactRouterDom.Link, {
       key: tag[0],
-      to: "/categories/".concat(tag[0].split("_")[1])
+      to: "/categories/".concat(tag[0].split('_')[1])
     }, _react.default.createElement("li", {
       onClick: function onClick() {
-        return fetchThisCategory(tag[0].split("_")[1], 4);
+        return fetchThisCategory(tag[0].split('_')[1], 4);
       }
-    }, tag[0].split("_")[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ""));
+    }, tag[0].split('_')[0].toUpperCase(), tag.length > 1 ? " (".concat(tag.length, ")") : ''));
   }))))), _react.default.createElement("div", {
     className: "dropdown2"
   }, _react.default.createElement("button", {
@@ -3534,7 +3534,7 @@ var ThankYou = function ThankYou(props) {
     className: "thankYou"
   }, _react.default.createElement("img", {
     src: "https://raw.githubusercontent.com/juneidea/Candy/master/ThankYou.png"
-  }), _react.default.createElement("h1", null, "Thank you for your order", " ", props.info.address ? props.info.address.firstName : "", "!")));
+  }), _react.default.createElement("h1", null, "Thank you for your order", ' ', props.info.address ? props.info.address.firstName : '', "!")));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -3650,7 +3650,7 @@ var WelcomeBar = function WelcomeBar(props) {
     className: "outline"
   }, _react.default.createElement("div", {
     className: "welcome"
-  }, props.user.username ? _react.default.createElement("h2", null, "Welcome back ", props.user.isAdmin ? "admin" : "user", " ", props.user.username, "!", " ") : _react.default.createElement("h2", null, "Welcome! ")));
+  }, props.user.username ? _react.default.createElement("h2", null, "Welcome back ", props.user.isAdmin ? 'admin' : 'user', ' ', props.user.username, "!", ' ') : _react.default.createElement("h2", null, "Welcome! ")));
 };
 
 var mapState = function mapState(state) {
@@ -4011,7 +4011,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //OZLEM`S NOTE: THIS STORE IS ONLY FOR ADMIN_CART,IF I PUT THIS IN CART`S STORE, GET ITEM CHANGES THE STORE...
-var ADMIN_CART = "ADMIN_CART";
+var ADMIN_CART = 'ADMIN_CART';
 
 var adminCart = function adminCart(carts) {
   return {
@@ -4124,10 +4124,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // "OZLEM`S NOTE"
 // GET_ITEM means products in the cart
 // action types
-var GET_ITEM = "GET_ITEM";
-var ADD_ITEM = "ADD_ITEM";
-var REMOVE_ITEM = "REMOVE_ITEM";
-var UPDATE_QUANTITY = "UPDATE_QUANTITY"; // action creator
+var GET_ITEM = 'GET_ITEM';
+var ADD_ITEM = 'ADD_ITEM';
+var REMOVE_ITEM = 'REMOVE_ITEM';
+var UPDATE_QUANTITY = 'UPDATE_QUANTITY'; // action creator
 
 var getItem = function getItem(items) {
   return {
@@ -4532,11 +4532,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 // "OZLEM`S NOTE"
 // GET_ITEM means products in the cart
-var GET_CART_INFO = "GET_CART_INFO";
-var GET_ORDER = "GET_ORDER";
-var SET_ADDRESS = "SET_ADDRESS";
-var GET_ADDRESSES = "GET_ADDRESSES";
-var GET_USERS = "GET_USERS";
+var GET_CART_INFO = 'GET_CART_INFO';
+var GET_ORDER = 'GET_ORDER';
+var SET_ADDRESS = 'SET_ADDRESS';
+var GET_ADDRESSES = 'GET_ADDRESSES';
+var GET_USERS = 'GET_USERS';
 
 var getCartIni = function getCartIni(cartId) {
   return {
@@ -5003,7 +5003,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 //Ozlem`s note:
 //This store`s only duty is chenging and seeing the current shipping status of ordered (adminCart) items
-var UPDATE_STATUS = "UPDATE_STATUS";
+var UPDATE_STATUS = 'UPDATE_STATUS';
 
 var updateStatus = function updateStatus(status) {
   return {
@@ -5107,9 +5107,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var GET_PRODUCTS = "GET_PRODUCTS";
-var GET_PRODUCTS_BY_CAT = "GET_PRODUCTS_BY_CAT";
-var GET_CATEGORIES = "GET_CATEGORIES";
+var GET_PRODUCTS = 'GET_PRODUCTS';
+var GET_PRODUCTS_BY_CAT = 'GET_PRODUCTS_BY_CAT';
+var GET_CATEGORIES = 'GET_CATEGORIES';
 var defaultProducts = {
   products: [],
   catted: {
@@ -5154,7 +5154,7 @@ var fetchProducts = function fetchProducts() {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _axios.default.get("/api/stocks");
+                return _axios.default.get('/api/stocks');
 
               case 3:
                 _ref2 = _context.sent;
